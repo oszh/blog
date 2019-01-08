@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/tarecode/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/tarecode/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/tarecode/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/tarecode/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/tarecode/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/tarecode/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/tarecode/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="mysql,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="###课程回顾  关联关系   一对一： AB两张表 A表中的一条对应B表中的一条，同时B表中的一条对应A表中的一条， 在从表中添加外键指向主表的主键 一对多： AB两张表 A表中的一条数据对应B表中的多条，同时B表中的一条对应A表中的一条，在多的表中添加外键指向另外一张表的主键 多对多： AB两张表 A表中的一条对应B表中的多条，同时B表中的一条对应A表中的多条数据，通过新建一张关系表建立关系">
+<meta name="keywords" content="mysql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql06">
+<meta property="og:url" content="https://oszh.github.io/2019/01/08/mysql06/index.html">
+<meta property="og:site_name" content="oszh">
+<meta property="og:description" content="###课程回顾  关联关系   一对一： AB两张表 A表中的一条对应B表中的一条，同时B表中的一条对应A表中的一条， 在从表中添加外键指向主表的主键 一对多： AB两张表 A表中的一条数据对应B表中的多条，同时B表中的一条对应A表中的一条，在多的表中添加外键指向另外一张表的主键 多对多： AB两张表 A表中的一条对应B表中的多条，同时B表中的一条对应A表中的多条数据，通过新建一张关系表建立关系">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-01-08T11:27:10.039Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="mysql06">
+<meta name="twitter:description" content="###课程回顾  关联关系   一对一： AB两张表 A表中的一条对应B表中的一条，同时B表中的一条对应A表中的一条， 在从表中添加外键指向主表的主键 一对多： AB两张表 A表中的一条数据对应B表中的多条，同时B表中的一条对应A表中的一条，在多的表中添加外键指向另外一张表的主键 多对多： AB两张表 A表中的一条对应B表中的多条，同时B表中的一条对应A表中的多条数据，通过新建一张关系表建立关系">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/tarecode/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://oszh.github.io/2019/01/08/mysql06/">
+
+
+
+
+
+  <title>mysql06 | oszh</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/tarecode/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">oszh</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/tarecode/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tarecode/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/tarecode/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/tarecode/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/tarecode/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://oszh.github.io/tarecode/2019/01/08/mysql06/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="懒人的我">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/tarecode/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="oszh">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">mysql06</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-08T00:00:00+08:00">
+                2019-01-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/tarecode/categories/MySQL/" itemprop="url" rel="index">
+                    <span itemprop="name">MySQL</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  12
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>###课程回顾</p>
+<ol>
+<li>关联关系</li>
+</ol>
+<ul>
+<li>一对一： AB两张表 A表中的一条对应B表中的一条，同时B表中的一条对应A表中的一条， 在从表中添加外键指向主表的主键</li>
+<li>一对多： AB两张表 A表中的一条数据对应B表中的多条，同时B表中的一条对应A表中的一条，在多的表中添加外键指向另外一张表的主键</li>
+<li>多对多： AB两张表 A表中的一条对应B表中的多条，同时B表中的一条对应A表中的多条数据，通过新建一张关系表建立关系</li>
+</ul>
+<ol start="2">
+<li>权限管理案例： 3张主表：用户表 角色表 权限表   2张关系表：用户角色关系表，角色权限关系表</li>
+</ol>
+<p>###面试题</p>
+<ol>
+<li>创建表<br> 交易流水表： 交易号   交易时间  交易金额  交易类型  person_id<br> 人物表： id 姓名 性别 关系<br> create table trade(id int primary key auto_increment,time datetime,money int,type varchar(10),person_id int);<br> create table person(id int primary key auto_increment,name varchar(10),gender varchar(5), rel varchar(5));</li>
+<li><p>插入以下数据<br> 刘德华 男 亲戚 微信 发-20   2018-04-20<br> 杨幂 女 亲戚  现金  收500  发-50  2018-05-15<br> 马云 男 同事  支付宝 收20000 发-20  2018-05-20<br> 特朗普 男 朋友 微信 收2000  2018-04-22<br> 貂蝉 女 朋友 微信  发-20000  2018-03-14</p>
+<p> insert into person values(null,’刘德华’,’男’,’亲戚’),(null,’杨幂’,’女’,’亲戚’),(null,’马云’,’男’,’同事’),(null,’特朗普’,’男’,’朋友’),(null,’貂蝉’,’女’,’朋友’);</p>
+<p> insert into trade values(null,’2018-4-20’,-20,’微信’,1),(null,’2018-5-15’,500,’现金’,2),(null,’2018-5-15’,-50,’现金’,2),(null,’2018-05-20’,20000,’支付宝’,3),(null,’2018-5-20’,-20,’支付宝’,3),(null,’2018-04-22’,2000,’微信’,4),(null,’2018-03-14’,-20000,’微信’,5);</p>
+</li>
+<li>统计2018年2月15号到现在的所有红包收益<br> select sum(money) from trade where time&gt;str_to_date(‘2018年2月15号’,’%Y年%c月%d号’);</li>
+<li>统计2018年2月15号到现在 金额大于100 所有女性亲戚的名字和红包金额<br> select p.name,t.money<br> from trade t join person p<br> on t.person_id=p.id<br> where t.money not between -100 and 100 and p.gender=’女’<br> and p.rel=’亲戚’ and time&gt;str_to_date(‘2018年2月15号’,’%Y年%c月%d号’);</li>
+<li>查询三个平台分别收入的红包金额<br> select type,sum(money) from trade<br> where money&gt;0 group by type;<br>###视图</li>
+</ol>
+<ul>
+<li>什么是视图：视图和表都是数据库中的对象，视图可以理解成一张虚拟的表，视图本质就是取代了一段SQL查询语句</li>
+<li>为什么使用视图：可以起到SQL语句重用的作用，隐藏敏感信息</li>
+<li>创建视图的格式：<br>  create view 视图名 as (子查询);//创建了一个虚拟的表<br>  create table 表名 as (子查询);  //创建了一张真实存在的表</li>
+</ul>
+<ol>
+<li>创建一个10号部门员工的视图<br> create view v_emp_10 as (select <em> from emp where deptno=10);<br> select </em> from v_emp_10; </li>
+<li>创建一个20号部门并且工资小于2000的视图<br> create view v_emp_20 as (select * from emp where deptno=20 and sal&lt;2000);</li>
+<li>创建一个没有工资的员工表的视图<br> create view v_emp_nosal as (select empno,ename,job,mgr,hiredate,comm,deptno from emp);<br> select * from v_emp_nosal;</li>
+<li>创建每个部门平均工资，最高工资，最底工资，工资总和，部门人数的视图<br> create view v_emp_info as (select deptno,avg(sal),max(sal),min(sal),sum(sal),count(*) from emp group by deptno);<br>####视图的分类</li>
+<li>简单视图：创建视图的子查询中不包含：去重、函数、分组、关联查询的视图称为简单视图，可以对视图中的数据进行增删改查操作</li>
+<li>复杂视图：和简单视图相反，只能查询<br>####对简单视图进行增删改操作</li>
+<li>插入数据<br> insert into v_emp_10 (empno,ename,sal,deptno) values(10010,’张三’,888,10);<br> select * from v_emp_10; //视图和原表中都存在<ul>
+<li>测试往v_emp_10中插入一条部门编号为20号的数据<br>insert into v_emp_10 (empno,ename,sal,deptno) values(10011,’李四’,666,20);<br>select * from v_emp_10; //视图中没有，原表中存在</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>往视图中插入一条视图中不可见但是原表中可见的数据 称为数据污染，可以通过 with check option 关键字解决数据污染的问题<br>  create view v_emp_30 as (select * from emp where deptno=30) with check option;<br>  insert into v_emp_30 (empno,ename,sal,deptno) values(10012,’王五’,555,30);//成功！<br>  insert into v_emp_30 (empno,ename,sal,deptno) values(10013,’赵六’,666,20);//失败！</li>
+</ul>
+<ol start="2">
+<li>修改数据  只能修改视图中存在的数据<br> update v_emp_10 set comm=comm+1;  //修改成功<br> update v_emp_10 set sal=1000 where deptno=20; //修改失败</li>
+<li>删除数据 只能删除视图中存在的数据<br> delete from v_emp_10 where ename=’张三’;//成功<br> delete from v_emp_10 where ename=’James’;//失败 视图中不存在<br>####视图别名</li>
+</ol>
+<ul>
+<li>如果创建视图的时候子查询使用了别名，则后期对视图进行操作时只能使用别名<br>  create view v_emp_name as (select ename name,sal from emp);<br>  select <em> from v_emp_name where name=’王五’;//成功<br>  select </em> from v_emp_name where ename=’王五’;//失败<br>####视图总结</li>
+</ul>
+<ol>
+<li>视图是数据库中的对象，代表一段SQL语句，可以理解成一张虚拟表</li>
+<li>作用： 重用SQL、 隐藏敏感信息</li>
+<li>分类： 简单视图（不包含去重、函数、分组、关联查询，可以进行增删改查）和复杂视图（和简单视图相反，只能查询）</li>
+<li>插入数据的数据污染问题 通过with check option解决</li>
+<li>修改和删除数据只能操作视图中存在的数据</li>
+<li>创建视图起别名的话 后期操作只能使用别名<br>####约束</li>
+</ol>
+<ul>
+<li>什么是约束： 约束是给表字段添加的限制条件<br>####非空约束 not null</li>
+<li>字段值不能为null<br>  create table t1(id int, age int not null);<br>  -测试：<br>  insert into t1 values(1,20);//成功<br>  insert into t1 values(2,null);//失败<br>####唯一约束 unique</li>
+<li>字段值不能重复<br>  create table t2(id int,age int unique);<br>  -测试：<br>  insert into t2 values(1,20);//成功<br>  insert into t2 values(2,20);//失败 数据重复<br>####默认约束 default</li>
+<li>给字段设置默认值<br>  create table t3(id int,age int default 20);<br>  -测试：<br>  insert into t3 (id) values (1);  //默认值生效<br>  insert into t3 values(2,18);     //默认值不生效<br>  insert into t3 values(3,null); //默认值不生效<br>####主键约束</li>
+<li>唯一且非空<br>####外键约束</li>
+<li>外键约束：添加外键约束的字段，值可以为null，可以重复，但是不能是关联表中不存在的数据，被关联的数据不能被先删除，被关联的表不能先删除</li>
+<li><p>如何使用外键约束<br>  create database db6 character set utf8;</p>
+<ol>
+<li>创建部门表<br> create table dept(id int primary key auto_increment,name varchar(10));</li>
+<li>创建员工表<br> create table emp(id int primary key auto_increment,name varchar(10),dept_id int,constraint fk_dept foreign key(dept_id) references dept(id));<br>-格式介绍： constraint 约束名 foreign key(外键字段名) references 关联的表名(关联的字段名)<br>insert into dept values(null,’神仙’),(null,’妖怪’);<br>-测试：<br>insert into emp values(null,’悟空’,1);//成功<br>insert into emp values(null,’赛亚人’,3);//失败<br>insert into emp values(null,’赛亚人’,null);//成功<br>delete from dept where id=1;//失败 因为悟空依赖神仙<br>delete from emp where id=1;//成功 删除悟空<br>delete from dept where id=1;//成功 因为没有数据依赖神仙</li>
+</ol>
+</li>
+<li><p>删除外键约束方式<br>  alter table emp drop foreign key fk_dept; </p>
+</li>
+<li><p>删除主键约束</p>
+<p>  create table t1(id int primary key);<br>  alter table t1 drop primary key; //可以删除</p>
+<p>  create table t2(id int primary key auto_increment);<br>  alter table t2 drop primary key;//由于主键带自增 不能删除主键 </p>
+</li>
+</ul>
+<p>###索引</p>
+<ul>
+<li>什么是索引： 索引是数据库中用于提高查询效率的技术，类似于目录</li>
+<li>为什么使用索引：如果不使用索引，数据会零散的保存在磁盘块中，查询数据需要挨个遍历每一个磁盘块，直到找到数据为止，使用索引后会将磁盘块以树桩结构进行保存，查询数据时会大大降低磁盘块的访问数量，从而提高查询效率。<br>#####索引是越多越好吗？</li>
+<li>不是，因为索引会占用存储空间，只针对常用的查询字段创建索引。<br>#####有索引就一定好吗？</li>
+<li>如果数据量小，添加索引反而会降低查询效率。</li>
+</ul>
+<p>#####导入数据</p>
+<ol>
+<li>window系统：<pre><code>source d:/item_backup.sql;
+</code></pre></li>
+<li>linux系统：<pre><code>source /home/soft01/桌面/item_backup.sql;
+</code></pre><ul>
+<li>测试 查询title=’100’的数据看耗时 1.09<br>select * from item2 where title=’100’;</li>
+</ul>
+</li>
+</ol>
+<p>####如何创建索引</p>
+<ul>
+<li><p>格式：create index 索引名 on 表名(字段名(字段长度));</p>
+<pre><code>create index i_item_title on item2(title);
+</code></pre><p>  -再次测试：select * from item2 where title=’100’; 耗时0.04</p>
+</li>
+</ul>
+<p>####索引分类(了解)</p>
+<ol>
+<li>聚集索引：给表添加主键约束的时候数据库会自动通过主键创建索引，这个索引称为聚集索引。  聚集索引的磁盘块中保存数据</li>
+<li>非聚集索引：通过其它字段创建的索引称为非聚集索引，非聚集索引的磁盘块中只保存磁盘块的地址没有数据（因为数据只需要有一份）<br>#####如何查看索引</li>
+</ol>
+<ul>
+<li>show index from item2;<br>#####如何删除索引</li>
+<li>格式： drop index 索引名 on 表名;<br>  drop index i_item_title on item2;<br>####复合索引</li>
+<li>通过多个字段创建的索引</li>
+<li>格式： create index 索引名 on 表名(字段1,字段2);<br>  create index i_item_title_price on item2(title,price);<br>####索引总结</li>
+</ul>
+<ol>
+<li>索引是用来提高查询效率的技术，类似目录</li>
+<li>因为索引会占用存储空间，并非越多越好</li>
+<li>因为数据量小时添加索引会降低查询效率，所以不是有索引就一定好</li>
+<li>索引分类：聚集索引（添加主键约束会自动创建，磁盘块中保存数据）和非聚集索引（通过其它字段创建的索引，保存地址没有数据）</li>
+<li>复合索引，通过多个字段创建的索引称为复合索引<br>####事务</li>
+</ol>
+<ul>
+<li>数据库中执行同一业务多条SQL语句的工作单元，可以保证全部执行成功，或全部执行失败<br>#####事务的ACID特性 是保证事务正确执行的四大基本要素</li>
+<li>Atomicity：原子性，最小不可拆分，保证全部成功全部失败 </li>
+<li>Consistency：一致性，从一个一致状态到另一个一致状态 </li>
+<li>Isolation：隔离性，多个事务之间互不影响 </li>
+<li>Durability：持久性，事务完成后数据提交到数据库中持久生效<br>####事务相关指令 </li>
+<li>begin：开启事务</li>
+<li>commit：提交事务</li>
+<li>rollback：回滚事务</li>
+<li>savepoint xxx：保存回滚点</li>
+<li>rollback to xxx：回滚到指定的回滚点 </li>
+<li>查看数据库自动提交状态<br>  show variables like ‘%autocommit%’;</li>
+<li>修改自动提交的状态  0关闭  1开启<br>  set autocommit=0/1;</li>
+</ul>
+<p>###group_concat()</p>
+<ul>
+<li>查询员工表每个部门的员工姓名 ，每个部门的名字显示到一行<br>  select deptno,group_concat(ename) from emp group by deptno;</li>
+<li>查询员工表每个部门中每个员工的姓名和工资，要求每个部门的信息显示到一行<br>  select deptno,group_concat(ename,’-‘,sal) from emp group by deptno;<br>###面试题<br>有个学生成绩表student, 字段有 id 主键、name、subject学科、score成绩<br>  create table student(id int primary key auto_increment,name varchar(10),subject varchar(10),score int);<br>保存以下数据：<br>  insert into student (name,subject,score) values (‘张三’, ‘语文’, 66),(‘张三’, ‘数学’, 77),(‘张三’, ‘英语’, 55),(‘张三’, ‘体育’, 77)(‘李四’,’语文’,59),(‘李四’,’数学’,88),(‘李四’,’英语’ ,78), (‘李四’, ‘体育’,95),(‘王五’,’语文’,75),(‘王五’,’数学’,54),(‘王五’,’英语’,98), (‘王五’, ‘体育’,88);</li>
+</ul>
+<ol>
+<li>查询每个人的平均分 降序排序<br> select name,avg(score) a from student group by name order by a desc;</li>
+<li>查询每个人的名字，以及这个人的科目和成绩 要求一行显示<br> select name,group_concat(subject,’-‘,score) from student group by name;</li>
+<li>查询每个人的最高分和最低分<br> select name,max(score),min(score) from student group by name;</li>
+<li>查询每个人不及格的科目及分数 不及格的科目数量<br> select name,group_concat(subject,’-‘,score),count(*) from student where score&lt;60 group by name;</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tarecode/tags/mysql/" rel="tag"># mysql</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/tarecode/2019/01/08/mysql04/" rel="next" title="mysql04">
+                <i class="fa fa-chevron-left"></i> mysql04
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/tarecode/2019/01/08/mysql05/" rel="prev" title="mysql05">
+                mysql05 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">懒人的我</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/tarecode/archives/">
+              
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/tarecode/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tarecode/tags/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">懒人的我</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">27.4k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/tarecode/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/tarecode/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/tarecode/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/tarecode/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/tarecode/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

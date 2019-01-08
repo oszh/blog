@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/tarecode/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/tarecode/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/tarecode/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/tarecode/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/tarecode/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/tarecode/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/tarecode/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="mysql,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="#MySQL ###数据库简介  之前通过流操作文件的方式存储数据的弊端   执行效率低 进行增删改查操作，代码书写比较麻烦 一般只能保存文本数据####什么是DB   DB：Database 数据库，数据库指一个文件集合####什么是DBMS DBMS：Database Management System 数据库管理系统，用于管理数据库文件的软件，常见的DBMS：MySQL Oracle DB2">
+<meta name="keywords" content="mysql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql01">
+<meta property="og:url" content="https://oszh.github.io/2019/01/08/mysql01/index.html">
+<meta property="og:site_name" content="oszh">
+<meta property="og:description" content="#MySQL ###数据库简介  之前通过流操作文件的方式存储数据的弊端   执行效率低 进行增删改查操作，代码书写比较麻烦 一般只能保存文本数据####什么是DB   DB：Database 数据库，数据库指一个文件集合####什么是DBMS DBMS：Database Management System 数据库管理系统，用于管理数据库文件的软件，常见的DBMS：MySQL Oracle DB2">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-01-08T11:28:14.894Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="mysql01">
+<meta name="twitter:description" content="#MySQL ###数据库简介  之前通过流操作文件的方式存储数据的弊端   执行效率低 进行增删改查操作，代码书写比较麻烦 一般只能保存文本数据####什么是DB   DB：Database 数据库，数据库指一个文件集合####什么是DBMS DBMS：Database Management System 数据库管理系统，用于管理数据库文件的软件，常见的DBMS：MySQL Oracle DB2">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/tarecode/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://oszh.github.io/2019/01/08/mysql01/">
+
+
+
+
+
+  <title>mysql01 | oszh</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/tarecode/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">oszh</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/tarecode/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tarecode/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/tarecode/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/tarecode/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/tarecode/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://oszh.github.io/tarecode/2019/01/08/mysql01/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="懒人的我">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/tarecode/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="oszh">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">mysql01</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-08T00:00:00+08:00">
+                2019-01-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/tarecode/categories/MySQL/" itemprop="url" rel="index">
+                    <span itemprop="name">MySQL</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.1k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  9
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>#MySQL</p>
+<p>###数据库简介</p>
+<ul>
+<li>之前通过流操作文件的方式存储数据的弊端</li>
+</ul>
+<ol>
+<li>执行效率低</li>
+<li>进行增删改查操作，代码书写比较麻烦</li>
+<li>一般只能保存文本数据<br>####什么是DB</li>
+</ol>
+<ul>
+<li>DB：Database 数据库，数据库指一个文件集合<br>####什么是DBMS</li>
+<li>DBMS：Database Management System 数据库管理系统，用于管理数据库文件的软件，常见的DBMS：MySQL Oracle DB2 SQLServer SQLite<br>####数据库分类</li>
+</ul>
+<ol>
+<li>关系型数据库： 经过数学理论验证可以保存现实生活中的各种关系 ，以表为单位保存数据  </li>
+<li>非关系型数据库：用于解决某些特定场景比如：高并发访问时的数据缓存，举例：Redis 以key-value形式保存数据<br>####常见关系型数据库介绍</li>
+<li>MySQL：  市场占有率第一， Oracle公司产品，08年被Sun收购，09年Sun被Oracle收购，  开源， 由于担心MySQL闭源，MySQL创始人们离开Oracle创建了MariaDB（创始人女儿叫Maria）</li>
+<li>Oracle： 市场排名第二，Oracle公司产品，闭源产品， 拉里埃里森 32岁</li>
+<li>SQLServer： 市场排名第三，微软产品，闭源产品</li>
+<li>DB2：  IBM公司产品，闭源产品</li>
+<li>Sqlite： 轻量级数据库 安装包几十k 应用在嵌入式设备或移动设备中<br>####开源和闭源</li>
+</ol>
+<ul>
+<li>开源：开发源代码，盈利方式：靠卖服务， 技术大拿为了刷存在感对开源产品会无偿进行版本维护和升级</li>
+<li>闭源：不开放源代码，盈利方式：靠卖产品和卖服务，技术大拿会攻击闭源产品刷存在感，但是闭源公司会花钱养一帮大拿维护升级<br>###SQL</li>
+<li>Structured Query Language：结构化查询语言，SQL执行在客户端(windows的命令行，linux的终端，或三方的数据库客户端软件)或者通过Java代码使用JDBC执行</li>
+<li>如何连接MySQL数据库</li>
+</ul>
+<ol>
+<li>windows系统在开始菜单栏中-&gt;所有程序-&gt;MySQL或MariaDB-&gt;MySQL Client 然后输入密码</li>
+<li><p>linux系统  在空白区域右键 终端，然后输入<br>mysql -uroot -p回车</p>
+<p>exit;     退出<br>###SQL语句规范</p>
+</li>
+<li>以;结尾</li>
+<li>可以换行，关键字之间用空格分隔(可以有多个空格)</li>
+<li>关键字不区分大小写<br>###数据库相关SQL</li>
+<li>查看所有数据库<br> show databases;</li>
+<li>创建数据库<br> -格式：create database 数据库名;<br> create database db1;<br> -指定字符集格式：create database 数据库名 character set utf8/gbk;<br> create database db2 character set gbk;<br> create database db3 character set utf8;</li>
+<li>查看数据库详情 可以查看数据库的字符集<br> -格式：show create database 数据库名;<br> show create database db1;</li>
+<li>删除数据库<br> -格式：drop database 数据库名;<br> drop database db2;</li>
+<li>使用数据库<br> -格式：use 数据库名;<br> use db1;<br>###表相关SQL </li>
+<li>创建表<br> -格式： create table 表名(字段1名 字段1类型,字段2名 字段2类型);<br> create table person(name varchar(10),age int);<br> 创建学生表(student) 姓名name 年龄age 语文chinese 数学math 英语english<br> create table student(name varchar(10),age int,chinese int,math int,english int);</li>
+<li>查看所有表<br> -格式： show tables;</li>
+<li>查看表详情<br> -格式： show create table 表名;<br> show create table person;<br> -数据库表引擎：<pre><code>1. innodb：支持数据库的高级操作，比如：事务、外键等
+2. myisam：不支持数据库高级操作，只支持基础的增删改查操作
+</code></pre></li>
+<li>创建表指定引擎和字符集<br> -格式： create table 表名(字段1名 字段1类型)engine=innodb/myisam ?default charset=utf8/gbk;<br> create table t1(name varchar(10),age int)engine=myisam charset=gbk;<br> show create table t1;</li>
+<li>查看表字段<br> -格式： desc 表名;<br> desc student;</li>
+<li>删除表<br> -格式：drop table 表名;<br> drop table person;<br> show tables;//测试<br>####课堂练习：</li>
+<li>创建数据库mydb1 并使用<br> create database mydb1;<br> use mydb1;</li>
+<li>在mydb1里面创建表 t1 和 t2  表里面有两个字段分别是name和age，其中t2的引擎为myisam  t1的字符集为gbk; 通过查看详情检测是否创建成功<br> create table t1(name varchar(10),age int) charset=gbk;<br> create table t2(name varchar(10),age int) engine=myisam;</li>
+<li>删除表t1，t2<br> drop table t1;<br> drop table t2;</li>
+<li>删除数据库mydb1<br> drop database mydb1;<br>####对已创建的表进行修改<br> create table t1(name varchar(10));</li>
+<li>修改表名<br> -格式： rename table 原名 to 新名;<br> rename table t1 to t2;</li>
+<li>修改表引擎和字符集<br> -格式: alter table 表名 engine=myisam/innodb charset=utf8/gbk;<br> alter table t2 engine=myisam charset=gbk;<br> show create table t2;//测试</li>
+<li>添加表字段<br> -最后面格式： alter table 表名 add 字段名 字段类型;<br> alter table t2 add age int;<br> desc t2;//测试<br> -最前面格式： alter table 表名 add 字段名 字段类型 first;<br> alter table t2 add id int first;<br> -在某个字段后面添加：alter table 表名 add 字段名 类型 after xxx;<br> alter table t2 add sal int after name;</li>
+<li>删除表字段<br> -格式： alter table 表名 drop 字段名;<br> alter table t2 drop sal;<br> desc t2;//测试</li>
+<li>修改表字段名和类型<br> -格式： alter table 表名 change 原字段名 新字段名 新类型;<br> alter table t2 change name username varchar(5);</li>
+<li>修改表字段类型和位置<br> -格式: alter table 表名 modify 字段名 新类型 first/ after xxx;<br> alter table t2 modify age int after id;</li>
+</ol>
+<p>###表相关回顾：</p>
+<ol>
+<li>创建表 create table t1(name varchar(10),age int)engine=myisam/innodb charset=utf8/gbk;</li>
+<li>查看所有表  show tables;</li>
+<li>查看表详情 show create table t1;</li>
+<li>表字段  desc t1;</li>
+<li>删除表 drop table t1;</li>
+<li>修改表名  rename table t1 to t2;</li>
+<li>修改引擎字符集 alter table t1 engine=myisam/innodb charset=utf8/gbk;</li>
+<li>添加表字段  alter table t1 add age int first/after xxx;</li>
+<li>删除表字段 alter table t1 drop age;</li>
+<li>修改表字段名称和类型 alter table t1 change 原名 新名 新类型;</li>
+<li>修改表字段类型和位置 alter table t1 modify 字段名 新类型 first/after xxx;<br>####练习：</li>
+<li>创建一个hero表 有 id name type三个字段，引擎为myisam 字符集为gbk<br> create table hero(id int,name varchar(10),type varchar(10)) engine=myisam charset=gbk;</li>
+<li>修改表名为heros<br> rename table hero to heros;</li>
+<li>修改表引擎为innodb  修改字符集为utf8<br> alter table heros engine=innodb charset=utf8;</li>
+<li>修改type字段为 hero_type varchar(30)<br> alter table heros change type hero_type varchar(30);</li>
+<li>添加money字段在name字段的后面<br> alter table heros add money int after name;</li>
+<li>修改name字段到最后<br> alter table heros modify name varchar(10) after hero_type;</li>
+<li>删除hero_type字段<br> alter table heros drop hero_type;</li>
+<li>删除heros表<br> drop table heros;<br>###数据相关SQL<br> create database mydb1 character set utf8;<br> use mydb1;<br> create table hero(name varchar(10),age int);</li>
+<li>插入数据<br> -全表插入格式：insert into 表名 values(值1,值2);<pre><code>insert into hero values(&apos;Tom&apos;,18);
+insert into hero values(&apos;刘备&apos;,20);//如果代码没问题却执行报错，先执行以下 set names gbk;
+</code></pre> -指定字段插入格式：insert into 表名 (字段1名,字段2名) values (值1,值2);<pre><code>insert into hero (name) values(&apos;李白&apos;);
+</code></pre> -批量插入格式：在以上两种格式后面写多组数据通过逗号分隔<pre><code>insert into hero values(&apos;关羽&apos;,19),(&apos;张飞&apos;,7);
+insert into hero (name) values(&apos;悟空&apos;),(&apos;八戒&apos;),(&apos;沙僧&apos;);
+</code></pre></li>
+<li>查询数据<br> -格式： select 字段信息 from 表名 where 条件;<ol>
+<li>查询所有数据 所有字段信息<br>select * from hero;</li>
+<li>查询所有的名字;<br>select name from hero;</li>
+<li>查询年龄19岁的所有信息<br>select * from hero where age=19;</li>
+<li>查询名字为刘备的年龄是多少<br>select age from hero where name=’刘备’;</li>
+</ol>
+</li>
+<li>修改数据<br>   update hero set age=30 where name=’悟空’;<br>   update hero set age=25, name=’悟能’ where name=’八戒’;</li>
+</ol>
+<ul>
+<li>如果不给条件则修改全表的数据</li>
+</ul>
+<ol start="4">
+<li>删除数据<br>   delete from hero where age&lt;20;<br>   delete from hero;</li>
+</ol>
+<ul>
+<li>如果不给条件则删除全表的数据     </li>
+</ul>
+<p>####课程回顾</p>
+<ol>
+<li>数据库相关SQL</li>
+</ol>
+<ul>
+<li>查询所有 show databases;</li>
+<li>创建 create database db1 character set utf8/gbk;</li>
+<li>查看详情 show create database db1;</li>
+<li>删除 drop database db1;</li>
+<li>使用  use db1;</li>
+</ul>
+<ol start="2">
+<li>表相关SQL</li>
+</ol>
+<ul>
+<li>创建 create table t1(name varchar(10),age int) engine=myisaml/innodb charset=utf8/gbk;</li>
+<li>查询所有  show tables;</li>
+<li>查看详情 show create table t1;</li>
+<li>表字段  desc t1;</li>
+<li>删除表 drop table t1;</li>
+<li>修改表名 rename table t1 to t2;</li>
+<li>修改引擎和字符集  alter table t1 engine=myisaml/innodb charset=utf8/gbk;</li>
+<li>添加字段  alter table t1 add age int;</li>
+<li>删除字段  alter table t1 drop age;</li>
+<li>修改字段名和类型  alter table t1 change 原名 新名 新类型</li>
+<li>修改类型和位置  alter table t1 modify 字段名 新类型  first/ after xxx;</li>
+</ul>
+<ol start="4">
+<li>数据相关SQL</li>
+</ol>
+<ul>
+<li>插入数据  insert into t1 (字段1,字段2) values(值1,值2),(值1,值2);</li>
+<li>查询数据 select * from t1 where age&gt;10;</li>
+<li>修改数据 update t1 set age=20 where name=’xxx’;</li>
+<li>删除数据  delete from t1 where age=30;</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tarecode/tags/mysql/" rel="tag"># mysql</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/tarecode/2019/01/08/mysql05/" rel="next" title="mysql05">
+                <i class="fa fa-chevron-left"></i> mysql05
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/tarecode/2019/01/08/mysql02/" rel="prev" title="mysql02">
+                mysql02 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">懒人的我</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/tarecode/archives/">
+              
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/tarecode/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tarecode/tags/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">懒人的我</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">27.4k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/tarecode/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/tarecode/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/tarecode/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/tarecode/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/tarecode/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

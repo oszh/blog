@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/tarecode/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/tarecode/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/tarecode/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/tarecode/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/tarecode/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/tarecode/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/tarecode/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="mysql,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="###课程回顾  is null 和 is not null  别名    去重 distinct  比较运算符  &amp;gt; &amp;lt; &amp;gt;= &amp;lt;= = !=和&amp;lt;&amp;gt; and 和 or in  between x and y  包括x和y 模糊查询  like   _单个未知字符  %代表0或多个未知字符 排序 order by 字段1 asc/desc,字段2 asc/des">
+<meta name="keywords" content="mysql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql04">
+<meta property="og:url" content="https://oszh.github.io/2019/01/08/mysql04/index.html">
+<meta property="og:site_name" content="oszh">
+<meta property="og:description" content="###课程回顾  is null 和 is not null  别名    去重 distinct  比较运算符  &amp;gt; &amp;lt; &amp;gt;= &amp;lt;= = !=和&amp;lt;&amp;gt; and 和 or in  between x and y  包括x和y 模糊查询  like   _单个未知字符  %代表0或多个未知字符 排序 order by 字段1 asc/desc,字段2 asc/des">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-01-08T11:28:03.050Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="mysql04">
+<meta name="twitter:description" content="###课程回顾  is null 和 is not null  别名    去重 distinct  比较运算符  &amp;gt; &amp;lt; &amp;gt;= &amp;lt;= = !=和&amp;lt;&amp;gt; and 和 or in  between x and y  包括x和y 模糊查询  like   _单个未知字符  %代表0或多个未知字符 排序 order by 字段1 asc/desc,字段2 asc/des">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/tarecode/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://oszh.github.io/2019/01/08/mysql04/">
+
+
+
+
+
+  <title>mysql04 | oszh</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/tarecode/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">oszh</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/tarecode/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tarecode/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/tarecode/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/tarecode/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/tarecode/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://oszh.github.io/tarecode/2019/01/08/mysql04/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="懒人的我">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/tarecode/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="oszh">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">mysql04</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-08T00:00:00+08:00">
+                2019-01-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/tarecode/categories/MySQL/" itemprop="url" rel="index">
+                    <span itemprop="name">MySQL</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4.3k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  18
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>###课程回顾</p>
+<ol>
+<li>is null 和 is not null </li>
+<li>别名   </li>
+<li>去重 distinct </li>
+<li>比较运算符  &gt; &lt; &gt;= &lt;= = !=和&lt;&gt;</li>
+<li>and 和 or</li>
+<li>in </li>
+<li>between x and y  包括x和y</li>
+<li>模糊查询  like   _单个未知字符  %代表0或多个未知字符</li>
+<li>排序 order by 字段1 asc/desc,字段2 asc/desc;</li>
+<li>分页  limit 跳过的条数,请求条数</li>
+<li>数值计算  + - * / % mod()</li>
+<li>日期：  now()    curdate()  curtime()  date(now())  time(now())   extract(year/month/day/hour/minute/second from now())<br>date_format(时间,格式)    %YymcdHhis   str_to_date(非标准时间,格式)</li>
+<li>ifnull(x,y)</li>
+<li>聚合函数： 5个   平均值avg  最大值max 最小值min 求和sum 统计数量count(*)</li>
+<li><p>字符串相关： concat()   char_length()   instr()  insert()  upper() lower()  trim()   substring()   repeat()   replace()  reverse()</p>
+</li>
+<li><p>案例：查询没有上级领导的员工的编号，姓名，工资<br> select empno,ename,sal from emp where mgr is null;</p>
+</li>
+<li>案例：查询emp表中没有奖金的员工的姓名，职位，工资，以及奖金<br> select ename,job,sal,comm from emp where comm=0 or comm is null;</li>
+<li>案例：查询emp表中含有奖金的员工的编号，姓名，职位，以及奖金<br> select ename,job,sal,comm from emp where comm&gt;0;</li>
+<li>案例：查询含有上级领导的员工的姓名，工资以及上级领导的编号<br> select empno,ename,sal from emp where mgr is not null;</li>
+<li>案例：查询emp表中名字以‘S’开头的所有员工的姓名<br> select ename from emp where ename like ‘s%’;</li>
+<li>案例：查询emp表中名字的最后一个字符是’S’的员工的姓名<br> select ename from emp where ename like ‘%s’;</li>
+<li>案例：查询倒数的第2个字符是‘E’的员工的姓名<br> select ename from emp where ename like ‘%e_’;</li>
+<li>案例：查询emp表中员工的倒数第3个字符是‘N’的员工姓名<br> select ename from emp where ename like ‘%n__’;</li>
+<li>案例：查询emp表中员工的名字中包含‘A’的员工的姓名<br> select ename from emp where ename like ‘%a%’;</li>
+<li>案例：查询emp表中名字不是以’K’开头的员工的所有信息<br>select * from emp where ename not like ‘k%’;</li>
+<li>案例：查询emp表中名字中不包含‘A’的所有员工的信息<br>select * from emp where ename not like ‘%a%’;</li>
+<li>案例：做文员的员工人数（job_id 中 含有 CLERK 的）<br>select count(*) from emp where job=’CLERK’;</li>
+<li>案例：销售人员 job: SALESMAN 的最高薪水<br>select max(sal) from emp where job=’SALESMAN’;</li>
+<li>案例：最早和最晚入职时间<br>select min(hiredate),max(hiredate) from emp;</li>
+<li>案例：查询类别 163的商品总库存量<br>select sum(num) from t_item where category_id=163;</li>
+<li>案例：查询 类别 163 的商品<br>select * from t_item where category_id=163;</li>
+<li>案例：查询商品价格不大于100的商品名称列表<br>select title from t_item where price &lt;=100;</li>
+<li>案例：查询品牌是联想,且价格在40000以上的商品名称和价格<br>select title,price from t_item where price&gt;40000 and title like ‘%联想%’;    </li>
+<li>案例：查询品牌是三木,或价格在50以下的商品名称和价格<br>select title,price from t_item where price&lt;50 or title like ‘%三木%’;</li>
+<li>案例：查询品牌是三木、广博、齐心的商品名称和价格<br>select title,price from t_item where title like ‘%三木%’ or title like ‘%广博%’ or title like ‘%齐心%’;</li>
+<li>案例：查询品牌不是联想、戴尔的商品名称和价格<br>select title,price from t_item where title not like ‘%联想%’<br>and title not like ‘%联想%’;</li>
+<li>案例：查询品牌是末尾字符是’力’的商品的名称和价格<br>select title,price from t_item where title like ‘%_力%’;</li>
+<li><p>案例：查询emp表中员工的编号，姓名，职位，工资，并且工资在1000~2000之间。<br>select empno,ename,job,sal from emp where sal between 1000 and 2000;</p>
+<p>31.案例：查询emp表中员工在10号部门，并且含有上级领导的员工的姓名，职位，上级领导编号以及所属部门的编号<br>select ename,job,mgr,deptno from emp where deptno=10 and mgr is not null;<br>32.案例：查询emp表中名字中包含’E’，并且职位不是MANAGER的员工的编号，姓名，职位，以及工资。<br>select empno,ename,job,sal from emp where ename like ‘%e%’ and job!=’manager’;<br>33.案例：查询emp表中10号部门或者20号部门中员工的编号，姓名，所属部门的编号<br>select empno,ename,deptno from emp where deptno in(10,20);<br>34.案例：查询emp表中没有奖金或者名字的倒数第2个字母不是T的员工的编号，姓名，职位以及奖金<br>select empno,ename,job,comm from emp where comm=0 or ename not like ‘%t_’;<br>35.案例：查询工资高于3000或者部门编号是30的员工的姓名，职位，工资，入职时间以及所属部门的编号<br>select ename,job,sal,hiredate,deptno from emp where sal&gt;3000 or deptno=30;<br>36.案例：查询不是30号部门的员工的所有信息<br>select <em> from emp where deptno!=30;<br>37.案例：查询奖金不为空的员工的所有信息<br>select </em> from emp where comm is not null;<br>38.案例：查询emp表中所有员工的编号，姓名，职位，根据员工的编号进行降序排列<br>select empno,ename,job from emp order by empno desc;<br>39.案例：查询emp表中部门编号是10号或者30号中，所有员工姓名，职务，工资，根据工资进行升序排列<br>select ename,job,sal from emp where deptno in(10,30) order by sal;<br>40.案例：查询emp表中所有的数据，然后根据部门的编号进行升序排列，如果部门编号一致，根据员工的编号进行降序排列<br>select <em> from emp order by deptno,empno desc;<br>41.案例：查询emp表中工资高于1000或者没有上级领导的员工的编号，姓名，工资，所属部门的编号，以及上级领导的编号，根据部门编号进行降序排列，如果部门编号一致根据工资进行升序排列。<br>select empno,ename,sal,deptno,mgr from emp where sal&gt;1000 or mgr is null order by deptno desc,sal;<br>42.案例：查询emp表中名字中不包含S的员工的编号，姓名，工资，奖金，根据工资进行升序排列，如果工资一致，根据编号进行降序排列<br>select empno,ename,sal,comm from emp where ename not like ‘%s%’ order by sal,empno desc;<br>43.案例：统计emp表中员工的总数量<br>select count(</em>) from emp;<br>44.案例：统计emp表中获得奖金的员工的数量<br>select count(<em>) from emp where comm&gt;0;<br>45.案例：求出emp表中所有的工资累加之和<br>select sum(sal) from emp;<br>46.案例：求出emp表中所有的奖金累加之和<br>select sum(comm) from emp;<br>47.案例：求出emp表中员工的平均工资<br>select avg(sal) from emp;<br>48.案例：求出emp表中员工的平均奖金<br>select avg(comm) from emp;<br>49.案例：求出emp表中员工的最高工资<br>select max(sal) from emp;<br>50.案例：求出emp表中员工编号的最大值<br>select max(empno) from emp;<br>51.案例：查询emp表中员工的最低工资。<br>select min(sal) from emp;<br>52.案例：查询emp表中员工的人数，工资的总和，平均工资，奖金的最大值，奖金的最小值,并且对返回的列起别名。<br>select count(</em>) 人数,sum(sal) 工资总和, avg(sal) 平均工资,max(comm) 最高奖金, min(comm) 最底奖金 from emp;<br>53.案例：查询emp表中每个部门的编号，人数，工资总和，最后根据人数进行升序排列，如果人数一致，根据工资总和降序排列。<br>54.案例：查询工资在1000~3000之间的员工信息，每个部门的编号，平均工资，最低工资，最高工资，根据平均工资进行升序排列。<br>55.案例：查询含有上级领导的员工，每个职业的人数，工资的总和，平均工资，最低工资，最后根据人数进行降序排列，如果人数一致，根据平均工资进行升序排列<br>56.案例：查询工资在1000~3000之间每一个员工的编号，姓名，职位，工资<br>select empno,ename,job,sal from emp<br>where sal between 1000 and 3000;<br>58.案例：查询员工的编号是7369，7521<br>select <em> from emp where empno in (7369,7521);<br>59.案例：查询emp表中，职位是ANALYST，<br>select </em> from emp where job=’analyst’;<br>60.案例：查询emp表中职位不是ANALYST,<br>select * from emp where job!=’analyst’;</p>
+</li>
+</ol>
+<p>###分组查询</p>
+<ul>
+<li>group by 字段名</li>
+<li>每个xxx就以xxx进行分组</li>
+</ul>
+<ol>
+<li>查询每个部门的平均工资<br> select deptno,avg(sal) from emp group by deptno;</li>
+<li>查询每种职业的最高工资<br> select job,max(sal) from emp group by job;</li>
+<li>查询每个部门的人数<br> select deptno,count(*) from emp group by deptno;</li>
+<li>查询每个分类的商品平均价格<br> select category_id,avg(price) from t_item group by category_id;</li>
+<li>查询每个主管(mgr)的手下人数<br> select mgr,count(*) from emp where mgr is not null<br> group by mgr;</li>
+<li><p>案例：查询emp表中每个部门的编号，人数，工资总和，最后根据人数进行升序排列，如果人数一致，根据工资总和降序排列。<br>select deptno,count(<em>),sum(sal) from emp group by deptno order by count(</em>),sum(sal) desc;</p>
+<p>select deptno,count(*) c,sum(sal) s from emp group by deptno order by c,s desc;</p>
+</li>
+<li><p>案例：查询工资在1000~3000之间的员工信息，每个部门的编号，平均工资，最低工资，最高工资，根据平均工资进行升序排列。<br>select deptno,avg(sal) a,min(sal),max(sal) from emp where sal between 1000 and 3000 group by deptno order by a;</p>
+</li>
+<li>案例：查询含有上级领导的员工，每个职业的人数，工资的总和，平均工资，最低工资，最后根据人数进行降序排列，如果人数一致，根据平均工资进行升序排列<br>select job,count(*) c,sum(sal),avg(sal) a,min(sal) from emp<br>where mgr is not null<br>group by job order by c desc,a; </li>
+</ol>
+<ul>
+<li>通过多个字段进行分组统计<ol>
+<li>统计每个部门下每个主管的手下人数<br>select deptno,mgr,count(*) from emp where mgr is not null group by deptno,mgr;<h3 id="having"><a href="#having" class="headerlink" title="having"></a>having</h3></li>
+</ol>
+</li>
+<li>聚合函数条件不能写在where后面，where后面只能写普通字段的条件</li>
+<li>having后面写聚合函数的条件，虽然也支持普通字段的条件，但是不推荐使用</li>
+<li>having要和分组查询结合使用</li>
+<li>select ….. from 表名 where …. group by …. having…. order by…. limit… ;    </li>
+</ul>
+<ol>
+<li>查询平均工资大于2000的部门编号和平均工资<ul>
+<li>错误写法：<br>select deptno,avg(sal) from emp where avg(sal)&gt;2000 group by deptno;</li>
+<li>正确写法<br>select deptno,avg(sal) a from emp<br>group by deptno having a&gt;2000;</li>
+</ul>
+</li>
+<li>查询每个分类的平均单价 要求平均单价低于100<br> select category_id,avg(price) a from t_item<br> group by category_id having a&lt;100;</li>
+<li>查询238和917两个分类的平均单价<br> select category_id c,avg(price) from t_item<br> where category_id in(238,917) group by c;</li>
+<li>查询emp表中每个部门的平均工资高于2000的部门编号，部门人数，平均工资，最后根据平均工资降序排序<br> select deptno,count(*),avg(sal) a from emp group by deptno<br> having a&gt;2000 order by a desc;</li>
+<li>查询emp表中工资在1000到3000之间的员工，每个部门的编号，工资总和，平均工资，过滤掉平均工资低于2000的部门，按照平均工资升序排序。<br> select deptno,sum(sal),avg(sal) a from emp where sal between 1000 and 3000 group by deptno having a&gt;=2000 order by a;</li>
+<li>查询emp表中不是以s开头的职位，每个职位的名字，人数，工资总和，最高工资，过滤掉平均工资是3000的职位，根据人数升序排序 如果人数一致则根据工资总和降序排序<br> select job,count(*) c,sum(sal) s,max(sal) from emp<br> where job not like ‘s%’ group by job<br> having avg(sal)!=3000 order by c,s desc;</li>
+<li>查询每年入职的人数（扩展题）<br> select extract(year from hiredate) from emp;<br> select extract(year from hiredate) y,count(*) from emp group by y;</li>
+<li>查询最高平均工资的部门编号（提高题）<br> select deptno from emp<br> group by deptno order by avg(sal) desc limit 0,1;</li>
+</ol>
+<p>###子查询（嵌套查询）</p>
+<ol>
+<li>查询员工表中工资最高的员工信息<br> select max(sal) from emp;<br> select * from emp where sal=(select max(sal) from emp);</li>
+<li>查询emp表中工资大于平均工资的所有员工信息<br> select avg(sal) from emp;<br> select * from emp where sal&gt;(select avg(sal) from emp);</li>
+<li>查询工资高于20号部门最大工资的员工信息<br> select max(sal) from emp where deptno=20;<br> select * from emp where sal&gt;(select max(sal) from emp where deptno=20);</li>
+<li>查询和Jones相同工作的的其他员工信息<br> select job from emp where ename=’jones’;<br> select * from emp where job=(select job from emp where ename=’jones’) and ename!=’Jones’;</li>
+<li>查询最低工资的员工的一个部门其他员工信息<br> select min(sal) from emp;<br> -查询工资为800的员工的所占部门编号<br> select deptno from emp where sal=(select min(sal) from emp);<br> -查询20号部门的所有员工信息<br> select <em> from emp where deptno=(select deptno from emp where sal=(select min(sal) from emp));<br> -排除掉800的员工<br> select </em> from emp where deptno=(select deptno from emp where sal=(select min(sal) from emp)) and sal!=(select min(sal) from emp);</li>
+<li>查询员工king 的部门编号和部门名称(需要用到dept表)<br> select deptno from emp where ename=’king’;<br> select deptno,dname from dept where deptno=(select deptno from emp where ename=’king’);</li>
+<li>查询有员工的部门信息（有一个部门没有员工，想办法去掉）<br> select distinct deptno from emp;<br> select * from dept where deptno in(select distinct deptno from emp);</li>
+<li>查询平均工资最高的部门信息（难度最大，需要考虑并列第一）<br> -得到最高的平均工资<br> select avg(sal) a from emp group by deptno order by a desc limit 0,1;<br> -通过最高的平均工资查找对应的部门编号<br> select deptno from emp group by deptno having avg(sal)=(select avg(sal) a from emp group by deptno order by a desc limit 0,1);<br> -通过得到的部门编号查询部门信息<br> select * from dept where deptno in(上面一坨);</li>
+</ol>
+<ul>
+<li>写在SQL语句中的查询语句称为子查询 </li>
+<li>子查询可以嵌套无数层</li>
+<li>子查询可以写在哪些位置？</li>
+</ul>
+<ol>
+<li>写在where和having的后面当做查询条件的值。</li>
+<li><p>可以写在创建表的时候 </p>
+<p> create table emp_10 as (select * from emp where deptno=10);</p>
+</li>
+<li><p>写在from的后面当成一张虚拟表   <strong>必须起别名</strong></p>
+<p> select ename from (select * from emp where deptno=10) nt;</p>
+</li>
+</ol>
+<p>###关联查询</p>
+<ul>
+<li>同时查询多张表的查询方式称为关联查询</li>
+</ul>
+<ol>
+<li>查询每个员工的姓名和对应的部门名称<br> select e.ename,d.dname<br> from emp e,dept d<br> where e.deptno=d.deptno;</li>
+<li>查询king的姓名、工资、部门名称、工作地点<br> select e.ename,e.sal,d.dname,d.loc<br> from emp e,dept d<br> where e.deptno=d.deptno<br> and ename=’king’;<br>###笛卡尔积</li>
+</ol>
+<ul>
+<li>如果关联查询不写关联关系会得到两张表数据的乘积，这个乘积称为笛卡尔积</li>
+<li>工作中切记不要出现，如果数据量大，会占用大量内存，甚至系统崩溃<br>###等值连接和内连接</li>
+<li>这两种都是关联查询的查询方式</li>
+<li>得到的数据是两张表的交集数据</li>
+<li>等值连接： select * from A,B where A.x=B.x and A.age=18;</li>
+<li>内连接： select * from A ?inner join B on A.x=B.x where A.age=18;</li>
+</ul>
+<ol>
+<li>查询每个员工的姓名和对应的部门名称<br> select e.ename,d.dname<br> from emp e join dept d<br> on e.deptno=d.deptno;</li>
+<li>查询工资大于2000的员工姓名和工作地点<br> select e.ename,d.loc<br> from emp e join dept d<br> on e.deptno=d.deptno<br> where sal&gt;2000;<br>###外连接</li>
+</ol>
+<ul>
+<li>查询一张表的全部数据和另外一张表的交集数据</li>
+<li>格式：  select * from A left/right join B on A.x=B.x where A.age=18;</li>
+</ul>
+<ol>
+<li>查询所有部门的编号、名称和对应的员工名称<br> select  d.deptno,d.dname,e.ename<br> from emp e right join dept d<br> on e.deptno=d.deptno;</li>
+</ol>
+<p>####关联查询总结 </p>
+<ul>
+<li>三种查询方式：</li>
+<li>等值连接和内连接查询结果一样，得到交集数据，推荐使用内连接</li>
+<li>外连接分为左外和右外得到的是一张表的全部数据和另外一张表的交集数据</li>
+</ul>
+<p>###课程回顾</p>
+<ol>
+<li>分组 group by</li>
+<li>having  </li>
+<li>子查询 </li>
+<li>关联查询</li>
+</ol>
+<p>###作业</p>
+<ol>
+<li><p>每个部门的人数,根据人数排序</p>
+<ol start="2">
+<li><p>每个部门中，每个主管的手下人数</p>
+</li>
+<li><p>每种工作的平均工资</p>
+</li>
+<li><p>每年的入职人数 </p>
+</li>
+<li><p>少于等于3个人的部门信息</p>
+</li>
+<li><p>拿最低工资的员工信息</p>
+</li>
+<li><p>只有一个下属的主管信息</p>
+</li>
+</ol>
+</li>
+</ol>
+<ol start="8">
+<li><p>平均工资最高的部门编号</p>
+</li>
+<li><p>下属人数最多的人，查询其个人信息</p>
+</li>
+<li><p>拿最低工资的人的信息</p>
+</li>
+<li><p>最后入职的员工信息</p>
+</li>
+<li><p>工资多于平均工资的员工信息</p>
+</li>
+<li><p>查询员工信息，部门名称</p>
+</li>
+<li><p>员工信息，部门名称，所在城市</p>
+</li>
+<li><p>DALLAS 市所有的员工信息</p>
+</li>
+<li><p>按城市分组，计算每个城市的员工数量</p>
+</li>
+<li><p>查询员工信息和他的主管姓名</p>
+</li>
+<li><p>员工信息，员工主管名字，部门名</p>
+</li>
+<li><p>员工和他所在部门名</p>
+</li>
+<li><p>案例：查询emp表中所有员工的姓名以及该员工上级领导的编号，姓名，职位，工资</p>
+</li>
+<li><p>案例：查询emp表中名字中没有字母’K’的所有员工的编号，姓名，职位以及所在部门的编号，名称，地址</p>
+</li>
+<li><p>案例：查询dept表中所有的部门的所有的信息，以及与之关联的emp表中员工的编号，姓名，职位，工资</p>
+</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tarecode/tags/mysql/" rel="tag"># mysql</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/tarecode/2019/01/08/mysql03/" rel="next" title="mysql03">
+                <i class="fa fa-chevron-left"></i> mysql03
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/tarecode/2019/01/08/mysql06/" rel="prev" title="mysql06">
+                mysql06 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">懒人的我</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/tarecode/archives/">
+              
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/tarecode/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tarecode/tags/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#having"><span class="nav-number">1.</span> <span class="nav-text">having</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">懒人的我</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">27.4k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/tarecode/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/tarecode/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/tarecode/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/tarecode/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/tarecode/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

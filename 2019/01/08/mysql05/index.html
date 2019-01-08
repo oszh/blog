@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/tarecode/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/tarecode/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/tarecode/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/tarecode/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/tarecode/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/tarecode/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/tarecode/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="mysql,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="###课程回顾  分组查询 group by   每个部门的平均工资  select deptno,avg(sal) from emp group by deptno;   having 用于和group by结合使用 后面写聚合函数的条件   查询平均工资在2000以上的部门编号和平均工资  select deptno,avg(sal) a from emp group by deptno ha">
+<meta name="keywords" content="mysql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql05">
+<meta property="og:url" content="https://oszh.github.io/2019/01/08/mysql05/index.html">
+<meta property="og:site_name" content="oszh">
+<meta property="og:description" content="###课程回顾  分组查询 group by   每个部门的平均工资  select deptno,avg(sal) from emp group by deptno;   having 用于和group by结合使用 后面写聚合函数的条件   查询平均工资在2000以上的部门编号和平均工资  select deptno,avg(sal) a from emp group by deptno ha">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-01-08T11:26:55.578Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="mysql05">
+<meta name="twitter:description" content="###课程回顾  分组查询 group by   每个部门的平均工资  select deptno,avg(sal) from emp group by deptno;   having 用于和group by结合使用 后面写聚合函数的条件   查询平均工资在2000以上的部门编号和平均工资  select deptno,avg(sal) a from emp group by deptno ha">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/tarecode/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://oszh.github.io/2019/01/08/mysql05/">
+
+
+
+
+
+  <title>mysql05 | oszh</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/tarecode/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">oszh</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/tarecode/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tarecode/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/tarecode/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/tarecode/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/tarecode/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://oszh.github.io/tarecode/2019/01/08/mysql05/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="懒人的我">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/tarecode/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="oszh">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">mysql05</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-08T00:00:00+08:00">
+                2019-01-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/tarecode/categories/MySQL/" itemprop="url" rel="index">
+                    <span itemprop="name">MySQL</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.6k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  11
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>###课程回顾</p>
+<ol>
+<li>分组查询 group by</li>
+</ol>
+<ul>
+<li>每个部门的平均工资<br>  select deptno,avg(sal) from emp group by deptno;</li>
+</ul>
+<ol start="2">
+<li>having 用于和group by结合使用 后面写聚合函数的条件</li>
+</ol>
+<ul>
+<li>查询平均工资在2000以上的部门编号和平均工资<br>  select deptno,avg(sal) a from emp group by deptno having a&gt;2000;</li>
+</ul>
+<ol start="3">
+<li>子查询，把多条SQL查询语句合并成一条嵌套查询</li>
+</ol>
+<ul>
+<li>查询拿最高工资的员工信息<br>  select * from emp where sal=(select max(sal) from emp);</li>
+<li>可写在三种地方<ol>
+<li>写在where和having后面当做查询条件的值</li>
+<li>写在创建表的时候<br> create table 表名 as (子查询);</li>
+<li>写在from后面当成一个虚拟表 必须起别名 </li>
+</ol>
+</li>
+</ul>
+<ol start="4">
+<li>关联查询</li>
+</ol>
+<ul>
+<li>同时查询多张表的数据</li>
+<li>三种查询方式：<ol>
+<li>等值连接： 查询两张表的交集数据， select * from A,B where A.x=B.x and A.age=18;</li>
+<li>内连接： 查询两张表的交集数据, select * from A join B on A.x=B.x where A.age=18;</li>
+<li>外连接:查询一张表的全部数据和另外一张表的交集数据<br>select * from A left/right join B on A.x=B.x where A.age=18;</li>
+</ol>
+</li>
+<li>笛卡尔积：关联查询不写关联关系则会出现两张表数据的乘积，这种乘积称为笛卡尔积</li>
+</ul>
+<p>###作业</p>
+<ol>
+<li><p>每个部门的人数,根据人数排序<br>select deptno,count(*) c from emp group by deptno<br>order by c;</p>
+<ol start="2">
+<li>每个部门中，每个主管的手下人数<br>select deptno,mgr,count(*) from emp<br>where mgr is not null group by deptno,mgr;</li>
+<li>每种工作的平均工资<br>select job,avg(sal) from emp group by job;</li>
+<li>每年的入职人数<br>select extract(year from hiredate) y,count(*) from emp<br>group by y;</li>
+<li>少于等于3个人的部门信息<br>select deptno from emp group by deptno having count(<em>)&lt;=3;<br>select </em> from dept where deptno in(select deptno from emp group by deptno having count(*)&lt;=3);<br>-考虑40号部门<br>select d.deptno<br>from emp e right join dept d<br>on e.deptno=d.deptno<br>group by d.deptno<br>having count(e.ename)&lt;=3;</li>
+</ol>
+<p>select * from dept where deptno in (上面一坨);</p>
+<ol start="6">
+<li>拿最低工资的员工信息<br>select * from emp where sal=(select min(sal) from emp);</li>
+<li>只有一个下属的主管信息<br>select mgr from emp<br>where mgr is not null group by mgr having count(*)=1;</li>
+</ol>
+<p>select <em> from emp where empno in (select mgr from emp<br>where mgr is not null group by mgr having count(</em>)=1);</p>
+<ol start="8">
+<li>平均工资最高的部门编号<br>select avg(sal) a from emp group by deptno order by a desc limit 0,1;</li>
+</ol>
+<p>select deptno from emp group by deptno having avg(sal)=(select avg(sal) a from emp group by deptno order by a desc limit 0,1);</p>
+<ol start="9">
+<li>下属人数最多的人，查询其个人信息</li>
+</ol>
+<ul>
+<li>得到最多的下属人数<br>select count(<em>) from emp group by mgr order by count(</em>) desc limit 0,1;</li>
+<li>通过人数找对应的mgr值<br>select mgr from emp group by mgr having count(<em>)=(select count(</em>) from emp group by mgr order by count(*) desc limit 0,1);</li>
+<li>通过主管编号得到主管信息<br>select * from emp where empno in (上面一坨);</li>
+</ul>
+<ol start="11">
+<li>最后入职的员工信息<br>select * from emp where hiredate=(select max(hiredate) from emp); </li>
+<li>工资多于平均工资的员工信息<br>select * from emp where sal&gt;(select avg(sal) from emp);</li>
+<li>查询员工信息，部门名称<br>select e.*,d.dname<br>from emp e join dept d<br>on e.deptno=d.deptno;</li>
+<li>员工信息，部门名称，所在城市<br>select e.*,d.dname,d.loc<br>from emp e join dept d<br>on e.deptno=d.deptno; </li>
+<li>DALLAS 市所有的员工信息<br>select e.*<br>from emp e join dept d<br>on e.deptno = d.deptno<br>where d.loc=’dallas’;     </li>
+<li>按城市分组，计算每个城市的员工数量<br>select d.loc,count(e.ename)<br>from emp e right join dept d<br>on e.deptno=d.deptno<br>group by d.loc;</li>
+<li>查询员工信息和他的主管姓名</li>
+</ol>
+<ul>
+<li>自关联的查询方式： 把一张表当成两张表 通过内连接把两个表连接起来查询<br>select e.ename,m.ename<br>from emp e left join emp m<br>on e.mgr=m.empno;</li>
+</ul>
+<ol start="18">
+<li><p>员工信息，员工主管名字，部门名<br>select e.ename,m.ename,d.dname<br>from emp e left join emp m<br>on e.mgr=m.empno<br>join dept d<br>on e.deptno=d.deptno;</p>
+</li>
+<li><p>员工和他所在部门名<br>select e.ename,d.dname<br>from emp e join dept d<br>on e.deptno=d.deptno;    </p>
+</li>
+<li>案例：查询emp表中所有员工的姓名以及该员工上级领导的编号，姓名，职位，工资<br>select e.ename,m.empno,m.ename,m.job,m.sal<br>from emp e left join emp m<br>on e.mgr=m.empno;</li>
+<li><p>案例：查询emp表中名字中没有字母’K’的所有员工的编号，姓名，职位以及所在部门的编号，名称，地址<br>select e.empno,e.ename,e.job,d.*<br>from emp e join dept d<br>on e.deptno=d.deptno<br>where e.ename not like ‘%k%’;    </p>
+</li>
+<li><p>案例：查询dept表中所有的部门的所有的信息，以及与之关联的emp表中员工的编号，姓名，职位，工资<br>select d.*,e.empno,e.ename,e.job,e.sal<br>from emp e right join dept d<br>on e.deptno=d.deptno;</p>
+</li>
+</ol>
+</li>
+</ol>
+<p>###表设计之关联关系</p>
+<p>###一对一</p>
+<ul>
+<li>什么是一对一：有AB两张表，A表中的一条数据保存B表中的一条数据，同时B表一条数据也对应A表的一条数据，这两张表的关系称为一对一。</li>
+<li>应用场景：  用户表和用户信息扩展表， 商品表和商品信息扩展表</li>
+<li><p>如何建立关系：在主表中添加主键，从表中添加外键指向主表的主键</p>
+</li>
+<li><p>练习： 创建用户表user(id,username,password) 和 用户信息扩展表userinfo(userid,nick,qq)保存以下数据</p>
+</li>
+<li>创建表：<br>  create table user(id int primary key auto_increment,username varchar(10),password varchar(10));<br>  create table userinfo(userid int,nick varchar(10),qq varchar(15));<br>  用户名 密码       昵称      qq<br>  libai admin      诗仙     112233<br>  liubei admin      刘皇叔  558866<br>  diaochan 123456   貂蝉    554433</li>
+<li>插入数据<br>  insert into user (username,password) values (‘libai’,’admin’),(‘liubei’,’admin’),(‘diaochan’,’123456’);<br>  insert into userinfo values(1,’诗仙’,’112233’),(2,’刘皇叔’,558866),(3,’貂蝉’,554433);</li>
+</ul>
+<ol>
+<li>查询每个用户的用户名、昵称、qq<br> select u.username,ui.nick,ui.qq<br> from user u join userinfo ui<br> on u.id=ui.userid;</li>
+<li>查询诗仙的用户名和密码<br> select u.username,u.password<br> from user u join userinfo ui<br> on u.id=ui.userid where ui.nick=’诗仙’;</li>
+<li>查询diaochan的所有信息<br> select *<br> from user u join userinfo ui<br> on u.id=ui.userid where u.username=’diaochan’;<br>###一对多</li>
+</ol>
+<ul>
+<li>什么是一对多：有AB两张表：A表中的一条数据对应B表中的多条数据，同时B表中的一条数据对应A表中的一条。</li>
+<li>应用场景： 员工表和部门表  商品表和商品分类表</li>
+<li>如何建立关系：  在多的表中添加外键指向另外一张表的主键</li>
+<li>练习： 创建员工表t_emp(id,name,deptid)和部门表t_dept(id,name)<br>  create table t_emp(id int primary key auto_increment,name varchar(10),deptid int);<br>  create table t_dept(id int primary key auto_increment,name varchar(10));<br>保存以下数据：<br>  神仙部的猪八戒和孙悟空<br>  妖怪部的蜘蛛精和白骨精<br>  insert into t_dept values(null,’神仙部’),(null,’妖怪部’);<br>  insert into t_emp (name,deptid) values(‘悟空’,1),(‘八戒’,1),(‘蜘蛛精’,2),(‘白骨精’,2);</li>
+</ul>
+<ol>
+<li>查询每个部门对应的员工姓名<br> select d.name,e.name<br> from t_emp e join t_dept d<br> on e.deptid=d.id;</li>
+<li>查询八戒的部门名称<br> select d.name<br> from t_emp e join t_dept d<br> on e.deptid=d.id where e.name=’八戒’;</li>
+<li>查询妖怪部的员工姓名<br> select e.name<br> from t_emp e join t_dept d<br> on e.deptid=d.id where d.name=’妖怪部’;<br>###多对多</li>
+</ol>
+<ul>
+<li>什么是多对多：有AB两张表，A表中一条数据对应B表的多条数据，同时B 表的一条数据对应A表的多条数据，称为多对多。</li>
+<li>应用场景:  学生表和老师表     用户和角色表  </li>
+<li>如何建立关系：创建一个关系表在关系表中有两个外键分别指向两个表的主键</li>
+<li>练习：创建学生表student(id,name)和老师表teacher(id,name) 和学生老师关系表s_t(sid,tid)<br>  create table student(id int primary key auto_increment,name varchar(10));<br>  create table teacher(id int primary key auto_increment,name varchar(10));<br>  create table s_t(sid int,tid int);</li>
+<li>添加以下数据：<br>  苍老师：小明，小红，小黄<br>  传奇老师：小绿，小明<br>  insert into student values(null,’小明’),(null,’小红’),(null,’小黄’),(null,’小绿’);<br>  insert into teacher values(null,’苍老师’),(null,’传奇老师’);<br>  insert into s_t values(1,1),(1,2),(2,1),(3,1),(4,2);</li>
+</ul>
+<ol>
+<li>查询每个老师姓名和对应的学生姓名<br> select t.name,s.name<br> from student s join s_t st<br> on s.id=st.sid<br> join teacher t<br> on t.id=st.tid;</li>
+<li>查询苍老师的学生都有谁<br> select s.name<br> from student s join s_t st<br> on s.id=st.sid<br> join teacher t<br> on t.id=st.tid where t.name=’苍老师’;</li>
+<li>查询小明的老师都有谁<br> select t.name<br> from student s join s_t st<br> on s.id=st.sid<br> join teacher t<br> on t.id=st.tid where s.name=’小明’;<br>###表设计案例： 权限管理</li>
+</ol>
+<ul>
+<li>三张主表： 用户表 角色表 权限表    两张关系表：用户角色关系表，角色权限关系表<br>  create database db5 character set utf8;</li>
+</ul>
+<ol>
+<li><p>创建表： user(id,name)    role(id,name)  module(id,name)<br> u_r(uid,rid)    r_m(rid,mid)</p>
+<p> create table user(id int primary key auto_increment,name varchar(10));<br> create table role(id int primary key auto_increment,name varchar(10));<br> create table module(id int primary key auto_increment,name varchar(10));<br> create table u_r(uid int,rid int);<br> create table r_m(rid int,mid int);</p>
+</li>
+<li><p>保存以下数据： 用户（苍老师，小明，克晶老师） 角色（男游客，男管理员，女会员，女管理员） 权限（男浏览，男发帖，男删帖，女浏览，女发帖，女删帖）<br> insert into user values(null,’苍老师’),(null,’小明’),(null,’克晶老师’);<br> insert into role values(null,’男游客’),(null,’男管理员’),(null,’女会员’),(null,’女管理员’);<br> insert into module values(null,’男浏览’),(null,’男发帖’),(null,’男删帖’),(null,’女浏览’),(null,’女发帖’),(null,’女删帖’);<br>关系：苍老师(男管理员，女管理员) 小明（女会员）克晶老师（女管理员，男游客） 男游客（男浏览）， 男管理员（男浏览，男发帖，男删帖），女会员（女浏览，女发帖），女管理员（女浏览，女发帖，女删帖）<br> insert into u_r values(1,2),(1,4),(2,3),(3,4),(3,1);<br> insert into r_m values(1,1),(2,1),(2,2),(2,3),(3,4),(3,5),(4,4),(4,5),(4,6);</p>
+</li>
+</ol>
+<ul>
+<li>查询每个用户对应的所有权限<br>  select u.name,m.name<br>  from user u join u_r ur<br>  on u.id=ur.uid<br>  join r_m rm<br>  on ur.rid=rm.rid<br>  join module m<br>  on m.id=rm.mid  order by u.name;</li>
+<li>查询苍老师的权限都有什么<br>  select m.name<br>  from user u join u_r ur<br>  on u.id=ur.uid<br>  join r_m rm<br>  on ur.rid=rm.rid<br>  join module m<br>  on m.id=rm.mid  where u.name=’苍老师’;</li>
+<li>有男浏览权限的用户都有谁<br>  select u.name<br>  from user u join u_r ur<br>  on u.id=ur.uid<br>  join r_m rm<br>  on ur.rid=rm.rid<br>  join module m<br>  on m.id=rm.mid  where m.name=’男浏览’;</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tarecode/tags/mysql/" rel="tag"># mysql</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/tarecode/2019/01/08/mysql06/" rel="next" title="mysql06">
+                <i class="fa fa-chevron-left"></i> mysql06
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/tarecode/2019/01/08/mysql01/" rel="prev" title="mysql01">
+                mysql01 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">懒人的我</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/tarecode/archives/">
+              
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/tarecode/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tarecode/tags/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">懒人的我</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">27.4k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/tarecode/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/tarecode/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/tarecode/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/tarecode/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/tarecode/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

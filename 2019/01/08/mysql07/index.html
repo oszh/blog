@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="mysql,">
 
 
 
@@ -79,20 +79,18 @@
 
 
 
-<meta name="description" content="1.重定向(1)什么是重定向?服务器通知浏览器重新向某个地址发送请求。 注：     服务器可以通过发送302状态码及Location消息头(该消息头的 值是一个地址，一般称之为重定向地址)，浏览器收到之后会立即向 重定向地址发送请求。  (2)如何重定向?response.sendRedirect(String url); 注:     url是重定向地址。     重定向之前，容器会清空res">
+<meta name="description" content="###JDBC  什么是JDBC：Java DataBase Connectivity，Java数据库连接，是一套Sun公司提出的关于数据库连接的接口，里面是一堆和数据库操作相关的方法声明。 为什么使用JDBC：如果没有JDBC，Java程序员连接每种数据库都需要学习一套新的api，为了降低Java程序员的学习成本和提供开发效率，Sun公司提出了一套JDBC的接口，各个数据库厂商根据此接口写实现类">
+<meta name="keywords" content="mysql">
 <meta property="og:type" content="article">
-<meta property="og:title" content="重定向">
-<meta property="og:url" content="https://oszh.github.io/2019/01/08/day04/index.html">
+<meta property="og:title" content="mysql07">
+<meta property="og:url" content="https://oszh.github.io/2019/01/08/mysql07/index.html">
 <meta property="og:site_name" content="oszh">
-<meta property="og:description" content="1.重定向(1)什么是重定向?服务器通知浏览器重新向某个地址发送请求。 注：     服务器可以通过发送302状态码及Location消息头(该消息头的 值是一个地址，一般称之为重定向地址)，浏览器收到之后会立即向 重定向地址发送请求。  (2)如何重定向?response.sendRedirect(String url); 注:     url是重定向地址。     重定向之前，容器会清空res">
+<meta property="og:description" content="###JDBC  什么是JDBC：Java DataBase Connectivity，Java数据库连接，是一套Sun公司提出的关于数据库连接的接口，里面是一堆和数据库操作相关的方法声明。 为什么使用JDBC：如果没有JDBC，Java程序员连接每种数据库都需要学习一套新的api，为了降低Java程序员的学习成本和提供开发效率，Sun公司提出了一套JDBC的接口，各个数据库厂商根据此接口写实现类">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://oszh.github.io/2019/01/08/day04/redirect.png">
-<meta property="og:image" content="https://oszh.github.io/2019/01/08/day04/pageEncoding.png">
-<meta property="og:updated_time" content="2019-01-08T10:51:02.059Z">
+<meta property="og:updated_time" content="2019-01-08T11:27:34.278Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="重定向">
-<meta name="twitter:description" content="1.重定向(1)什么是重定向?服务器通知浏览器重新向某个地址发送请求。 注：     服务器可以通过发送302状态码及Location消息头(该消息头的 值是一个地址，一般称之为重定向地址)，浏览器收到之后会立即向 重定向地址发送请求。  (2)如何重定向?response.sendRedirect(String url); 注:     url是重定向地址。     重定向之前，容器会清空res">
-<meta name="twitter:image" content="https://oszh.github.io/2019/01/08/day04/redirect.png">
+<meta name="twitter:title" content="mysql07">
+<meta name="twitter:description" content="###JDBC  什么是JDBC：Java DataBase Connectivity，Java数据库连接，是一套Sun公司提出的关于数据库连接的接口，里面是一堆和数据库操作相关的方法声明。 为什么使用JDBC：如果没有JDBC，Java程序员连接每种数据库都需要学习一套新的api，为了降低Java程序员的学习成本和提供开发效率，Sun公司提出了一套JDBC的接口，各个数据库厂商根据此接口写实现类">
 
 
 
@@ -122,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="https://oszh.github.io/2019/01/08/day04/">
+  <link rel="canonical" href="https://oszh.github.io/2019/01/08/mysql07/">
 
 
 
 
 
-  <title>重定向 | oszh</title>
+  <title>mysql07 | oszh</title>
   
 
 
@@ -265,7 +263,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://oszh.github.io/tarecode/2019/01/08/day04/">
+    <link itemprop="mainEntityOfPage" href="https://oszh.github.io/tarecode/2019/01/08/mysql07/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="懒人的我">
@@ -282,7 +280,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">重定向</h1>
+          <h1 class="post-title" itemprop="name headline">mysql07</h1>
         
 
         <div class="post-meta">
@@ -305,6 +303,28 @@
           </span>
 
           
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/tarecode/categories/MySQL/" itemprop="url" rel="index">
+                    <span itemprop="name">MySQL</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -326,7 +346,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  763
+                  770
                 </span>
               
 
@@ -342,7 +362,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  2
+                  3
                 </span>
               
             </div>
@@ -363,63 +383,61 @@
       
 
       
-        <h1 id="1-重定向"><a href="#1-重定向" class="headerlink" title="1.重定向"></a>1.重定向</h1><h2 id="1-什么是重定向"><a href="#1-什么是重定向" class="headerlink" title="(1)什么是重定向?"></a>(1)什么是重定向?</h2><p>服务器通知浏览器重新向某个地址发送请求。</p>
-<pre><code>注：
-    服务器可以通过发送302状态码及Location消息头(该消息头的
-值是一个地址，一般称之为重定向地址)，浏览器收到之后会立即向
-重定向地址发送请求。
-</code></pre><p><img src="redirect.png" alt=""></p>
-<h2 id="2-如何重定向"><a href="#2-如何重定向" class="headerlink" title="(2)如何重定向?"></a>(2)如何重定向?</h2><p>response.sendRedirect(String url);</p>
-<pre><code>注:
-    url是重定向地址。
-    重定向之前，容器会清空response对象上存放的所有数据。
-</code></pre><h2 id="3-重定向的特点"><a href="#3-重定向的特点" class="headerlink" title="(3)重定向的特点?"></a>(3)重定向的特点?</h2><p>a.重定向地址是任意的。</p>
-<p>b.重定向之后，浏览器地址栏的地址会发生变化。</p>
-<h1 id="2-jsp"><a href="#2-jsp" class="headerlink" title="2. jsp"></a>2. jsp</h1><h2 id="1-什么是jsp"><a href="#1-什么是jsp" class="headerlink" title="(1)什么是jsp?"></a>(1)什么是jsp?</h2><p>sun公司制订的一种服务器端的动态页面技术规范。</p>
-<pre><code>注:
-    因为虽然可以使用servlet生成动态页面，但是过于繁琐
-(需要使用out.println输出)，并且不利于页面的维护(比如，
-修改页面就必须修改java代码)，所以，sun才制订了jsp规范。
-    jsp是一个以&quot;.jsp&quot;为后缀的文件,该文件主要内容是html
-(包括css,js)及少量的java代码，容器会将jsp转换成一个
-对应的servlet然后执行。也就是说,jsp的本质就是一个servlet。
-</code></pre><h2 id="2-如何写一个jsp文件"><a href="#2-如何写一个jsp文件" class="headerlink" title="(2)如何写一个jsp文件?"></a>(2)如何写一个jsp文件?</h2><p>step1. 添加一个以.jsp为后缀的文件。</p>
-<p>step2. 可以在该文件里面，使用如下元素:</p>
-<h3 id="1-html-css-js"><a href="#1-html-css-js" class="headerlink" title="1)html (css,js)"></a>1)html (css,js)</h3><pre><code>直接写即可。
-</code></pre><h3 id="2-java代码"><a href="#2-java代码" class="headerlink" title="2)java代码"></a>2)java代码</h3><p>a. java代码片断</p>
-<pre><code>&lt;%  java代码  %&gt;
-</code></pre><p>b. jsp表达式</p>
-<pre><code>&lt;%= java表达式 %&gt;
-</code></pre><h2 id="3-隐含对象"><a href="#3-隐含对象" class="headerlink" title="3)隐含对象"></a>3)隐含对象</h2><p>a. 什么是隐含对象?</p>
-<pre><code>在jsp里面，可以直接使用的对象，比如out、request、response。
-</code></pre><p>b.为什么可以直接使用这些隐含对象?</p>
-<pre><code>因为容器会生成获得这些对象的代码。
-</code></pre><h2 id="4-指令"><a href="#4-指令" class="headerlink" title="4)指令"></a>4)指令</h2><p>a.什么是指令?</p>
-<pre><code>可以使用指令来通知容器，告诉容器，在将jsp转换成servlet时做一
-些额外的处理，比如导包。
-</code></pre><p>b.语法</p>
-<pre><code>&lt;%@ 指令名 属性=值 属性=值%&gt;
-注:
-    属性可以有多个，属性之间使用空格隔开。
-</code></pre><p>c.page指令</p>
-<pre><code>import属性：导包，比如 &lt;%@ page import=&quot;java.util.*&quot;%&gt;
-&lt;%@ page import=&quot;java.util.*,java.text.*&quot;%&gt;
-
-contentType属性：设置response.setContentType方法的值。
-
-pageEncoding属性：设置jsp文件的编码。告诉容器，在读取jsp文件
-            的内容时，使用指定的字符集来解码。
-</code></pre><p><img src="pageEncoding.png" alt=""></p>
-<h2 id="3-jsp是如何执行的"><a href="#3-jsp是如何执行的" class="headerlink" title="(3)jsp是如何执行的?"></a>(3)jsp是如何执行的?</h2><p>step1. 容器会将.jsp文件转换成一个.java文件(将jsp转换成servlet)</p>
-<pre><code>html(css,js) -----&gt;  在service方法里面，使用out.write输出。
-        注(了解):write方法会将null转换成&quot;&quot;输出，而println方法
-                会输出null。
-&lt;%     %&gt;    ------&gt;  照搬到service方法里面。
-&lt;%=    %&gt;    ------&gt;  在service方法里面，使用out.print输出。
-</code></pre><p>step2.容器调用该servlet。</p>
-<pre><code>容器会将servlet编译，然后实例化，并调用service方法。
-</code></pre><h1 id="练习1"><a href="#练习1" class="headerlink" title="练习1"></a>练习1</h1><p>写一个date.jsp，输出当前系统日期</p>
-<h1 id="练习2"><a href="#练习2" class="headerlink" title="练习2"></a>练习2</h1><p>写一个listUser2.jsp,以表格形式显示所有用户信息(用户列表)</p>
+        <p>###JDBC</p>
+<ul>
+<li>什么是JDBC：Java DataBase Connectivity，Java数据库连接，是一套Sun公司提出的关于数据库连接的接口，里面是一堆和数据库操作相关的方法声明。</li>
+<li>为什么使用JDBC：如果没有JDBC，Java程序员连接每种数据库都需要学习一套新的api，为了降低Java程序员的学习成本和提供开发效率，Sun公司提出了一套JDBC的接口，各个数据库厂商根据此接口写实现类(驱动),这样Java程序员写一套方法就可以连接各种数据库。<h4 id="如何使用JDBC"><a href="#如何使用JDBC" class="headerlink" title="如何使用JDBC"></a>如何使用JDBC</h4></li>
+</ul>
+<ol>
+<li>创建一个Maven工程 </li>
+<li>从私服中找到mysql，jar包的坐标 maven.tedu.cn     阿里私服：maven.aliyun.com </li>
+<li><p>创建类 并写如下代码：</p>
+<p> //1. 注册驱动</p>
+<pre><code>Class.forName(&quot;com.mysql.jdbc.Driver&quot;);
+//2. 获取连接对象
+Connection conn = 
+        DriverManager.getConnection
+        (&quot;jdbc:mysql://localhost:3306/newdb3&quot;, 
+                &quot;root&quot;, &quot;root&quot;);
+System.out.println(conn);
+//3. 创建SQL执行对象
+Statement stat = conn.createStatement();
+//4. 执行SQL语句
+String sql = 
+        &quot;create table if not exists jdbct1&quot;
+        + &quot;(id int primary key auto_increment,&quot;
+        + &quot;name varchar(10))&quot;;
+stat.execute(sql);//执行
+System.out.println(&quot;执行完成！&quot;);
+//5. 关闭资源
+conn.close(); 
+</code></pre><p>####Statment对象</p>
+</li>
+<li>execute() 此方法可以执行任意SQL语句，但是推荐执行DDL（数据定义语言）包括：create drop alter truncate, 方法的返回值为布尔值,返回值表示是否有结果集 </li>
+<li>executeUpdate() 此方法执行增删改的SQL，此方法返回值为整数，表示生效的行数。</li>
+<li>executeQuery() 此方法执行查询的SQL语句，返回值为结果集ResultSet对象<pre><code>ResultSet rs = stat.executeQuery(sql);
+//遍历结果集中的数据 
+while(rs.next()){
+    String name = rs.getString(&quot;ename&quot;);
+    double sal = rs.getDouble(&quot;sal&quot;);
+    System.out.println(name+&quot;:&quot;+sal);
+}
+conn.close();
+</code></pre>####数据库类型和Java类型对比<br> MySQL         Java<br> int           getInt()<br> varchar       getString()<br> float/double  getFloat()/getDouble()<br> datetime/timestamp  getDate()<br>####ResultSet获取数据的方式</li>
+<li>通过查询结果中的字段名获取 rs.getString(“ename”);</li>
+<li>通过查询结果中的字段的位置 rg.getString(2);</li>
+</ol>
+<p>###读取配置文件<br>        Properties prop = new Properties();<br>        //获取文件输入流<br>        InputStream ips =<br>            DBUtils.class.getClassLoader()<br>                .getResourceAsStream(“jdbc.properties”);<br>        //把文件加载到prop对象中<br>        prop.load(ips);<br>        //获取配置文件中的数据 只能得到字符串类型数据<br>        String name = prop.getProperty(“name”);<br>        String age = prop.getProperty(“age”);<br>        System.out.println(name+”:”+age);</p>
+<p>###数据库连接池dbcp</p>
+<ul>
+<li>DBCP： DataBase Connection Pool </li>
+<li>为什么时候数据库连接池：如果不使用连接池，客户端每次请求web服务器都需要和数据库服务器建立连接用完则断开，如果有1万次请求则有一万次连接和断开，频繁开关连接浪费资源，使用数据库连接池，可以将连接重用避免资源的浪费，从而提高效率。</li>
+<li>如何使用数据库连接池 </li>
+</ul>
+<ol>
+<li>从maven私服中搜索 dbcp 的jar包</li>
+</ol>
+<p>Demo01:JDBC的基本使用方式<br>Demo02： 单元测试<br>Demo03: 增删改查<br>Demo04: 测试DBUtils类<br>Demo05: 读取配置文件数据<br>Demo06： 数据库连接池的使用方式<br>Demo07: 测试连接池的等待问题</p>
 
       
     </div>
@@ -435,6 +453,12 @@ pageEncoding属性：设置jsp文件的编码。告诉容器，在读取jsp文�
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tarecode/tags/mysql/" rel="tag"># mysql</a>
+          
+        </div>
+      
 
       
       
@@ -444,8 +468,8 @@ pageEncoding属性：设置jsp文件的编码。告诉容器，在读取jsp文�
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/tarecode/2019/01/08/mysql07/" rel="next" title="mysql07">
-                <i class="fa fa-chevron-left"></i> mysql07
+              <a href="/tarecode/2019/01/08/mysql02/" rel="next" title="mysql02">
+                <i class="fa fa-chevron-left"></i> mysql02
               </a>
             
           </div>
@@ -454,8 +478,8 @@ pageEncoding属性：设置jsp文件的编码。告诉容器，在读取jsp文�
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/tarecode/2019/01/08/day01/" rel="prev" title="什么是Servlet">
-                什么是Servlet <i class="fa fa-chevron-right"></i>
+              <a href="/tarecode/2019/01/08/day04/" rel="prev" title="重定向">
+                重定向 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -588,7 +612,7 @@ pageEncoding属性：设置jsp文件的编码。告诉容器，在读取jsp文�
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-重定向"><span class="nav-number">1.</span> <span class="nav-text">1.重定向</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-什么是重定向"><span class="nav-number">1.1.</span> <span class="nav-text">(1)什么是重定向?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-如何重定向"><span class="nav-number">1.2.</span> <span class="nav-text">(2)如何重定向?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-重定向的特点"><span class="nav-number">1.3.</span> <span class="nav-text">(3)重定向的特点?</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-jsp"><span class="nav-number">2.</span> <span class="nav-text">2. jsp</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-什么是jsp"><span class="nav-number">2.1.</span> <span class="nav-text">(1)什么是jsp?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-如何写一个jsp文件"><span class="nav-number">2.2.</span> <span class="nav-text">(2)如何写一个jsp文件?</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-html-css-js"><span class="nav-number">2.2.1.</span> <span class="nav-text">1)html (css,js)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-java代码"><span class="nav-number">2.2.2.</span> <span class="nav-text">2)java代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-隐含对象"><span class="nav-number">2.3.</span> <span class="nav-text">3)隐含对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-指令"><span class="nav-number">2.4.</span> <span class="nav-text">4)指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-jsp是如何执行的"><span class="nav-number">2.5.</span> <span class="nav-text">(3)jsp是如何执行的?</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#练习1"><span class="nav-number">3.</span> <span class="nav-text">练习1</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#练习2"><span class="nav-number">4.</span> <span class="nav-text">练习2</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#如何使用JDBC"><span class="nav-number">1.</span> <span class="nav-text">如何使用JDBC</span></a></li></ol></div>
             
 
           </div>
