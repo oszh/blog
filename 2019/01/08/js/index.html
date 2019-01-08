@@ -1,0 +1,1518 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/tarecode/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/tarecode/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/tarecode/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/tarecode/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/tarecode/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/tarecode/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/tarecode/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="js,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="JavaScript（JS） HTML： 组织内容 CSS： 显示效果 JavaScript: 页面中的动作效果  什么是Java ScriptJavaScript是运行在浏览器中的脚本语言。 被浏览器事件驱动，可以访问浏览器提供了对象，在浏览器中编程控制浏览器中显示的页面效果。   JS 可以在Node.js 环境中执行， 是服务端的JS    脚本语言: 没有编译器，直接解释执行的语言称为脚本">
+<meta name="keywords" content="js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript">
+<meta property="og:url" content="https://oszh.github.io/2019/01/08/js/index.html">
+<meta property="og:site_name" content="oszh">
+<meta property="og:description" content="JavaScript（JS） HTML： 组织内容 CSS： 显示效果 JavaScript: 页面中的动作效果  什么是Java ScriptJavaScript是运行在浏览器中的脚本语言。 被浏览器事件驱动，可以访问浏览器提供了对象，在浏览器中编程控制浏览器中显示的页面效果。   JS 可以在Node.js 环境中执行， 是服务端的JS    脚本语言: 没有编译器，直接解释执行的语言称为脚本">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-01-08T12:27:04.224Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript">
+<meta name="twitter:description" content="JavaScript（JS） HTML： 组织内容 CSS： 显示效果 JavaScript: 页面中的动作效果  什么是Java ScriptJavaScript是运行在浏览器中的脚本语言。 被浏览器事件驱动，可以访问浏览器提供了对象，在浏览器中编程控制浏览器中显示的页面效果。   JS 可以在Node.js 环境中执行， 是服务端的JS    脚本语言: 没有编译器，直接解释执行的语言称为脚本">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/tarecode/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://oszh.github.io/2019/01/08/js/">
+
+
+
+
+
+  <title>JavaScript | oszh</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/tarecode/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">oszh</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/tarecode/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tarecode/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/tarecode/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/tarecode/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/tarecode/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://oszh.github.io/tarecode/2019/01/08/js/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="懒人的我">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/tarecode/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="oszh">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JavaScript</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-08T00:00:00+08:00">
+                2019-01-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  5.3k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  24
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="JavaScript（JS）"><a href="#JavaScript（JS）" class="headerlink" title="JavaScript（JS）"></a>JavaScript（JS）</h1><ul>
+<li>HTML： 组织内容</li>
+<li>CSS： 显示效果</li>
+<li>JavaScript: 页面中的动作效果</li>
+</ul>
+<h2 id="什么是Java-Script"><a href="#什么是Java-Script" class="headerlink" title="什么是Java Script"></a>什么是Java Script</h2><p>JavaScript是运行在浏览器中的脚本语言。 被浏览器事件驱动，可以访问浏览器提供了对象，在浏览器中编程控制浏览器中显示的页面效果。</p>
+<p>  JS 可以在Node.js 环境中执行， 是服务端的JS</p>
+<p>   脚本语言: 没有编译器，直接解释执行的语言称为脚本语言。</p>
+<h2 id="JavaScript-Hello-World！"><a href="#JavaScript-Hello-World！" class="headerlink" title="JavaScript Hello World！"></a>JavaScript Hello World！</h2><ol>
+<li>HTML</li>
+<li>在网页中添加JS代码，处理事件</li>
+<li>在浏览器中显示HTML</li>
+<li>利用事件触发执行JS</li>
+</ol>
+<p>案例：</p>
+<pre><code>&lt;html&gt;
+    &lt;head&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div onclick=&quot;console.log(&apos;Hello World!&apos;)&quot;&gt;测试信息&lt;/div&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><h2 id="JS-有3种嵌入方式"><a href="#JS-有3种嵌入方式" class="headerlink" title="JS 有3种嵌入方式"></a>JS 有3种嵌入方式</h2><ol>
+<li>内联式： 直接写到HTML标签事件中，不推荐使用。 JS脚本和HTML混合，不利于软件的开发和维护。</li>
+<li>内部式： 使用 Script 标签声明，JS脚本在当前HTML有效。</li>
+<li>外部式： 使用 Script 标签引入js文件，用于多个HTML文件共享一个JS脚本文件。</li>
+</ol>
+<p>内部式JS 案例：</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;UTF-8&quot;&gt;
+&lt;title&gt;Insert title here&lt;/title&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+//网页加载期间执行的 JS 脚本 
+console.log(&quot;Hello World&quot;);
+//声明一个JS函数（方法）
+function hello(){
+    console.log(&quot;Hello!&quot;); 
+}
+&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;内部式JS&lt;/h1&gt;
+    &lt;div onclick=&quot;hello()&quot;&gt;演示&lt;/div&gt; 
+&lt;/body&gt;
+&lt;/html&gt;    
+</code></pre><p>外部式：</p>
+<p>案例：</p>
+<ol>
+<li><p>编写JS文件 js/hello.js：</p>
+<pre><code>function demo(){
+    console.log(&quot;demo&quot;);
+}
+</code></pre></li>
+<li><p>编写测试页面 jsdemo02.html</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;UTF-8&quot;&gt;
+&lt;title&gt;Insert title here&lt;/title&gt;
+&lt;!-- script 只能单独加载外部JS脚本，
+不能在加载JS脚本的同时在内部声明JS脚本 --&gt;
+&lt;script type=&quot;text/javascript&quot; 
+    src=&quot;js/hello.js&quot;&gt;&lt;/script&gt;
+
+&lt;script type=&quot;text/javascript&quot;&gt;
+//网页加载期间执行的 JS 脚本 
+console.log(&quot;Hello World&quot;);
+//声明一个JS函数（方法）
+function hello(){
+    console.log(&quot;Hello!&quot;); 
+}
+&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;内部式JS&lt;/h1&gt;
+    &lt;div onclick=&quot;hello()&quot;&gt;演示&lt;/div&gt; 
+    &lt;h1&gt;外部式JS&lt;/h1&gt;
+    &lt;div onclick=&quot;demo()&quot;&gt;演示外部式JS&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre></li>
+</ol>
+<h2 id="JS-中声明变量"><a href="#JS-中声明变量" class="headerlink" title="JS 中声明变量"></a>JS 中声明变量</h2><p>语法：</p>
+<pre><code>var 变量名; 
+</code></pre><p>JS 的变量的语法很“自由”</p>
+<ol>
+<li>可以不声明使用！</li>
+<li>建议声明变量再使用，声明时候使用var。</li>
+<li>JS变量没有明确类型，赋值啥类型就是啥类型。<ul>
+<li>甚至可以改变类型赋值。</li>
+</ul>
+</li>
+<li>如果不初始化直接使用，其值是“未定义”。</li>
+</ol>
+<blockquote>
+<p>JS 有两种实验方式： Console实验，JS脚本实验</p>
+</blockquote>
+<p>案例：</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;UTF-8&quot;&gt;
+&lt;title&gt;Insert title here&lt;/title&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+function test(){
+    var a = 5;
+    console.log(a);
+    b = 6; //JS可以不声明直接赋值使用！自动声明
+    console.log(b);
+    var c;
+    console.log(c);//未定义
+    c = 7;
+    console.log(c);
+    c = &quot;test&quot;; //变量可以更改类型赋值
+    console.log(c);
+
+    //?c存储的数据类型？
+}
+&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;测试变量的声明&lt;/h1&gt;
+    &lt;p onclick=&quot;test()&quot;&gt;测试&lt;/p&gt; 
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre><h2 id="检查变量中数据的类型"><a href="#检查变量中数据的类型" class="headerlink" title="检查变量中数据的类型"></a>检查变量中数据的类型</h2><p>JS 中使用typeof()函数检查变量引用的数据的类型</p>
+<p>案例:</p>
+<pre><code>&lt;html&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;UTF-8&quot;&gt;
+&lt;title&gt;Insert title here&lt;/title&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+function test(){
+    var s = &quot;abc&quot;;
+    var c = 8;
+    var n = 3.14;
+    console.log(typeof(s));
+    console.log(typeof(c));
+    console.log(typeof(n));
+}
+&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;测试变量引用数据的类型&lt;/h1&gt;
+    &lt;div onclick=&quot;test()&quot;&gt;测试&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre><h2 id="JS-中的数据类型"><a href="#JS-中的数据类型" class="headerlink" title="JS 中的数据类型"></a>JS 中的数据类型</h2><ol>
+<li>JS 中数据都是对象，对象分为几种<ul>
+<li>JS内嵌对象，也称为JS的内置对象， 或者JS的基本类型<ul>
+<li>number  string</li>
+</ul>
+</li>
+<li>由“宿主”环境提供的对象<ul>
+<li>window document</li>
+</ul>
+</li>
+<li>自定义对象<ul>
+<li>使用JS语法创建的对象</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>特殊值，特殊值用于表示没有变量没有引对象的情况<ul>
+<li>null</li>
+<li>未定义</li>
+</ul>
+</li>
+</ol>
+<h2 id="JS-内置对象"><a href="#JS-内置对象" class="headerlink" title="JS 内置对象"></a>JS 内置对象</h2><p>JS 内置对象，是JS本身内置的对象。 也称为JS的基本数据类型，与Java不同这些类型是对象！</p>
+<h3 id="number"><a href="#number" class="headerlink" title="number"></a>number</h3><p>JS中是对象，是浮点数，计算结果是浮点结果。 没有整数！！</p>
+<p>直接赋值为数的，都是number类型。 包含number类型方法。</p>
+<p>number类型包含方法：</p>
+<ul>
+<li>num.toFixed(2) 将num转换为字符串，保留两位小数。</li>
+</ul>
+<p>其它方法请参考对应的手册： <a href="http://doc.tedu.cn/w3/jsref/jsref_obj_number.html" target="_blank" rel="noopener">http://doc.tedu.cn/w3/jsref/jsref_obj_number.html</a></p>
+<h3 id="string"><a href="#string" class="headerlink" title="string"></a>string</h3><p>任何JS字符串都是string类型。 JS string类型包含的API方法与Java String的方法类似。</p>
+<p>具体请参考： <a href="http://doc.tedu.cn/w3/jsref/jsref_obj_string.html" target="_blank" rel="noopener">http://doc.tedu.cn/w3/jsref/jsref_obj_string.html</a></p>
+<p>案例：</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;UTF-8&quot;&gt;
+&lt;title&gt;Insert title here&lt;/title&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+function test(){
+    var num = 3.1415926;
+    //Fixed 固定的，返回固定小数点位数
+    //输出价格等情况
+    console.log(num.toFixed(2));
+    console.log(num.toFixed(4));
+    var str = &quot;tedu.cn&quot;;
+    var n = str.indexOf(&quot;cn&quot;);
+    console.log(n);//5
+    var c = str.charAt(5);
+    console.log(c);//c
+    var b = str.blod();
+    console.log(b);
+} 
+//显示加粗的 文字
+function demo01(){
+    var str = &quot;测试&quot;;
+    var msg = str.bold();
+    //用id在document对象中找到 div元素 
+    var div=document.getElementById(&quot;msg&quot;);
+    //innerHTML 读写 div元素内部的内容
+    div.innerHTML=msg;
+}
+//显示红色的文字
+function demo02(){
+    var str = &quot;测试&quot;;
+    var msg = str.fontcolor(&quot;red&quot;);
+    //用id在document对象中找到 div元素 
+    var div=document.getElementById(&quot;msg&quot;);
+    //innerHTML 读写 div元素内部的内容
+    div.innerHTML=msg;    
+}
+&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Number 和 String&lt;/h1&gt;
+    &lt;p onclick=&quot;test()&quot;&gt;测试&lt;/p&gt;
+    &lt;h1&gt;页面局部刷新&lt;/h1&gt;
+    &lt;div onclick=&quot;demo02()&quot; &gt;red&lt;/div&gt;
+    &lt;div id=&quot;msg&quot; onclick=&quot;demo01()&quot;&gt;Test&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre><h3 id="boolean"><a href="#boolean" class="headerlink" title="boolean"></a>boolean</h3><p>Boolean 只有两个值 true, false</p>
+<h3 id="Date"><a href="#Date" class="headerlink" title="Date"></a>Date</h3><p>Date 类型用于表示时间，其中封装了时间毫秒数。</p>
+<p>最重要方法： </p>
+<ul>
+<li>toLocaleString() 返回当前系统的时间字符串。</li>
+<li>getTime() 返回时间毫秒数</li>
+</ul>
+<p>案例：</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;UTF-8&quot;&gt;
+&lt;title&gt;Insert title here&lt;/title&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+function test(){
+    //创建Date类型时候内部包含当前时间毫秒数
+    var d = new Date();
+    //获取时间毫秒数
+    var time = d.getTime();
+    //转换为本地时间字符串
+    var str = d.toLocaleString();
+    console.log(d);
+    console.log(time);
+    console.log(str);
+
+    var s = document.getElementById(&quot;msg&quot;);
+    s.innerHTML=str;
+}
+&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Date类型&lt;/h1&gt;
+    &lt;div onclick=&quot;test()&quot;&gt;测试&lt;/div&gt;    
+    &lt;span id=&quot;msg&quot;&gt;&lt;/span&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre><h3 id="Array"><a href="#Array" class="headerlink" title="Array"></a>Array</h3><p>数组，JS中的数组与Java中的ArrayList基本一样，是长度可变的数据结构。 一个数组中可以存储多种数据类型的元素。</p>
+<ol>
+<li><p>声明数组：</p>
+<pre><code>var arr = [];
+var ary = [1,2,3,4];
+</code></pre></li>
+<li><p>向数组追加元素：</p>
+<pre><code>arr.push(2,5);
+arr[arr.length] = 8;
+</code></pre></li>
+<li><p>向数组前面插入元素：</p>
+<pre><code>arr.unshift(8);
+</code></pre></li>
+<li><p>删除元素</p>
+<pre><code>arr.splice(2,2);//从位置2开始连续删除两个元素。
+</code></pre></li>
+</ol>
+<p>测试案例：</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;UTF-8&quot;&gt;
+&lt;title&gt;Insert title here&lt;/title&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+function test(){
+    var arr = []; //new Array()
+    arr.push(8,9); //在数组末尾追加元素
+    arr[arr.length]=10; //在数组末尾追加元素
+    arr[arr.length]=&quot;Hello&quot;;//在数组末尾追加元素
+    //在数组中删除元素，第一个参数是起始位置，
+    //第二个参数是位置
+    arr.splice(2,1); 
+    console.log(arr);
+}
+&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Array测试&lt;/h1&gt;
+    &lt;div onclick=&quot;test()&quot;&gt;test&lt;/div&gt; 
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre><h3 id="特殊值"><a href="#特殊值" class="headerlink" title="特殊值"></a>特殊值</h3><p>null： 表示变量没有引用任何对象。 </p>
+<p>undefined：变量声明以后，还没有初始化之前的不确定情况！</p>
+<p>无论是 null 还是 undefined 都表示有变量，无对象，此时调用属性或者方法将出现”错误”</p>
+<blockquote>
+<p>编程时候，表示“没有” 一般使用 null。</p>
+</blockquote>
+<h2 id="自动类型转换（隐式类型转换）"><a href="#自动类型转换（隐式类型转换）" class="headerlink" title="自动类型转换（隐式类型转换）"></a>自动类型转换（隐式类型转换）</h2><p>JS 发明之初是为了美工使用，就是为了方便使用。</p>
+<ol>
+<li><p>数字自动转换为字符串；</p>
+<pre><code>var a1 = 56;
+var a2 = &quot;66&quot;;
+console.log(a1+a2); //&quot;5666&quot;
+</code></pre></li>
+<li><p>boolean 类型自动转换为数字，true 为 1， false 为 0</p>
+<pre><code>var a1 = 56;
+var b1 = true;
+var b2 = false;
+console.log(a1+b1);//57
+console.log(a1*b2);//0
+</code></pre></li>
+<li><p>0, “”， null，undefined，NaN 自动作为 false，反之为true</p>
+<pre><code>var n;
+if(n){
+    console.log(&quot;true&quot;);
+}else{
+    console.log(&quot;false&quot;);
+}
+</code></pre></li>
+<li><p>数字与 undefined 运算时候结果是 NaN</p>
+<ul>
+<li>NaN: Not a Number, 不是一个数！</li>
+</ul>
+</li>
+</ol>
+<p>案例：</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;UTF-8&quot;&gt;
+&lt;title&gt;Insert title here&lt;/title&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+function test(){
+    var n; 
+    if(n){
+        console.log(&quot;true&quot;);
+    }else{
+        console.log(&quot;false&quot;);
+    }
+    n = 0;
+    if(n){
+        console.log(&quot;true&quot;);
+    }else{
+        console.log(&quot;false&quot;);
+    }
+    n = null;
+    if(n){
+        console.log(&quot;true&quot;);
+    }else{
+        console.log(&quot;false&quot;);
+    }
+    n = &quot;&quot;;
+    if(n){
+        console.log(&quot;true&quot;);
+    }else{
+        console.log(&quot;false&quot;);
+    }
+}
+
+function print(n){
+    if(n){
+        console.log(&quot;true&quot;);
+    }else{
+        console.log(&quot;false&quot;);
+    }
+}
+function test2(){
+    print(5);
+    print(&quot;abc&quot;);
+    print([1,2,3]);
+}
+&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;特殊值作为false使用&lt;/h1&gt;
+    &lt;div onclick=&quot;test()&quot;&gt;测试&lt;/div&gt;
+    &lt;h1&gt;非&quot;空&quot;作为 true 使用&lt;/h1&gt;
+    &lt;div onclick=&quot;test2()&quot;&gt;测试&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p>NaN案例：</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;UTF-8&quot;&gt;
+&lt;title&gt;Insert title here&lt;/title&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+
+function test(){
+    var total;
+    // undefined 参与计算，结果为 NaN
+    // 如果计算结果为 NaN 则参数计算的数据有 undefined
+    var sum = total * 0.8;
+    console.log(sum);
+    //NaN 可以作为false
+    if(sum){
+        console.log(&quot;true&quot;);
+    }else{
+        console.log(&quot;false&quot;);
+    }
+}
+
+&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;NaN现象&lt;/h1&gt;
+    &lt;p onclick=&quot;test()&quot;&gt;Test&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre><h3 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h3><p>运算符与 Java 基本相同。</p>
+<ol>
+<li><p>JS中没有整数，除法是浮点除法，不整除。 利用parseInt函数实现取整数</p>
+<pre><code>7/2 得 3.5
+parseInt(7/2) 得到 3
+</code></pre></li>
+<li><p>== 不区别数据类型判断相等， === 称为“全等” 数据类型一样，数值一样</p>
+<pre><code>var a = 55;
+var b = 55;
+var c = &apos;55&apos;;
+console.log(a==b); //true
+console.log(a==c); //true
+console.log(a===b);//true
+console.log(a===c);//false
+</code></pre></li>
+</ol>
+<p>练习：</p>
+<ol>
+<li>利用Math.random() 生成一个1~100之间的随机数。作为半径计算圆面积。在页面的 span 元素中显示出来。 <ul>
+<li>要求： 在控制台和HTML文件两种方式实现。</li>
+</ul>
+</li>
+<li>编写案例，实验全部的知识点。</li>
+<li>创建一个数组，添加一组数据，找出其中最大的数据。<ul>
+<li>提示：JS 的for循环与Java一样</li>
+</ul>
+</li>
+<li>创建一个数组对数组元素进行冒泡排序。</li>
+</ol>
+<hr>
+<p>###JavaScript</p>
+<ul>
+<li>给页面添加动态效果或动态内容</li>
+</ul>
+<p>####变量 声明和赋值</p>
+<ul>
+<li>弱类型<br>int x = 10;<br>String s = “abc”;<br>var x = 10;<br>var s = “abc”;<br>x=”mm”;<br>####数据类型</li>
+</ul>
+<ol>
+<li>数值类型number<br>var x =10;   typeof x;</li>
+<li>字符串类型string<br>var s = “abc”;</li>
+<li>布尔值类型 boolean<br>var b = true/false;   typeof b;</li>
+<li>对象类型       null<br>Person p = new Person();<br>var p = new Person();</li>
+<li>未定义 undefined<br>var a;<br>#####数据类型的隐式转换</li>
+<li>String类型的隐式转换</li>
+</ol>
+<ul>
+<li>String转布尔值：  空字符串”” 转成false 其它全部true </li>
+<li>String转数值：   能转直接转，不能转转成NaN(Not a Number)   任何数和NaN进行任何运算结果都是NaN       var  x = “abc”-18;</li>
+</ul>
+<ol start="2">
+<li>数值类型的隐式转换</li>
+</ol>
+<ul>
+<li>数值转字符串： 直接转 18-&gt;  “18”     var  x = “abc”+18;</li>
+<li>数值转布尔值： 0和NaN转成false 其它是true  </li>
+</ul>
+<ol start="3">
+<li>布尔值类型的隐式转换</li>
+</ol>
+<ul>
+<li>转字符串： 直接转 true-&gt; “true”  </li>
+<li>转数值:  true-&gt;1     false-&gt;0</li>
+</ul>
+<ol start="4">
+<li>undefined的隐式转换</li>
+</ol>
+<ul>
+<li>转字符串： 直接转</li>
+<li>转数值：  NaN       20+undefined=NaN</li>
+<li>转布尔值: false</li>
+</ul>
+<ol start="5">
+<li>null的隐式转换</li>
+</ol>
+<ul>
+<li>转字符串： 直接转</li>
+<li>转数值： 0        20+null  </li>
+<li>转布尔值： false  </li>
+</ul>
+<p>####运算符  + - * / %  ==  </p>
+<ul>
+<li>大体和Java相同 </li>
+</ul>
+<ol>
+<li>==和===，==会先统一类型，然后再比较值是否相等， ===先比较类型是否相等如果相等再比较值是否相等      “18”===18</li>
+<li>java: 3/2=1     js:3/2=1.5   4/2=2;  js中除法运算会自动转换整数和小数</li>
+<li>typeof      typeof 66 + 6 = “number6”</li>
+</ol>
+<p>####语句：if else if  while for switch case</p>
+<ul>
+<li>和java基本相同</li>
+</ul>
+<ol>
+<li>if和while括号里面的内容 如果不是布尔值会自动转成布尔值</li>
+<li>for里面int i 改成 var i   不支持增强for循环(foreach)</li>
+</ol>
+<p>####方法声明</p>
+<ul>
+<li>java中声明有返回值有参数（字符串和整数）<br>  public String run(String name,int age){<pre><code>return name+age;
+</code></pre>  }</li>
+<li>JavaScript方法声明的格式一： function 方法名(参数列表){ 方法体 }</li>
+<li>第二种：<br>var 方法名 = function（参数列表）{方法体}</li>
+<li>第三种：<br>var 方法名 = new Function(“参数1”,”参数2”,”方法体”);</li>
+</ul>
+<p>###字符串相关</p>
+<ol>
+<li>把字符串转成数值<br> parseInt(“3.1”)   3     parseInt(3.1)  3<br> parseFloat(“3”) 3<br> Number(“3”) 3</li>
+<li>字符串创建方式<br> var str = “abc”;<br> var str = new String(“abc”);</li>
+<li>转大小写<br> str.toUpperCase();<br> str.toLowerCase();</li>
+<li>获取字符串中某个字符串出现的位置<ul>
+<li>str.indexOf(“a”);  第一个出现的位置</li>
+<li>str.lastIndexOf(“a”);  最后一个出现的位置</li>
+</ul>
+</li>
+<li>替换字符串<br> str.replace(old,new);   //只能替换第一个</li>
+<li>拆分字符串    a,b,c    a   b   c<br> var arr = str.split(“,”);<br>###数值相关</li>
+<li>四舍五入  toFixed(num)<br> 3.1415926.toFixed(2);<br>###数组相关</li>
+<li>创建数组  数组内什么类型都可以保存<br> var arr = [“张飞”,18,false];<br> var arr = new Array();</li>
+<li>往数组中添加内容<br> arr.push(“aaa”);</li>
+<li>获取和修改长度  js数组长度可以修改<br> var arr = [“张飞”,18,false];<br> arr.length=1;</li>
+<li>数组取值 和Java一样</li>
+<li>数组反转  a  b  c<br> arr.reverse();</li>
+<li>数组排序  默认排序规则是通过Unicode编码挨个字符进行排序<br> arr.sort();</li>
+</ol>
+<ul>
+<li><p>自定义排序</p>
+<p>  var arr = [3,2,33,31,18,22];<br>  /<em>自定义排序方法 </em>/<br>  function mysort(a,b){</p>
+<pre><code>//return a-b;//升序
+return b-a;//降序
+</code></pre><p>  }<br>  var mysort = new Function(“a”,”b”,”return a-b”);<br>  //排序<br>  arr.sort(mysort);<br>  alert(arr);<br>###日期相关</p>
+</li>
+<li>服务器时间和客户端时间</li>
+</ul>
+<ol>
+<li>获取客户端当前时间<br> var d1 = new Date();</li>
+<li>把字符串时间转成日期对象<br> var d2 = new Date(“2018/9/30 15:48:50”);</li>
+<li>从日期对象中获取时间戳 (时间戳：距1970年1月1日 08：00：00到现在的毫秒数)<br> d2.getTime();//获取<br> d2.setTime(1000); //修改</li>
+<li>获取时间分量 （年，月，日，时，分，秒，星期几）<br> d1.getFullYear();<br> d1.getMonth(); //从0开始<br> d1.getDate();<br> d1.getHours();<br> d1.getMinutes();<br> d1.getSeconds();<br> d1.getDay();</li>
+<li>获取年月日  和 获取 时分秒<br> d.toLocaledDateString();<br> d.toLocaledTimeString();</li>
+</ol>
+<p>###页面相关<br> var div = document.getElementById(“d1”);<br> var ipt = document.getElementById(“i1”);<br> div.innerHTML=”xxx”;<br> ipt.value //获取文本框的内容<br> ipt.value=”xxx”;  //修改文本框的内容</p>
+<p>###正则表达式</p>
+<ul>
+<li>. :匹配任意字符 除了换行</li>
+<li>\w : 匹配任意数字 字母 下划线</li>
+<li>\d : 匹配任意数字 </li>
+<li>\s : 匹配任意空白</li>
+<li>^ :开头</li>
+<li>$ ：结尾</li>
+<li>应用场景： 1. 查找内容  2. 校验文本 </li>
+</ul>
+<ol>
+<li>创建正则表达式的两种方式：</li>
+</ol>
+<ul>
+<li>var reg = /规则/模式;    （模式：i忽略大小写  g：全局查找）<br>举例： 以m开头<br>  var reg = /^m/;<br>  以x结尾<br>  reg = /x$/;<br>  包含两位数字   34<br>  reg = /\d{2}/;<br>  以三位数字开头<br>  reg = /^\d{3}/;<br>  以y开头z结尾中间包含5位数字<br>  reg = /^y\d{5}z$/;<br>  6-10位数字字母下划线   230948234897238947238947<br>  reg = /^\w{6,10}$/;</li>
+<li>var reg = new RegExp(规则,？模式);   如果规则中出现\ 需要转义\<br>  reg = new RegExp(“^\w{6,10}$”);<br>####和正则相关的方法</li>
+</ul>
+<ol>
+<li>查找内容 exec()<br> var str = “you can you up no can no b b”;<br> var reg = /no/g;<br> alert(reg.exec(str));//no<br> alert(reg.exec(str));//no<br> alert(reg.exec(str));//null</li>
+<li>校验 test()<br> var str = “you can you up no can no b b”;<br> var reg = /^you/;<br> alert(reg.test(str));</li>
+<li>字符串和正则相关的方法</li>
+</ol>
+<ul>
+<li>查找内容 match()<br>  var str = “you can you up no can no b b”;<br>  var reg = /no/g;<br>  var arr = str.match(reg);//得到查找的所有内容</li>
+<li>查找替换 replace<br>  var str = “you can you up no can no b b”;<br>  var reg = /no/g;<br>  str.replace(reg,”不”);</li>
+</ul>
+<p>####回顾</p>
+<ol>
+<li>JavaScript 给页面添加动态效果</li>
+<li>引入方式：三种</li>
+</ol>
+<ul>
+<li>内联： 在标签的事件中添加js代码</li>
+<li>内部： 在head标签里面添加script标签 </li>
+<li>外部： 在单独的js文件中写js代码 通过script标签的src属性引入</li>
+</ul>
+<ol start="3">
+<li>数据类型：</li>
+</ol>
+<ul>
+<li>字符串string</li>
+<li>数值number</li>
+<li>布尔值boolean</li>
+<li>对象类型object     特殊值null</li>
+<li>未定义类型undefined</li>
+</ul>
+<ol start="4">
+<li>变量声明和赋值</li>
+</ol>
+<ul>
+<li>js属于弱类型的语言 ，声明变量时不需要指定类型都使用var </li>
+</ul>
+<ol start="5">
+<li>数据类型间的隐式转换 </li>
+</ol>
+<ul>
+<li>字符串： 转数值（能转直接转，转不了转成NaN），转布尔值（””转false其它转true）</li>
+<li>数值： 转字符串（直接转） 转布尔值（0和NaN转false 其它true）</li>
+<li>布尔值：转字符串（直接转） 转数值（true转1  false转0）</li>
+<li>null：转字符串（直接转）转布尔值false 转数值0</li>
+<li>undefined：转字符串（直接转） 转布尔值 false  转数值NaN</li>
+</ul>
+<ol start="6">
+<li>运算符 + - * /  == ===<ol>
+<li>==先统一类型再比较值   ===先比较类型再比较值</li>
+<li>除法会自动转换整数和小数</li>
+<li>typeof    typeof 66+6 =”number6”</li>
+</ol>
+</li>
+<li>语句 if else if  while   do while  for  switch  case<ol>
+<li>if和while括号里面的内容如果不是布尔值会自动隐式转换成布尔值</li>
+<li>for循环中int i改成var i 不支持foreach</li>
+</ol>
+</li>
+<li>方法声明<ol>
+<li>function 方法名（参数列表）{方法体}</li>
+<li>var 方法名 = function(参数列表){方法体}</li>
+<li>var 方法名 = new Function（”参数1”,”参数2”,”方法体”);</li>
+</ol>
+</li>
+<li>字符串相关<ol>
+<li>转数值  parseInt   parseFloat   Number</li>
+<li>创建字符串 var str = “abc”;  var str = new String(“abc”);</li>
+<li>str.indexOf(“a”)  str.lastIndexOf(“a”)</li>
+<li>str.toUpperCase()   str.toLowerCase();</li>
+<li>str.replace(old,new);</li>
+<li>var arr = str.split(“,”); </li>
+</ol>
+</li>
+<li>数组相关<ol>
+<li>var arr = [1,2,3];  var arr = new Array();</li>
+<li>arr.push();    </li>
+<li>arr.length=3;</li>
+<li>取值和java一样</li>
+<li>反转 arr.reverse();</li>
+<li>排序 arr.sort(mysort)<br> function mysort(a,b){ return a-b/b-a;}</li>
+</ol>
+</li>
+<li>日期相关<ol>
+<li>创建客户端日期对象<br> var d = new Date();</li>
+<li>把字符串时间转成日期对象<br> var d  = new Date(“2018/12/6 09:17:33”);</li>
+<li>获取和设置时间戳<br> d.getTime()   d.setTime(1000);</li>
+<li>获取时间分量<br> d.getFullYear();<br> d.getMonth();<br> d.getDate();<br> d.getHours();<br> d.getMinutes();<br> d.getSeconds();<br> d.getDay();</li>
+<li>获取年月日    获取时分秒<br> d.toLocaledDateString();<br> d.toLocaledTimeString();</li>
+</ol>
+</li>
+<li>正则表达式<br>. 任意字符除了换行<br>\w 任意数字字母下划线<br>\d 任意数字<br>\s 任意空白<br>^ 开头<br>$ 结尾</li>
+</ol>
+<ul>
+<li>var reg = /规则/模式;</li>
+<li>var reg = new RegExp(规则,?模式);</li>
+<li>查找  reg.exec(str);</li>
+<li>校验  reg.test(str);</li>
+<li>字符串查找 var arr = str.match(reg);</li>
+<li>字符串的查找替换  str.replace(reg,new);</li>
+</ul>
+<ol start="13">
+<li>和页面相关的内容<ol>
+<li>通过id查找元素对象<br> var div = document.getElementById(“d1”);</li>
+<li>获取和设置文本框的文本内容<br> input.value=”abc”;</li>
+<li>修改或添加元素的html内容<br> div.innerHTML+=”<h1>abc</h1>“;</li>
+<li>修改元素的class值<br> div.className=”abc”;</li>
+</ol>
+</li>
+</ol>
+<p>####事件取消</p>
+<ul>
+<li><p>在事件中执行return false; 则可以把当前事件取消掉</p>
+</li>
+<li><p>表单提交事件： onsubmit</p>
+</li>
+<li><p>元素隐藏显示<br>  visibility=hidden/visible</p>
+</li>
+</ul>
+<p>###JavaScript中的自定义对象</p>
+<ul>
+<li>自定义对象两种方式：</li>
+</ul>
+<ol>
+<li>通过声明方法的方式创建对象<br> function Person(name,age){<pre><code>//声明属性并赋值
+this.name=name;
+this.age=age;
+//声明方法
+this.run=function(){
+    alert(&quot;name:&quot;+name+&quot;age:&quot;+age);
+}
+</code></pre> }<br> //创建person对象<br> var p = new Person(“关羽”,20);<br> p.run();</li>
+<li><p>通过声明变量的形式创建对象</p>
+<p> /<em> 第二种创建对象的方式 </em>/<br> var p2 = {</p>
+<pre><code>&quot;name&quot;:&quot;曹操&quot;,
+&quot;age&quot;:18,
+&quot;run&quot;:function(){
+    alert(&quot;name&quot;+this.name
+            +&quot; age:&quot;+this.age);
+}
+</code></pre><p> }<br> //调用方法<br> p2.run();</p>
+</li>
+</ol>
+<p>###DHTML</p>
+<ul>
+<li>Dynamic（动态）HTML， 并不是新的技术，是把html+css+JavaScript 一起实现出来的页面称为DHTML页面 </li>
+<li>DHTML内容包括 BOM和DOM </li>
+<li>BOM Browser（浏览器）Object（对象）Model（模型） 浏览器对象模型，包括和浏览器相关的内容</li>
+<li>DOM Document（文档）Object（对象） Model（模型）文档对象模型，包括和页面相关的内容<br>####BOM相关</li>
+<li>window对象是内置对象，window对象内部的属性和方法称为全局属性和全局方法，调用时可以省略window.<br>  举例：     window.alert(“xxx”);<pre><code>isNaN()    parseInt  parseFloat   Number()
+</code></pre></li>
+<li>window里面常用的属性：</li>
+</ul>
+<ol>
+<li>history（历史）<br> history.length  历史页面数量<br> history.back()  返回上一页面<br> history.forward() 前往下一页面<br> history.go(num) 1前往下一页面 0代表刷新 -1返回上一页面 -2返回上两个页面</li>
+<li>location（位置）<br> location.href   获取和修改浏览器访问的地址<br> location.reload()  重新加载</li>
+<li>screen （屏幕）<br> screen.width/height 获得屏幕的分辨率<br> screen.availWidth/availHeight 获得屏幕可用宽高</li>
+<li>navigator （导航、帮助）<br> navigator.userAgent(得到浏览器的版本信息)</li>
+</ol>
+<ul>
+<li>window中的一些常用方法</li>
+</ul>
+<ol>
+<li>isNaN() 判断变量是否是NaN</li>
+<li>parseInt() parseFloat() 把字符串转成数值</li>
+<li>弹出框： alert();</li>
+<li>确认框： confirm();</li>
+<li>弹出文本框： prompt();</li>
+</ol>
+<ul>
+<li>window相关的事件</li>
+</ul>
+<ol>
+<li>点击事件  onclick</li>
+<li>页面加载完成事件 onload</li>
+<li>获取焦点事件 onfocus</li>
+<li>失去焦点事件 onblur</li>
+</ol>
+<p>####eval()</p>
+<ul>
+<li>可以将字符串以js代码的形式执行<br>eval(“alert(‘xxx’)”);<br>alert(“xxx”);</li>
+</ul>
+<p>####代码介绍<br>demo01 9宫格作业<br>demo02 登录校验 高级版<br>demo03 自定义对象 第一种方式<br>demo04 自定对象 第二种方式<br>demo05 通过location.href 实现页面跳转练习<br>demo06 window的四个事件<br>demo07 相对高级版计算器</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tarecode/tags/js/" rel="tag"># js</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/tarecode/2019/01/08/mysql03/" rel="next" title="mysql03">
+                <i class="fa fa-chevron-left"></i> mysql03
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/tarecode/2019/01/08/mysql06/" rel="prev" title="mysql06">
+                mysql06 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">懒人的我</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/tarecode/archives/">
+              
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/tarecode/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tarecode/tags/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScript（JS）"><span class="nav-number">1.</span> <span class="nav-text">JavaScript（JS）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是Java-Script"><span class="nav-number">1.1.</span> <span class="nav-text">什么是Java Script</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JavaScript-Hello-World！"><span class="nav-number">1.2.</span> <span class="nav-text">JavaScript Hello World！</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JS-有3种嵌入方式"><span class="nav-number">1.3.</span> <span class="nav-text">JS 有3种嵌入方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JS-中声明变量"><span class="nav-number">1.4.</span> <span class="nav-text">JS 中声明变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#检查变量中数据的类型"><span class="nav-number">1.5.</span> <span class="nav-text">检查变量中数据的类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JS-中的数据类型"><span class="nav-number">1.6.</span> <span class="nav-text">JS 中的数据类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JS-内置对象"><span class="nav-number">1.7.</span> <span class="nav-text">JS 内置对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#number"><span class="nav-number">1.7.1.</span> <span class="nav-text">number</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#string"><span class="nav-number">1.7.2.</span> <span class="nav-text">string</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#boolean"><span class="nav-number">1.7.3.</span> <span class="nav-text">boolean</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Date"><span class="nav-number">1.7.4.</span> <span class="nav-text">Date</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Array"><span class="nav-number">1.7.5.</span> <span class="nav-text">Array</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特殊值"><span class="nav-number">1.7.6.</span> <span class="nav-text">特殊值</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自动类型转换（隐式类型转换）"><span class="nav-number">1.8.</span> <span class="nav-text">自动类型转换（隐式类型转换）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#运算符"><span class="nav-number">1.8.1.</span> <span class="nav-text">运算符</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">abc</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">懒人的我</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">37.6k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/tarecode/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/tarecode/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/tarecode/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/tarecode/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/tarecode/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
