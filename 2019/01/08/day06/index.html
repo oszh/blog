@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/tarecode/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/tarecode/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/tarecode/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/tarecode/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/tarecode/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/tarecode/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/tarecode/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1.比较转发与重定向(1)浏览器地址栏的地址有无变化?转发之后，浏览器地址栏的地址不变，重定向会变。 (2)目的地(地址)有无限制?转发有限制(要求属于同一个应用)，重定向地址无任何限制。 (3)能否共享request对象?转发可以，重定向不行。 注:     当容器收到请求之后，会立即创建request对象和response 对象，当容器发送响应之后，会立即销毁这两个对象。也就是， reques">
+<meta property="og:type" content="article">
+<meta property="og:title" content="比较转发与重定向">
+<meta property="og:url" content="https://oszh.github.io/2019/01/08/day06/index.html">
+<meta property="og:site_name" content="oszh">
+<meta property="og:description" content="1.比较转发与重定向(1)浏览器地址栏的地址有无变化?转发之后，浏览器地址栏的地址不变，重定向会变。 (2)目的地(地址)有无限制?转发有限制(要求属于同一个应用)，重定向地址无任何限制。 (3)能否共享request对象?转发可以，重定向不行。 注:     当容器收到请求之后，会立即创建request对象和response 对象，当容器发送响应之后，会立即销毁这两个对象。也就是， reques">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://oszh.github.io/2019/01/08/day06/cookie.png">
+<meta property="og:image" content="https://oszh.github.io/2019/01/08/day06/path.png">
+<meta property="og:image" content="https://oszh.github.io/2019/01/08/day06/count.png">
+<meta property="og:updated_time" content="2019-01-08T10:55:51.513Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="比较转发与重定向">
+<meta name="twitter:description" content="1.比较转发与重定向(1)浏览器地址栏的地址有无变化?转发之后，浏览器地址栏的地址不变，重定向会变。 (2)目的地(地址)有无限制?转发有限制(要求属于同一个应用)，重定向地址无任何限制。 (3)能否共享request对象?转发可以，重定向不行。 注:     当容器收到请求之后，会立即创建request对象和response 对象，当容器发送响应之后，会立即销毁这两个对象。也就是， reques">
+<meta name="twitter:image" content="https://oszh.github.io/2019/01/08/day06/cookie.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/tarecode/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://oszh.github.io/2019/01/08/day06/">
+
+
+
+
+
+  <title>比较转发与重定向 | oszh</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/tarecode/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">oszh</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/tarecode/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tarecode/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/tarecode/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/tarecode/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/tarecode/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://oszh.github.io/tarecode/2019/01/08/day06/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="懒人的我">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/tarecode/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="oszh">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">比较转发与重定向</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-08T18:54:37+08:00">
+                2019-01-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  987
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  3
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="1-比较转发与重定向"><a href="#1-比较转发与重定向" class="headerlink" title="1.比较转发与重定向"></a>1.比较转发与重定向</h1><h2 id="1-浏览器地址栏的地址有无变化"><a href="#1-浏览器地址栏的地址有无变化" class="headerlink" title="(1)浏览器地址栏的地址有无变化?"></a>(1)浏览器地址栏的地址有无变化?</h2><p>转发之后，浏览器地址栏的地址不变，重定向会变。</p>
+<h2 id="2-目的地-地址-有无限制"><a href="#2-目的地-地址-有无限制" class="headerlink" title="(2)目的地(地址)有无限制?"></a>(2)目的地(地址)有无限制?</h2><p>转发有限制(要求属于同一个应用)，重定向地址无任何限制。</p>
+<h2 id="3-能否共享request对象"><a href="#3-能否共享request对象" class="headerlink" title="(3)能否共享request对象?"></a>(3)能否共享request对象?</h2><p>转发可以，重定向不行。</p>
+<pre><code>注:
+    当容器收到请求之后，会立即创建request对象和response
+对象，当容器发送响应之后，会立即销毁这两个对象。也就是，
+request和response的生存时间是一次请求和响应期间存在。
+</code></pre><h2 id="4-一件事是否做完"><a href="#4-一件事是否做完" class="headerlink" title="(4)一件事是否做完?"></a>(4)一件事是否做完?</h2><p>转发是一件没有做完，让另外一个web组件继续做；重定向是一件<br>事已经完成，然后再做另外一件独立的事件。</p>
+<h1 id="2-状态管理"><a href="#2-状态管理" class="headerlink" title="2.状态管理"></a>2.状态管理</h1><h2 id="1-什么是状态管理"><a href="#1-什么是状态管理" class="headerlink" title="(1)什么是状态管理?"></a>(1)什么是状态管理?</h2><p>将浏览器与web服务器之间多次交互当做一个整体来处理，并且将多次交互<br>所涉及的数据(即状态)保存下来。</p>
+<h2 id="2-如何进行状态管理"><a href="#2-如何进行状态管理" class="headerlink" title="(2)如何进行状态管理?"></a>(2)如何进行状态管理?</h2><p>a.将状态保存在浏览器端(Cookie)。</p>
+<p>b.将状态保存在服务器端(Session)。</p>
+<h2 id="3-Cookie"><a href="#3-Cookie" class="headerlink" title="(3)Cookie"></a>(3)Cookie</h2><h3 id="1-什么是Cookie"><a href="#1-什么是Cookie" class="headerlink" title="1)什么是Cookie?"></a>1)什么是Cookie?</h3><p>服务器临时保存在浏览器端的少量数据，用于保存用户的状态。</p>
+<pre><code>当浏览器第一次访问服务器，服务器会将少量数据以set-cookie
+消息头的形式发送给浏览器，浏览器会将这些数据临时保存下来。
+当浏览器再次访问服务器时，会将这些数据以cookie消息头的形式
+发送给服务器。
+</code></pre><p><img src="cookie.png" alt=""></p>
+<h3 id="2-如何添加Cookie"><a href="#2-如何添加Cookie" class="headerlink" title="2)如何添加Cookie?"></a>2)如何添加Cookie?</h3><pre><code>Cookie c = new Cookie(String name,String value);
+注:
+    Cookie必须有一个名字，值必须是一个字符串。
+response.addCookie(c);
+</code></pre><h3 id="3-如何读取浏览器发送过来的Cookie"><a href="#3-如何读取浏览器发送过来的Cookie" class="headerlink" title="3)如何读取浏览器发送过来的Cookie?"></a>3)如何读取浏览器发送过来的Cookie?</h3><pre><code>Cookie[] request.getCookies();
+注:
+    该方法的作用是用来获得浏览器发送过来的所有cookie,
+    一个Cookie对象封装了cookie的所有信息。
+    该方法有可能返回null。
+String cookie.getName();
+String cookie.getValue();
+</code></pre><h3 id="4-Cookie的生存时间"><a href="#4-Cookie的生存时间" class="headerlink" title="4)Cookie的生存时间"></a>4)Cookie的生存时间</h3><p>默认情况下，浏览器会将cookie保存在内存里面。</p>
+<pre><code>注：浏览器关闭，cookie会被删除。
+</code></pre><p>可以调用setMaxAge方法来设置Cookie的生存时间。</p>
+<pre><code>cookie.setMaxAge(int seconds);
+注:
+    单位是秒。比如要保存一个月 
+        cookie.setMaxAge(30 *24 * 60 * 60);
+    值 &gt;0:
+        浏览器会将cookie保存在硬盘上，超过指定时间，cookie
+        会被删除。    
+    值 &lt;0:
+        默认值(浏览器会将cookie保存在内存里面)
+    值 =0:
+        立即删除cookie。
+        比如，要删除一个名称为&quot;username&quot;的cookie:
+        Cookie c = new Cookie(&quot;username&quot;,&quot;&quot;);
+        c.setMaxAge(0);
+        response.addCookie(c);
+</code></pre><h3 id="5-Cookie的编码问题"><a href="#5-Cookie的编码问题" class="headerlink" title="5)Cookie的编码问题"></a>5)Cookie的编码问题</h3><p>a.什么是Cookie的编码问题?</p>
+<pre><code>Cookie只能存放合法的ascii字符，如果是非asicc字符(比如中文),
+需要转换成合法的ascii字符的形式。
+</code></pre><p>b.如何处理?</p>
+<pre><code>String URLEncoder.encode(String str,String charset);
+String URLDecoder.decode(String str,String charset);
+</code></pre><p>c.建议，在添加cookie时，统一使用encode方法来编码。</p>
+<h3 id="6-Cookie的路径问题"><a href="#6-Cookie的路径问题" class="headerlink" title="6)Cookie的路径问题"></a>6)Cookie的路径问题</h3><p>a.什么是Cookie的路径问题?</p>
+<pre><code>浏览器在向服务器发请求时，会比较请求路径是否与cookie的
+路径匹配，只有匹配的cookie才会被发送。
+</code></pre><p>b.Cookie的默认路径</p>
+<pre><code>默认等于添加该cookie的web组件的路径，比如
+/day06/biz01/addCookie.jsp添加了一个cookie,则该cookie
+的默认路径是&quot;/day06/biz01&quot;。
+</code></pre><p>c.匹配规则</p>
+<pre><code>请求路径要么等于cookie的路径，要么是其子路径，符合这个条件的
+cookie会被发送。
+比如  cookie的路径是&quot;/day06/biz01&quot;
+    /day06/findCookie1.jsp   no
+    /day06/biz01/findCookie2.jsp   yes
+    /day06/biz01/aaa/findCookie3.jsp  yes
+</code></pre><p><img src="path.png" alt=""></p>
+<p>d.修改cookie的路径</p>
+<pre><code>cookie.setPath(String path);
+</code></pre><h1 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h1><h2 id="写一个servlet-该servlet先查看有没有一个名称为”cart”的cookie"><a href="#写一个servlet-该servlet先查看有没有一个名称为”cart”的cookie" class="headerlink" title="写一个servlet,该servlet先查看有没有一个名称为”cart”的cookie,"></a>写一个servlet,该servlet先查看有没有一个名称为”cart”的cookie,</h2><p>如果有，则显示该cookie的值；如果没有，则添加。</p>
+<h2 id="写一个servlet-统计用户访问该servlet的次数。"><a href="#写一个servlet-统计用户访问该servlet的次数。" class="headerlink" title="写一个servlet,统计用户访问该servlet的次数。"></a>写一个servlet,统计用户访问该servlet的次数。</h2><p><img src="count.png" alt=""></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/tarecode/2019/01/08/day05/" rel="next" title="转发">
+                <i class="fa fa-chevron-left"></i> 转发
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/tarecode/2019/01/08/day07/" rel="prev" title="Session与Cookie">
+                Session与Cookie <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">懒人的我</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/tarecode/archives/">
+              
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tarecode/tags/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-比较转发与重定向"><span class="nav-number">1.</span> <span class="nav-text">1.比较转发与重定向</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-浏览器地址栏的地址有无变化"><span class="nav-number">1.1.</span> <span class="nav-text">(1)浏览器地址栏的地址有无变化?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-目的地-地址-有无限制"><span class="nav-number">1.2.</span> <span class="nav-text">(2)目的地(地址)有无限制?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-能否共享request对象"><span class="nav-number">1.3.</span> <span class="nav-text">(3)能否共享request对象?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-一件事是否做完"><span class="nav-number">1.4.</span> <span class="nav-text">(4)一件事是否做完?</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-状态管理"><span class="nav-number">2.</span> <span class="nav-text">2.状态管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-什么是状态管理"><span class="nav-number">2.1.</span> <span class="nav-text">(1)什么是状态管理?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-如何进行状态管理"><span class="nav-number">2.2.</span> <span class="nav-text">(2)如何进行状态管理?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Cookie"><span class="nav-number">2.3.</span> <span class="nav-text">(3)Cookie</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-什么是Cookie"><span class="nav-number">2.3.1.</span> <span class="nav-text">1)什么是Cookie?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-如何添加Cookie"><span class="nav-number">2.3.2.</span> <span class="nav-text">2)如何添加Cookie?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-如何读取浏览器发送过来的Cookie"><span class="nav-number">2.3.3.</span> <span class="nav-text">3)如何读取浏览器发送过来的Cookie?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-Cookie的生存时间"><span class="nav-number">2.3.4.</span> <span class="nav-text">4)Cookie的生存时间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-Cookie的编码问题"><span class="nav-number">2.3.5.</span> <span class="nav-text">5)Cookie的编码问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-Cookie的路径问题"><span class="nav-number">2.3.6.</span> <span class="nav-text">6)Cookie的路径问题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#练习"><span class="nav-number">3.</span> <span class="nav-text">练习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#写一个servlet-该servlet先查看有没有一个名称为”cart”的cookie"><span class="nav-number">3.1.</span> <span class="nav-text">写一个servlet,该servlet先查看有没有一个名称为”cart”的cookie,</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#写一个servlet-统计用户访问该servlet的次数。"><span class="nav-number">3.2.</span> <span class="nav-text">写一个servlet,统计用户访问该servlet的次数。</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">懒人的我</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">7.6k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/tarecode/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/tarecode/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/tarecode/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/tarecode/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/tarecode/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

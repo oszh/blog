@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/tarecode/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/tarecode/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/tarecode/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/tarecode/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/tarecode/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/tarecode/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/tarecode/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1.过滤器(1)什么是过滤器?Servlet规范当中定义的一种特殊的组件，用来拦截Servlet容器调用的过程。、 注：     容器收到请求之后，会先调用过滤器，再调用后续的组件，比如 调用servlet。  (2)如何写一个过滤器?step1. 写一个java类，实现Filter接口。 step2. 在doFilter方法当中，实现拦截处理逻辑。 public class CommentFil">
+<meta property="og:type" content="article">
+<meta property="og:title" content="过滤器">
+<meta property="og:url" content="https://oszh.github.io/2019/01/08/day10/index.html">
+<meta property="og:site_name" content="oszh">
+<meta property="og:description" content="1.过滤器(1)什么是过滤器?Servlet规范当中定义的一种特殊的组件，用来拦截Servlet容器调用的过程。、 注：     容器收到请求之后，会先调用过滤器，再调用后续的组件，比如 调用servlet。  (2)如何写一个过滤器?step1. 写一个java类，实现Filter接口。 step2. 在doFilter方法当中，实现拦截处理逻辑。 public class CommentFil">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://oszh.github.io/2019/01/08/day10/filter.png">
+<meta property="og:image" content="https://oszh.github.io/2019/01/08/day10/listener.png">
+<meta property="og:updated_time" content="2019-01-08T11:06:07.711Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="过滤器">
+<meta name="twitter:description" content="1.过滤器(1)什么是过滤器?Servlet规范当中定义的一种特殊的组件，用来拦截Servlet容器调用的过程。、 注：     容器收到请求之后，会先调用过滤器，再调用后续的组件，比如 调用servlet。  (2)如何写一个过滤器?step1. 写一个java类，实现Filter接口。 step2. 在doFilter方法当中，实现拦截处理逻辑。 public class CommentFil">
+<meta name="twitter:image" content="https://oszh.github.io/2019/01/08/day10/filter.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/tarecode/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://oszh.github.io/2019/01/08/day10/">
+
+
+
+
+
+  <title>过滤器 | oszh</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/tarecode/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">oszh</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/tarecode/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tarecode/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/tarecode/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/tarecode/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/tarecode/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://oszh.github.io/tarecode/2019/01/08/day10/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="懒人的我">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/tarecode/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="oszh">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">过滤器</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-08T19:03:51+08:00">
+                2019-01-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.1k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  4
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="1-过滤器"><a href="#1-过滤器" class="headerlink" title="1.过滤器"></a>1.过滤器</h1><h2 id="1-什么是过滤器"><a href="#1-什么是过滤器" class="headerlink" title="(1)什么是过滤器?"></a>(1)什么是过滤器?</h2><p>Servlet规范当中定义的一种特殊的组件，用来拦截Servlet容器调用的过程。、</p>
+<pre><code>注：
+    容器收到请求之后，会先调用过滤器，再调用后续的组件，比如
+调用servlet。
+</code></pre><p><img src="filter.png" alt=""></p>
+<h2 id="2-如何写一个过滤器"><a href="#2-如何写一个过滤器" class="headerlink" title="(2)如何写一个过滤器?"></a>(2)如何写一个过滤器?</h2><p>step1. 写一个java类，实现Filter接口。</p>
+<p>step2. 在doFilter方法当中，实现拦截处理逻辑。</p>
+<pre><code>public class CommentFilter implements Filter{
+/**
+ * 容器启动之后，会立即创建过滤器实例。
+ * 注：
+ *      只会创建一个实例。
+ */
+public CommentFilter(){
+    System.out.println(
+            &quot;CommentFilter&apos;s constructor&quot;);
+}
+/**
+ * 容器在删除过滤器实例之前，会调用
+ * destroy方法(只会调用一次)。
+ */
+public void destroy() {
+    System.out.println(
+            &quot;CommentFilter&apos;s destroy&quot;);
+}
+/**
+ * 容器收到请求之后，会调用过滤器的doFilter方法
+ * (类似于Servlet的service方法)。
+ * ServletRequest是HttpServletRequest的父接口，
+ * ServletResponse是HttpServletResponse的父接口。
+ * FilterChain(过滤器链)：如果调用了该
+ * 对象的doFilter方法，容器会继续向后调用,
+ * 否则，中断请求，返回处理结果。
+ */
+public void doFilter(
+        ServletRequest arg0,
+        ServletResponse arg1, 
+        FilterChain arg2)
+        throws IOException, ServletException {
+
+    System.out.println(
+            &quot;CommentFilter&apos;s doFilter begin...&quot;);
+    /*
+     * (了解)因为sun的过度设计，这儿需要做强制
+     * 转换(我们经常用的是子接口中的方法)。
+     */
+    HttpServletRequest request = 
+            (HttpServletRequest)arg0;
+    HttpServletResponse response = 
+            (HttpServletResponse)arg1;
+
+    request.setCharacterEncoding(&quot;utf-8&quot;);
+    response.setContentType(
+            &quot;text/html;charset=utf-8&quot;);
+
+    String content = 
+            request.getParameter(&quot;content&quot;);
+
+    if(content.indexOf(&quot;狗&quot;) != -1){
+        //有敏感字，中断请求，返回处理结果
+        response.getWriter()
+        .println(&quot;评论包含了敏感字&quot;);
+    }else{
+        //没有敏感字，则继续向后调用
+        arg2.doFilter(request, response);
+    }
+    System.out.println(
+            &quot;CommentFilter&apos;s doFilter end.&quot;);
+}
+/**
+ * 容器在创建好过滤器实例之后，会调用该实例的
+ * init方法(只会调用一次)，容器会将FilterConfig
+ * 对象作为参数传递过来。
+ * 可以利用FilterConfig来读取初始化参数,
+ * 也可以用来获得ServletContext。
+ * 注:
+ *     ServletConfig也可以获得ServletContext。
+ */
+public void init(FilterConfig arg0) throws ServletException {
+    System.out.println(
+            &quot;CommenetFilter&apos;s init&quot;);
+    }
+}
+</code></pre><p>step3. 配置过滤器。(web.xml)</p>
+<pre><code>&lt;filter&gt;
+      &lt;filter-name&gt;commentFilter&lt;/filter-name&gt;
+      &lt;filter-class&gt;web.CommentFilter&lt;/filter-class&gt;
+  &lt;/filter&gt;
+  &lt;filter-mapping&gt;
+      &lt;filter-name&gt;commentFilter&lt;/filter-name&gt;
+      &lt;url-pattern&gt;/comment&lt;/url-pattern&gt;
+  &lt;/filter-mapping&gt;
+</code></pre><h2 id="3-过滤器的优先级"><a href="#3-过滤器的优先级" class="headerlink" title="(3)过滤器的优先级"></a>(3)过滤器的优先级</h2><p>当有多个过滤器都满足拦截要求，则容器依据<filter-mapping><br>配置的先后顺序来执行。</filter-mapping></p>
+<h2 id="4-过滤器的初始化参数"><a href="#4-过滤器的初始化参数" class="headerlink" title="(4)过滤器的初始化参数"></a>(4)过滤器的初始化参数</h2><p>step1.配置初始化参数</p>
+<pre><code>&lt;init-param&gt;
+      &lt;param-name&gt;illegal&lt;/param-name&gt;
+      &lt;param-value&gt;猫&lt;/param-value&gt;
+  &lt;/init-param&gt;
+</code></pre><p>step2. 读取初始化参数值</p>
+<pre><code>String illegal = 
+        config.getInitParameter(&quot;illegal&quot;);
+</code></pre><h2 id="5-过滤器的优点"><a href="#5-过滤器的优点" class="headerlink" title="(5)过滤器的优点"></a>(5)过滤器的优点</h2><p>a.可以在不修改原有代码的基础上，为应用添加新的功能。</p>
+<p>b.可以将多个组件相同的功能集中写在一个过滤器里面，方便<br>代码的维护。</p>
+<h1 id="2-监听器"><a href="#2-监听器" class="headerlink" title="2.监听器"></a>2.监听器</h1><h2 id="1-什么是监听器"><a href="#1-什么是监听器" class="headerlink" title="(1)什么是监听器?"></a>(1)什么是监听器?</h2><p>servlet规范当中定义的一种特殊的组件，用于监听servlet容器产生的<br>事件并进行相应的处理。</p>
+<pre><code>注：容器主要产生两大类事件，分别是:
+1)生命周期相关的事件:
+        容器创建了或者销毁了request,session,servlet上下文
+        时产生的事件。
+2)绑订数据相关的事件:
+        调用了request,session,servlet上下文的setAttribute,
+        removeAttribute方法时产生的事件。
+</code></pre><h2 id="2-如何写一个监听器"><a href="#2-如何写一个监听器" class="headerlink" title="(2)如何写一个监听器?"></a>(2)如何写一个监听器?</h2><p>step1. 写一个java类，实现监听器接口。</p>
+<pre><code>注：依据监听的事件类型来选择实现相应的接口。
+比如，要监听session对象的创建和销毁，实现HttpSessionListener
+接口。
+</code></pre><p>step2. 在监听器接口方法当中，实现监听处理逻辑。</p>
+<p>step3. 配置监听器。(web.xml)    </p>
+<h2 id="3-统计在线人数"><a href="#3-统计在线人数" class="headerlink" title="(3)统计在线人数"></a>(3)统计在线人数</h2><p><img src="listener.png" alt=""></p>
+<h2 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h2><p>写一个监听器，容器启动之后，将用户表(t_user)中的所有用户信息<br>查询出来,然后将用户信息绑订到Servlet上下文上。</p>
+<p>step1. 将UserDAO相关的代码及配置文件拷贝过来。</p>
+<p>step2. 写一个java类:<br>    public class CacheListener<br>        implements ServletContextListener{</p>
+<pre><code>    public void contextInitialized(ServletContextEvent sce){
+        UserDAO dao = new UserDAO();
+        List&lt;User&gt; users = dao.findAll();
+        ServletContext sctx = 
+                sce.getServletContext();
+        sctx.setAttribute(&quot;users&quot;,users);    
+    }
+
+}
+</code></pre><p>step3.配置监听器。</p>
+<h1 id="练习-1"><a href="#练习-1" class="headerlink" title="练习"></a>练习</h1><p>写一个过滤器，检查评论的字数，如果超过10个字，则提示<br>“评论字数过多”。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/tarecode/2019/01/08/day09/" rel="next" title="利用Servlet上下文读取全局的初始化参数">
+                <i class="fa fa-chevron-left"></i> 利用Servlet上下文读取全局的初始化参数
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">懒人的我</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/tarecode/archives/">
+              
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tarecode/tags/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-过滤器"><span class="nav-number">1.</span> <span class="nav-text">1.过滤器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-什么是过滤器"><span class="nav-number">1.1.</span> <span class="nav-text">(1)什么是过滤器?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-如何写一个过滤器"><span class="nav-number">1.2.</span> <span class="nav-text">(2)如何写一个过滤器?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-过滤器的优先级"><span class="nav-number">1.3.</span> <span class="nav-text">(3)过滤器的优先级</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-过滤器的初始化参数"><span class="nav-number">1.4.</span> <span class="nav-text">(4)过滤器的初始化参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-过滤器的优点"><span class="nav-number">1.5.</span> <span class="nav-text">(5)过滤器的优点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-监听器"><span class="nav-number">2.</span> <span class="nav-text">2.监听器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-什么是监听器"><span class="nav-number">2.1.</span> <span class="nav-text">(1)什么是监听器?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-如何写一个监听器"><span class="nav-number">2.2.</span> <span class="nav-text">(2)如何写一个监听器?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-统计在线人数"><span class="nav-number">2.3.</span> <span class="nav-text">(3)统计在线人数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#练习"><span class="nav-number">2.4.</span> <span class="nav-text">练习</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#练习-1"><span class="nav-number">3.</span> <span class="nav-text">练习</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">懒人的我</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">7.6k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/tarecode/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/tarecode/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/tarecode/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/tarecode/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/tarecode/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

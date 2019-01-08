@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/tarecode/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/tarecode/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/tarecode/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/tarecode/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/tarecode/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/tarecode/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/tarecode/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="servlet,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1.什么是Servlet?sun公司制订的一种用来扩展web服务器功能的组件规范。 (1)用来扩展web服务器功能：早期很多web服务器(比如apache,iis等)只能够处理静态资源的请求 (需要事先将html文档准备好)，不能够处理动态资源的请求(即需要通过 计算，生成html),所以需要扩展。 注：     早期使用CGI(Common Gateway Interface通用网关接口)程序来">
+<meta name="keywords" content="servlet">
+<meta property="og:type" content="article">
+<meta property="og:title" content="什么是Servlet">
+<meta property="og:url" content="https://oszh.github.io/2019/01/08/day01/index.html">
+<meta property="og:site_name" content="oszh">
+<meta property="og:description" content="1.什么是Servlet?sun公司制订的一种用来扩展web服务器功能的组件规范。 (1)用来扩展web服务器功能：早期很多web服务器(比如apache,iis等)只能够处理静态资源的请求 (需要事先将html文档准备好)，不能够处理动态资源的请求(即需要通过 计算，生成html),所以需要扩展。 注：     早期使用CGI(Common Gateway Interface通用网关接口)程序来">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://oszh.github.io/2019/01/08/day01/servlet.png">
+<meta property="og:image" content="https://oszh.github.io/2019/01/08/day01/servlet02.png">
+<meta property="og:image" content="https://oszh.github.io/2019/01/08/day01/a1.png">
+<meta property="og:image" content="https://oszh.github.io/2019/01/08/day01/a2.png">
+<meta property="og:image" content="https://oszh.github.io/2019/01/08/day01/a3.png">
+<meta property="og:image" content="https://oszh.github.io/2019/01/08/day01/a4.png">
+<meta property="og:image" content="https://oszh.github.io/2019/01/08/day01/a5.png">
+<meta property="og:updated_time" content="2019-01-08T10:40:38.056Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="什么是Servlet">
+<meta name="twitter:description" content="1.什么是Servlet?sun公司制订的一种用来扩展web服务器功能的组件规范。 (1)用来扩展web服务器功能：早期很多web服务器(比如apache,iis等)只能够处理静态资源的请求 (需要事先将html文档准备好)，不能够处理动态资源的请求(即需要通过 计算，生成html),所以需要扩展。 注：     早期使用CGI(Common Gateway Interface通用网关接口)程序来">
+<meta name="twitter:image" content="https://oszh.github.io/2019/01/08/day01/servlet.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/tarecode/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://oszh.github.io/2019/01/08/day01/">
+
+
+
+
+
+  <title>什么是Servlet | oszh</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/tarecode/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">oszh</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/tarecode/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tarecode/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/tarecode/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/tarecode/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/tarecode/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://oszh.github.io/tarecode/2019/01/08/day01/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="懒人的我">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/tarecode/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="oszh">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">什么是Servlet</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-08T18:40:38+08:00">
+                2019-01-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.1k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  4
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="1-什么是Servlet"><a href="#1-什么是Servlet" class="headerlink" title="1.什么是Servlet?"></a>1.什么是Servlet?</h1><p>sun公司制订的一种用来扩展web服务器功能的组件规范。</p>
+<h2 id="1-用来扩展web服务器功能："><a href="#1-用来扩展web服务器功能：" class="headerlink" title="(1)用来扩展web服务器功能："></a>(1)用来扩展web服务器功能：</h2><pre><code>早期很多web服务器(比如apache,iis等)只能够处理静态资源的请求
+(需要事先将html文档准备好)，不能够处理动态资源的请求(即需要通过
+计算，生成html),所以需要扩展。
+注：
+    早期使用CGI(Common Gateway Interface通用网关接口)程序来扩展
+    ,因为CGI开发繁琐、并且不好移值，所以用得少了。
+    可以使用Servlet来扩展web服务器功能。
+</code></pre><h2 id="2-组件规范"><a href="#2-组件规范" class="headerlink" title="(2)组件规范:"></a>(2)组件规范:</h2><pre><code>a.什么是组件?
+  符合规范、实现部分功能，并且需要部署到相应的容器当中才能运行的
+软件模块。
+  Servlet就是一个符合Servlet规范的组件，需要部署到Servlet容器
+当中才能运行。
+b.什么是容器?
+  符合规范，提供组件的运行环境的程序。
+ Servlet容器(比如Tomcat雄猫)为Servlet提供运行环境(主要是
+提供网络相关的服务)。
+</code></pre><p><img src="servlet.png" alt=""></p>
+<h1 id="2-如何写一个Servlet"><a href="#2-如何写一个Servlet" class="headerlink" title="2.如何写一个Servlet?"></a>2.如何写一个Servlet?</h1><p>step1.  写一个java类，实现Servlet接口或者继承HttpServlet类。</p>
+<pre><code>注: 一般继承HttpServlet类更方便。 
+</code></pre><p>step2.　编译。  .java—&gt;.class</p>
+<p>step3. 打包。</p>
+<pre><code>建立一个具有如下结构的目录结构
+    appname (应用名，自定义)
+        WEB-INF 
+            classes (放.class文件)
+            lib (放.jar文件,可选)
+            web.xml(部署描述文件,servlet3.0以上的版本可以不要)
+</code></pre><p>step4.部署。</p>
+<pre><code>将step3创建好的整个文件夹拷贝到容器上。
+注：
+    也可以将step3创建好的整个文件夹使用jar命令压缩成&quot;.war&quot;为后缀
+    的文件，然后再拷贝。    
+</code></pre><p>step5.启动容器，访问Servlet。</p>
+<pre><code>打开浏览器，在地址栏输入
+http://ip:port/appname/url-pattern
+注:
+        url-pattern是一个字符串，在web.xml中设置。
+</code></pre><h1 id="3-安装Tomcat并且与Eclipse集成。"><a href="#3-安装Tomcat并且与Eclipse集成。" class="headerlink" title="3.安装Tomcat并且与Eclipse集成。"></a>3.安装Tomcat并且与Eclipse集成。</h1><p>参考<br>    <a href="http://doc.tedu.cn/tomcat/index.html" target="_blank" rel="noopener">http://doc.tedu.cn/tomcat/index.html</a></p>
+<h1 id="4-Servlet是如何运行的。"><a href="#4-Servlet是如何运行的。" class="headerlink" title="4.Servlet是如何运行的。"></a>4.Servlet是如何运行的。</h1><p>比如，在浏览器地址栏输入<a href="http://ip:port/day01/hello?number=1" target="_blank" rel="noopener">http://ip:port/day01/hello?number=1</a></p>
+<p><img src="servlet02.png" alt=""></p>
+<p>step1. 浏览器依据ip和port，建立连接。</p>
+<p>step2. 浏览器创建请求数据包并发送。</p>
+<p>step3. 服务器解析请求数据包，并且将解析到的数据存放到request<br>对象里面，同时，创建response对象。</p>
+<p>step4. 服务器创建Servlet对象，然后调用该对象的service方法。</p>
+<pre><code>注：
+    服务器会将request和response作为参数传递给service方法。
+</code></pre><p>step5.　服务器从response对象中获取处理结果，然后创建响应数据包并<br>发送。</p>
+<p>step6.浏览器解析响应数据包，然后依据解析到的数据生成相应的页面。</p>
+<h1 id="5-常见的错误"><a href="#5-常见的错误" class="headerlink" title="5.常见的错误"></a>5.常见的错误</h1><h2 id="1-404"><a href="#1-404" class="headerlink" title="(1)404"></a>(1)404</h2><p>含义:<br>   404是一个状态码，表示服务器依据请求路径找不到对应的资源。</p>
+<p>错误原因:</p>
+<pre><code>a.请求路径写错(没有按照http://ip:port/appname/url-pattern)来
+写请求地址。
+
+b.没有部署该应用或者部署失败。
+</code></pre><h2 id="2-500"><a href="#2-500" class="headerlink" title="(2)500"></a>(2)500</h2><p>含义:<br>    表示服务器处理出错。</p>
+<p>错误原因:<br>    a.没有严格按照规范来写代码。<br>    比如没有继承HttpServlet,或者web.xml写错。</p>
+<pre><code>b.代码不严谨。
+比如，对请求参数值没有做检查就做类型转换。
+</code></pre><h1 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h1><p>##写一个Servlet(比如DateServlet),输出当前的系统日期</p>
+<p><a href="http://ip:port/day01-lab/date" target="_blank" rel="noopener">http://ip:port/day01-lab/date</a><br>返回  2018-12-25</p>
+<h2 id="提示"><a href="#提示" class="headerlink" title="提示"></a>提示</h2><p>step1.创建一个maven工程，注意以下三点(分别如下图所示):</p>
+<p><img src="a1.png" alt=""><br><img src="a2.png" alt=""><br><img src="a3.png" alt=""></p>
+<p>step2.在src/main/java下，添加一个java类(DateServlet),参考代码如下:</p>
+<pre><code>public class DateServlet extends HttpServlet{
+
+@Override
+protected void service(
+        HttpServletRequest request, 
+        HttpServletResponse response) 
+                throws ServletException, 
+                IOException {
+    //获得系统时间
+    Date date = new Date();
+    //创建日期格式化对象
+    SimpleDateFormat sdf = 
+            new SimpleDateFormat(
+                    &quot;yyyy-MM-dd&quot;);
+    //将日期格式化
+    String dateInfo = 
+            sdf.format(date);
+    //设置响应头
+    response.setContentType(&quot;text/html&quot;);
+    PrintWriter out = 
+            response.getWriter();
+    //输出日期
+    out.println(dateInfo);
+    out.close();
+    }
+}
+</code></pre><p>step3.在web.xml中，添加servlet的配置信息，参数配置如下:</p>
+<pre><code>&lt;servlet&gt;
+      &lt;servlet-name&gt;dateServlet&lt;/servlet-name&gt;
+      &lt;servlet-class&gt;web.DateServlet&lt;/servlet-class&gt;
+  &lt;/servlet&gt;
+  &lt;servlet-mapping&gt;
+      &lt;servlet-name&gt;dateServlet&lt;/servlet-name&gt;
+      &lt;url-pattern&gt;/date&lt;/url-pattern&gt;
+  &lt;/servlet-mapping&gt;
+</code></pre><p>step4.运行，步骤如下图所示:</p>
+<p><img src="a4.png" alt=""></p>
+<pre><code>注：
+    eclipse会将servlet编译成.class文件，然后在servlet
+容器上创建符合servlet规范的文件夹，将.class文件添加到
+WEB-INF下。也就是说eclipse会帮我们部署整个应用。
+</code></pre><p>step5.打开浏览器，在地址栏填写访问地址</p>
+<p><img src="a5.png" alt=""></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tarecode/tags/servlet/" rel="tag"># servlet</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/tarecode/2019/01/08/day04/" rel="next" title="重定向">
+                <i class="fa fa-chevron-left"></i> 重定向
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/tarecode/2019/01/08/day02/" rel="prev" title="http协议">
+                http协议 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">懒人的我</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/tarecode/archives/">
+              
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tarecode/tags/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-什么是Servlet"><span class="nav-number">1.</span> <span class="nav-text">1.什么是Servlet?</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-用来扩展web服务器功能："><span class="nav-number">1.1.</span> <span class="nav-text">(1)用来扩展web服务器功能：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-组件规范"><span class="nav-number">1.2.</span> <span class="nav-text">(2)组件规范:</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-如何写一个Servlet"><span class="nav-number">2.</span> <span class="nav-text">2.如何写一个Servlet?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-安装Tomcat并且与Eclipse集成。"><span class="nav-number">3.</span> <span class="nav-text">3.安装Tomcat并且与Eclipse集成。</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-Servlet是如何运行的。"><span class="nav-number">4.</span> <span class="nav-text">4.Servlet是如何运行的。</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-常见的错误"><span class="nav-number">5.</span> <span class="nav-text">5.常见的错误</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-404"><span class="nav-number">5.1.</span> <span class="nav-text">(1)404</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-500"><span class="nav-number">5.2.</span> <span class="nav-text">(2)500</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#练习"><span class="nav-number">6.</span> <span class="nav-text">练习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#提示"><span class="nav-number">6.1.</span> <span class="nav-text">提示</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">懒人的我</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">7.6k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/tarecode/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/tarecode/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/tarecode/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/tarecode/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/tarecode/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
