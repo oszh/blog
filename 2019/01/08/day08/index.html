@@ -89,7 +89,7 @@
 <meta property="og:image" content="https://oszh.github.io/2019/01/08/day08/sc.png">
 <meta property="og:image" content="https://oszh.github.io/2019/01/08/day08/sc2.png">
 <meta property="og:image" content="https://oszh.github.io/2019/01/08/day08/sc3.png">
-<meta property="og:updated_time" content="2019-01-08T11:00:26.301Z">
+<meta property="og:updated_time" content="2019-01-08T14:50:15.778Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="绝对-相对路径">
 <meta name="twitter:description" content="1.路径问题(1)什么是路径问题?&amp;lt;a href=&amp;quot;addUser.jsp&amp;quot;&amp;gt;  &amp;lt;form action=&amp;quot;add&amp;quot;&amp;gt;  response.sendRedirect(&amp;quot;login.jsp&amp;quot;) request.getRequestDispatcher(&amp;quot;listUsers.jsp&amp;quot;) (2)什么">
@@ -327,7 +327,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  677
+                  676
                 </span>
               
 
@@ -376,7 +376,7 @@ request.getRequestDispatcher(&quot;listUsers.jsp&quot;)
     String request.getContextPath();
 </code></pre><h1 id="2-容器如何处理请求资源路径"><a href="#2-容器如何处理请求资源路径" class="headerlink" title="2.容器如何处理请求资源路径?"></a>2.容器如何处理请求资源路径?</h1><p>比如，在浏览器地址栏输入<a href="http://ip:port/day08-2/abc.html" target="_blank" rel="noopener">http://ip:port/day08-2/abc.html</a></p>
 <p>step1.容器默认认为访问的是一个servlet。</p>
-<pre><code>容器将请求资源路径(&quot;/day08-2/abc.html&quot;)中的应用名除掉，
+<pre><code>容器将请求资源路径(&quot;/webapp/abc.html&quot;)中的应用名除掉，
 得到&quot;/abc.html&quot;，然后查找web.xml配置文件，看&lt;url-pattern&gt;
 有没有与之匹配的servlet。
 
