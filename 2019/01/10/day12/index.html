@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="jstl , el,">
 
 
 
@@ -79,20 +79,20 @@
 
 
 
-<meta name="description" content="1.过滤器(1)什么是过滤器?Servlet规范当中定义的一种特殊的组件，用来拦截Servlet容器调用的过程。、 注：     容器收到请求之后，会先调用过滤器，再调用后续的组件，比如 调用servlet。  (2)如何写一个过滤器?step1. 写一个java类，实现Filter接口。 step2. 在doFilter方法当中，实现拦截处理逻辑。 public class CommentFil">
+<meta name="description" content="(1)jsp标签是什么?jsp标签语法类似于html标签，用于替换jsp中的java代码。 注:     因为带有java代码的jsp不利于页面的维护(美工去修改带有 java代码的jsp很不方便),所以sun推出了jsp标签技术规范。     使用jsp标签，方便页面的维护，另外，方便代码的复用。 (2)el表达式是什么?是一套简单的运算规则，用于给jsp标签的属性赋值。也可以脱离jsp标签，单">
+<meta name="keywords" content="jstl , el">
 <meta property="og:type" content="article">
-<meta property="og:title" content="过滤器">
-<meta property="og:url" content="https://oszh.github.io/2019/01/08/day10/index.html">
+<meta property="og:title" content="jsp标签和el表达式">
+<meta property="og:url" content="https://oszh.github.io/2019/01/10/day12/index.html">
 <meta property="og:site_name" content="oszh">
-<meta property="og:description" content="1.过滤器(1)什么是过滤器?Servlet规范当中定义的一种特殊的组件，用来拦截Servlet容器调用的过程。、 注：     容器收到请求之后，会先调用过滤器，再调用后续的组件，比如 调用servlet。  (2)如何写一个过滤器?step1. 写一个java类，实现Filter接口。 step2. 在doFilter方法当中，实现拦截处理逻辑。 public class CommentFil">
+<meta property="og:description" content="(1)jsp标签是什么?jsp标签语法类似于html标签，用于替换jsp中的java代码。 注:     因为带有java代码的jsp不利于页面的维护(美工去修改带有 java代码的jsp很不方便),所以sun推出了jsp标签技术规范。     使用jsp标签，方便页面的维护，另外，方便代码的复用。 (2)el表达式是什么?是一套简单的运算规则，用于给jsp标签的属性赋值。也可以脱离jsp标签，单">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://oszh.github.io/2019/01/08/day10/filter.png">
-<meta property="og:image" content="https://oszh.github.io/2019/01/08/day10/listener.png">
-<meta property="og:updated_time" content="2019-01-08T11:06:07.711Z">
+<meta property="og:image" content="https://oszh.github.io/2019/01/10/day12/if.png">
+<meta property="og:updated_time" content="2019-01-10T09:47:49.114Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="过滤器">
-<meta name="twitter:description" content="1.过滤器(1)什么是过滤器?Servlet规范当中定义的一种特殊的组件，用来拦截Servlet容器调用的过程。、 注：     容器收到请求之后，会先调用过滤器，再调用后续的组件，比如 调用servlet。  (2)如何写一个过滤器?step1. 写一个java类，实现Filter接口。 step2. 在doFilter方法当中，实现拦截处理逻辑。 public class CommentFil">
-<meta name="twitter:image" content="https://oszh.github.io/2019/01/08/day10/filter.png">
+<meta name="twitter:title" content="jsp标签和el表达式">
+<meta name="twitter:description" content="(1)jsp标签是什么?jsp标签语法类似于html标签，用于替换jsp中的java代码。 注:     因为带有java代码的jsp不利于页面的维护(美工去修改带有 java代码的jsp很不方便),所以sun推出了jsp标签技术规范。     使用jsp标签，方便页面的维护，另外，方便代码的复用。 (2)el表达式是什么?是一套简单的运算规则，用于给jsp标签的属性赋值。也可以脱离jsp标签，单">
+<meta name="twitter:image" content="https://oszh.github.io/2019/01/10/day12/if.png">
 
 
 
@@ -122,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="https://oszh.github.io/2019/01/08/day10/">
+  <link rel="canonical" href="https://oszh.github.io/2019/01/10/day12/">
 
 
 
 
 
-  <title>过滤器 | oszh</title>
+  <title>jsp标签和el表达式 | oszh</title>
   
 
 
@@ -265,7 +265,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://oszh.github.io/tarecode/2019/01/08/day10/">
+    <link itemprop="mainEntityOfPage" href="https://oszh.github.io/tarecode/2019/01/10/day12/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="懒人的我">
@@ -282,7 +282,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">过滤器</h1>
+          <h1 class="post-title" itemprop="name headline">jsp标签和el表达式</h1>
         
 
         <div class="post-meta">
@@ -294,8 +294,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-08T19:03:51+08:00">
-                2019-01-08
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-10T17:44:24+08:00">
+                2019-01-10
               </time>
             
 
@@ -304,6 +304,28 @@
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/tarecode/categories/jstl-el/" itemprop="url" rel="index">
+                    <span itemprop="name">-jstl -el</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -326,7 +348,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.1k
+                  970
                 </span>
               
 
@@ -342,7 +364,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  4
+                  3
                 </span>
               
             </div>
@@ -363,138 +385,102 @@
       
 
       
-        <h1 id="1-过滤器"><a href="#1-过滤器" class="headerlink" title="1.过滤器"></a>1.过滤器</h1><h2 id="1-什么是过滤器"><a href="#1-什么是过滤器" class="headerlink" title="(1)什么是过滤器?"></a>(1)什么是过滤器?</h2><p>Servlet规范当中定义的一种特殊的组件，用来拦截Servlet容器调用的过程。、</p>
-<pre><code>注：
-    容器收到请求之后，会先调用过滤器，再调用后续的组件，比如
-调用servlet。
-</code></pre><p><img src="filter.png" alt=""></p>
-<h2 id="2-如何写一个过滤器"><a href="#2-如何写一个过滤器" class="headerlink" title="(2)如何写一个过滤器?"></a>(2)如何写一个过滤器?</h2><p>step1. 写一个java类，实现Filter接口。</p>
-<p>step2. 在doFilter方法当中，实现拦截处理逻辑。</p>
-<pre><code>public class CommentFilter implements Filter{
-/**
- * 容器启动之后，会立即创建过滤器实例。
- * 注：
- *      只会创建一个实例。
- */
-public CommentFilter(){
-    System.out.println(
-            &quot;CommentFilter&apos;s constructor&quot;);
-}
-/**
- * 容器在删除过滤器实例之前，会调用
- * destroy方法(只会调用一次)。
- */
-public void destroy() {
-    System.out.println(
-            &quot;CommentFilter&apos;s destroy&quot;);
-}
-/**
- * 容器收到请求之后，会调用过滤器的doFilter方法
- * (类似于Servlet的service方法)。
- * ServletRequest是HttpServletRequest的父接口，
- * ServletResponse是HttpServletResponse的父接口。
- * FilterChain(过滤器链)：如果调用了该
- * 对象的doFilter方法，容器会继续向后调用,
- * 否则，中断请求，返回处理结果。
- */
-public void doFilter(
-        ServletRequest arg0,
-        ServletResponse arg1, 
-        FilterChain arg2)
-        throws IOException, ServletException {
+        <h2 id="1-jsp标签是什么"><a href="#1-jsp标签是什么" class="headerlink" title="(1)jsp标签是什么?"></a>(1)jsp标签是什么?</h2><p>jsp标签语法类似于html标签，用于替换jsp中的java代码。</p>
+<pre><code>注:
+    因为带有java代码的jsp不利于页面的维护(美工去修改带有
+java代码的jsp很不方便),所以sun推出了jsp标签技术规范。
+    使用jsp标签，方便页面的维护，另外，方便代码的复用。
+</code></pre><h2 id="2-el表达式是什么"><a href="#2-el表达式是什么" class="headerlink" title="(2)el表达式是什么?"></a>(2)el表达式是什么?</h2><p>是一套简单的运算规则，用于给jsp标签的属性赋值。也可以脱离jsp标签，<br>单独使用。</p>
+<h2 id="3-el表达式的使用"><a href="#3-el表达式的使用" class="headerlink" title="(3)el表达式的使用"></a>(3)el表达式的使用</h2><h3 id="1-读取bean的属性-e1-jsp"><a href="#1-读取bean的属性-e1-jsp" class="headerlink" title="1)读取bean的属性 (e1.jsp)"></a>1)读取bean的属性 (e1.jsp)</h3><pre><code>javabean(了解):
+    一个类如果满足如下几个简单的条件，就可以称之为一个javabean。
+    public class 
+    public 构造器
+    最好实现Serializable接口
+    有一些属性
+    有对应的get/set方法
+</code></pre><h4 id="方式一-user-username"><a href="#方式一-user-username" class="headerlink" title="方式一  ${user.username}"></a>方式一  ${user.username}</h4><pre><code>a.执行过程:
+        依次从pageContext--&gt;request--&gt;session--&gt;
+        application查找绑订名为&quot;user&quot;的对象,找到该
+        对象之后，会调用该对象的&quot;getUsername&quot;方法，
+        然后输出。
+b.优点
+        会将null转换成&quot;&quot;输出。
+        如果找不到对应的对象，不会报空指针异常,会输出&quot;&quot;。
 
-    System.out.println(
-            &quot;CommentFilter&apos;s doFilter begin...&quot;);
-    /*
-     * (了解)因为sun的过度设计，这儿需要做强制
-     * 转换(我们经常用的是子接口中的方法)。
-     */
-    HttpServletRequest request = 
-            (HttpServletRequest)arg0;
-    HttpServletResponse response = 
-            (HttpServletResponse)arg1;
+c.指定查找范围
+        可以使用pageScope,requestScope,sessionScope,
+        applicationScope来指定查找范围。
+        比如 ${sessionScope.user.username}
+</code></pre><h4 id="方式二-user-‘username’"><a href="#方式二-user-‘username’" class="headerlink" title="方式二　${user[‘username’]}"></a>方式二　${user[‘username’]}</h4><pre><code>a. []里面可以出现绑订名。
+b. []里面可以出现从０开始的下标，用于读取数组中指定
+下标的元素的值。
+</code></pre><h3 id="2-做一些简单的运算-e2-jsp"><a href="#2-做一些简单的运算-e2-jsp" class="headerlink" title="2)做一些简单的运算 (e2.jsp)"></a>2)做一些简单的运算 (e2.jsp)</h3><pre><code>a.算术运算:
+         +,-,*,/,%
+        注：　+　只能求和！
 
-    request.setCharacterEncoding(&quot;utf-8&quot;);
-    response.setContentType(
-            &quot;text/html;charset=utf-8&quot;);
+b.关系运算:
+         &gt;,&lt;,&gt;=,&lt;=,==,!=
 
-    String content = 
-            request.getParameter(&quot;content&quot;);
+c.逻辑运算:
+        &amp;&amp;,||,!
 
-    if(content.indexOf(&quot;狗&quot;) != -1){
-        //有敏感字，中断请求，返回处理结果
-        response.getWriter()
-        .println(&quot;评论包含了敏感字&quot;);
-    }else{
-        //没有敏感字，则继续向后调用
-        arg2.doFilter(request, response);
-    }
-    System.out.println(
-            &quot;CommentFilter&apos;s doFilter end.&quot;);
-}
-/**
- * 容器在创建好过滤器实例之后，会调用该实例的
- * init方法(只会调用一次)，容器会将FilterConfig
- * 对象作为参数传递过来。
- * 可以利用FilterConfig来读取初始化参数,
- * 也可以用来获得ServletContext。
- * 注:
- *     ServletConfig也可以获得ServletContext。
- */
-public void init(FilterConfig arg0) throws ServletException {
-    System.out.println(
-            &quot;CommenetFilter&apos;s init&quot;);
-    }
-}
-</code></pre><p>step3. 配置过滤器。(web.xml)</p>
-<pre><code>&lt;filter&gt;
-      &lt;filter-name&gt;commentFilter&lt;/filter-name&gt;
-      &lt;filter-class&gt;web.CommentFilter&lt;/filter-class&gt;
-  &lt;/filter&gt;
-  &lt;filter-mapping&gt;
-      &lt;filter-name&gt;commentFilter&lt;/filter-name&gt;
-      &lt;url-pattern&gt;/comment&lt;/url-pattern&gt;
-  &lt;/filter-mapping&gt;
-</code></pre><h2 id="3-过滤器的优先级"><a href="#3-过滤器的优先级" class="headerlink" title="(3)过滤器的优先级"></a>(3)过滤器的优先级</h2><p>当有多个过滤器都满足拦截要求，则容器依据<filter-mapping><br>配置的先后顺序来执行。</filter-mapping></p>
-<h2 id="4-过滤器的初始化参数"><a href="#4-过滤器的初始化参数" class="headerlink" title="(4)过滤器的初始化参数"></a>(4)过滤器的初始化参数</h2><p>step1.配置初始化参数</p>
-<pre><code>&lt;init-param&gt;
-      &lt;param-name&gt;illegal&lt;/param-name&gt;
-      &lt;param-value&gt;猫&lt;/param-value&gt;
-  &lt;/init-param&gt;
-</code></pre><p>step2. 读取初始化参数值</p>
-<pre><code>String illegal = 
-        config.getInitParameter(&quot;illegal&quot;);
-</code></pre><h2 id="5-过滤器的优点"><a href="#5-过滤器的优点" class="headerlink" title="(5)过滤器的优点"></a>(5)过滤器的优点</h2><p>a.可以在不修改原有代码的基础上，为应用添加新的功能。</p>
-<p>b.可以将多个组件相同的功能集中写在一个过滤器里面，方便<br>代码的维护。</p>
-<h1 id="2-监听器"><a href="#2-监听器" class="headerlink" title="2.监听器"></a>2.监听器</h1><h2 id="1-什么是监听器"><a href="#1-什么是监听器" class="headerlink" title="(1)什么是监听器?"></a>(1)什么是监听器?</h2><p>servlet规范当中定义的一种特殊的组件，用于监听servlet容器产生的<br>事件并进行相应的处理。</p>
-<pre><code>注：容器主要产生两大类事件，分别是:
-1)生命周期相关的事件:
-        容器创建了或者销毁了request,session,servlet上下文
-        时产生的事件。
-2)绑订数据相关的事件:
-        调用了request,session,servlet上下文的setAttribute,
-        removeAttribute方法时产生的事件。
-</code></pre><h2 id="2-如何写一个监听器"><a href="#2-如何写一个监听器" class="headerlink" title="(2)如何写一个监听器?"></a>(2)如何写一个监听器?</h2><p>step1. 写一个java类，实现监听器接口。</p>
-<pre><code>注：依据监听的事件类型来选择实现相应的接口。
-比如，要监听session对象的创建和销毁，实现HttpSessionListener
-接口。
-</code></pre><p>step2. 在监听器接口方法当中，实现监听处理逻辑。</p>
-<p>step3. 配置监听器。(web.xml)    </p>
-<h2 id="3-统计在线人数"><a href="#3-统计在线人数" class="headerlink" title="(3)统计在线人数"></a>(3)统计在线人数</h2><p><img src="listener.png" alt=""></p>
-<h2 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h2><p>写一个监听器，容器启动之后，将用户表(t_user)中的所有用户信息<br>查询出来,然后将用户信息绑订到Servlet上下文上。</p>
-<p>step1. 将UserDAO相关的代码及配置文件拷贝过来。</p>
-<p>step2. 写一个java类:<br>    public class CacheListener<br>        implements ServletContextListener{</p>
-<pre><code>    public void contextInitialized(ServletContextEvent sce){
-        UserDAO dao = new UserDAO();
-        List&lt;User&gt; users = dao.findAll();
-        ServletContext sctx = 
-                sce.getServletContext();
-        sctx.setAttribute(&quot;users&quot;,users);    
-    }
+d.empty运算:
+        用来判断集合是否为空，或者是不是一个空字符串。
+</code></pre><h3 id="3-读取请求参数值-e3-jsp"><a href="#3-读取请求参数值-e3-jsp" class="headerlink" title="3)读取请求参数值 (e3.jsp)"></a>3)读取请求参数值 (e3.jsp)</h3><pre><code>${param.name}
+    等价于　request.getParameter(&quot;name&quot;);
 
-}
-</code></pre><p>step3.配置监听器。</p>
-<h1 id="练习-1"><a href="#练习-1" class="headerlink" title="练习"></a>练习</h1><p>写一个过滤器，检查评论的字数，如果超过10个字，则提示<br>“评论字数过多”。</p>
+${paramValues.city}
+    等价于 request.getParameterValues(&quot;city&quot;);
+</code></pre><h2 id="4-jstl-jsp-standard-tag-lib"><a href="#4-jstl-jsp-standard-tag-lib" class="headerlink" title="(4)jstl (jsp standard tag lib)"></a>(4)jstl (jsp standard tag lib)</h2><h3 id="1-jstl是什么"><a href="#1-jstl是什么" class="headerlink" title="1)jstl是什么?"></a>1)jstl是什么?</h3><p>apache开发的一套jsp标签，后来捐献给了sun,sun将其命名为jstl。</p>
+<h3 id="2-如何使用jstl"><a href="#2-如何使用jstl" class="headerlink" title="2)如何使用jstl?"></a>2)如何使用jstl?</h3><p>step1.导入jstl相关的jar文件。</p>
+<pre><code>&lt;dependency&gt;
+      &lt;groupId&gt;jstl&lt;/groupId&gt;
+      &lt;artifactId&gt;jstl&lt;/artifactId&gt;
+      &lt;version&gt;1.2&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre><p>step2.使用taglib指令引入要使用的jsp标签。</p>
+<pre><code>&lt;%@ taglib uri=&quot;&quot; prefix=&quot;&quot;%&gt;
+uri属性：指定要引入的jsp标签的命名空间。 
+    注:
+        为了区分同名的元素在元素前添加的一个限定，通常是一个
+    域名(为了避免命名空间也冲突)。
+prefix属性：命名空间的别名。
+</code></pre><p>###　3)if标签<br>a.语法:</p>
+<pre><code>&lt;c:if test=&quot;&quot;&gt;
+    标签体
+&lt;/c:if&gt;
+</code></pre><p>b.用法:</p>
+<pre><code>如果test属性值为true,容器会执行标签体。
+test属性值可以使用el表达式来赋值。
+</code></pre><p><img src="if.png" alt=""></p>
+<h3 id="4-choose标签-choose-jsp"><a href="#4-choose标签-choose-jsp" class="headerlink" title="4)choose标签　(choose.jsp)"></a>4)choose标签　(choose.jsp)</h3><p>a.语法:</p>
+<pre><code>&lt;c:choose&gt;
+    &lt;c:when test=&quot;&quot;&gt;
+    &lt;/c:when&gt;
+    ...
+    &lt;c:otherwise&gt;
+    &lt;/c:otherwise&gt;
+&lt;/c:choose&gt;
+</code></pre><p>b.用法:</p>
+<pre><code>when可以出现一次或者多次(相当于一个if语句),otherwise
+可以出现０次或者１次(相当于最后那个else,表示例外)。
+当test属性值为true时，执行标签体的内容。
+</code></pre><h3 id="5-forEach标签-forEach-jsp"><a href="#5-forEach标签-forEach-jsp" class="headerlink" title="5)forEach标签 (forEach.jsp)"></a>5)forEach标签 (forEach.jsp)</h3><p>a.语法:</p>
+<pre><code>&lt;c:forEach items=&quot;&quot; var=&quot;&quot; varStatus=&quot;&quot;&gt;
+&lt;/c:forEach&gt;
+</code></pre><p>b.用法:</p>
+<pre><code>items属性用来指定要遍历的集合或者数组，该属性可以使用
+el表达式来计算。
+var属性用来指定绑订名。
+    注：
+        绑订范围固定是pageContext,该标签每次从集合或者数组中
+    取一个元素，然后将其绑订到pageContext上。
+varStatus属性用来指定绑订名。
+    注：
+        绑订值是一个对象，由该标签创建，用来获得当前遍历的状态，
+    getIndex():用来获得当前正在被遍历的元素的下标(从０开始)
+    getCount():用来获得当前遍历的次数(从1开始)。
+</code></pre><p>#　练习 使用el表达式输出员工对象的各个属性值<br>    Employee类(ename,salary,age)</p>
 
       
     </div>
@@ -510,6 +496,12 @@ public void init(FilterConfig arg0) throws ServletException {
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tarecode/tags/jstl-el/" rel="tag"># jstl , el</a>
+          
+        </div>
+      
 
       
       
@@ -519,8 +511,8 @@ public void init(FilterConfig arg0) throws ServletException {
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/tarecode/2019/01/08/day09/" rel="next" title="利用Servlet上下文读取全局的初始化参数">
-                <i class="fa fa-chevron-left"></i> 利用Servlet上下文读取全局的初始化参数
+              <a href="/tarecode/2019/01/09/day11/" rel="next" title="Servlet小结">
+                <i class="fa fa-chevron-left"></i> Servlet小结
               </a>
             
           </div>
@@ -528,10 +520,6 @@ public void init(FilterConfig arg0) throws ServletException {
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/tarecode/2019/01/08/JQuery/" rel="prev" title="JQuery">
-                JQuery <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -663,7 +651,7 @@ public void init(FilterConfig arg0) throws ServletException {
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-过滤器"><span class="nav-number">1.</span> <span class="nav-text">1.过滤器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-什么是过滤器"><span class="nav-number">1.1.</span> <span class="nav-text">(1)什么是过滤器?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-如何写一个过滤器"><span class="nav-number">1.2.</span> <span class="nav-text">(2)如何写一个过滤器?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-过滤器的优先级"><span class="nav-number">1.3.</span> <span class="nav-text">(3)过滤器的优先级</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-过滤器的初始化参数"><span class="nav-number">1.4.</span> <span class="nav-text">(4)过滤器的初始化参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-过滤器的优点"><span class="nav-number">1.5.</span> <span class="nav-text">(5)过滤器的优点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-监听器"><span class="nav-number">2.</span> <span class="nav-text">2.监听器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-什么是监听器"><span class="nav-number">2.1.</span> <span class="nav-text">(1)什么是监听器?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-如何写一个监听器"><span class="nav-number">2.2.</span> <span class="nav-text">(2)如何写一个监听器?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-统计在线人数"><span class="nav-number">2.3.</span> <span class="nav-text">(3)统计在线人数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#练习"><span class="nav-number">2.4.</span> <span class="nav-text">练习</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#练习-1"><span class="nav-number">3.</span> <span class="nav-text">练习</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-jsp标签是什么"><span class="nav-number">1.</span> <span class="nav-text">(1)jsp标签是什么?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-el表达式是什么"><span class="nav-number">2.</span> <span class="nav-text">(2)el表达式是什么?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-el表达式的使用"><span class="nav-number">3.</span> <span class="nav-text">(3)el表达式的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-读取bean的属性-e1-jsp"><span class="nav-number">3.1.</span> <span class="nav-text">1)读取bean的属性 (e1.jsp)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#方式一-user-username"><span class="nav-number">3.1.1.</span> <span class="nav-text">方式一  ${user.username}</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#方式二-user-‘username’"><span class="nav-number">3.1.2.</span> <span class="nav-text">方式二　${user[‘username’]}</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-做一些简单的运算-e2-jsp"><span class="nav-number">3.2.</span> <span class="nav-text">2)做一些简单的运算 (e2.jsp)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-读取请求参数值-e3-jsp"><span class="nav-number">3.3.</span> <span class="nav-text">3)读取请求参数值 (e3.jsp)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-jstl-jsp-standard-tag-lib"><span class="nav-number">4.</span> <span class="nav-text">(4)jstl (jsp standard tag lib)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-jstl是什么"><span class="nav-number">4.1.</span> <span class="nav-text">1)jstl是什么?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-如何使用jstl"><span class="nav-number">4.2.</span> <span class="nav-text">2)如何使用jstl?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-choose标签-choose-jsp"><span class="nav-number">4.3.</span> <span class="nav-text">4)choose标签　(choose.jsp)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-forEach标签-forEach-jsp"><span class="nav-number">4.4.</span> <span class="nav-text">5)forEach标签 (forEach.jsp)</span></a></li></ol></li></ol></div>
             
 
           </div>
