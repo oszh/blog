@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="标签,">
 
 
 
@@ -79,19 +79,20 @@
 
 
 
-<meta name="description" content="1.转发(1)什么是转发?一个web组件将未完成的处理交给另外一个web组件继续做。 注:     web组件(servlet/jsp)     最常见的情况：一个Servlet获得数据，然后将这些数据转发给     一个jsp来展现。  (2)如何转发?step1. 将数据绑订到request对象上。 request.setAtribute(String name,Object obj); 注:">
+<meta name="description" content="1.自定义标签step1. 写一个java类，继承SimpleTagSupport类。 注：     继承SimpleTagSupport类开发的标签属于简单标签技术。 step2. override doTag方法，编写处理逻辑。 /**  * 标签类:  *    1.继承SimpleTagSupport类。  *    2.override doTag方法。  *      3.标签有哪些属">
+<meta name="keywords" content="标签">
 <meta property="og:type" content="article">
-<meta property="og:title" content="转发">
-<meta property="og:url" content="https://oszh.github.io/2019/01/08/day05/index.html">
+<meta property="og:title" content="自定义标签 MVC">
+<meta property="og:url" content="https://oszh.github.io/2019/01/11/day13/index.html">
 <meta property="og:site_name" content="oszh">
-<meta property="og:description" content="1.转发(1)什么是转发?一个web组件将未完成的处理交给另外一个web组件继续做。 注:     web组件(servlet/jsp)     最常见的情况：一个Servlet获得数据，然后将这些数据转发给     一个jsp来展现。  (2)如何转发?step1. 将数据绑订到request对象上。 request.setAtribute(String name,Object obj); 注:">
+<meta property="og:description" content="1.自定义标签step1. 写一个java类，继承SimpleTagSupport类。 注：     继承SimpleTagSupport类开发的标签属于简单标签技术。 step2. override doTag方法，编写处理逻辑。 /**  * 标签类:  *    1.继承SimpleTagSupport类。  *    2.override doTag方法。  *      3.标签有哪些属">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://oszh.github.io/2019/01/08/day05/forward.png">
-<meta property="og:updated_time" content="2019-01-08T14:51:28.699Z">
+<meta property="og:image" content="https://oszh.github.io/2019/01/11/day13/mvc.png">
+<meta property="og:updated_time" content="2019-01-11T10:13:02.843Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="转发">
-<meta name="twitter:description" content="1.转发(1)什么是转发?一个web组件将未完成的处理交给另外一个web组件继续做。 注:     web组件(servlet/jsp)     最常见的情况：一个Servlet获得数据，然后将这些数据转发给     一个jsp来展现。  (2)如何转发?step1. 将数据绑订到request对象上。 request.setAtribute(String name,Object obj); 注:">
-<meta name="twitter:image" content="https://oszh.github.io/2019/01/08/day05/forward.png">
+<meta name="twitter:title" content="自定义标签 MVC">
+<meta name="twitter:description" content="1.自定义标签step1. 写一个java类，继承SimpleTagSupport类。 注：     继承SimpleTagSupport类开发的标签属于简单标签技术。 step2. override doTag方法，编写处理逻辑。 /**  * 标签类:  *    1.继承SimpleTagSupport类。  *    2.override doTag方法。  *      3.标签有哪些属">
+<meta name="twitter:image" content="https://oszh.github.io/2019/01/11/day13/mvc.png">
 
 
 
@@ -121,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="https://oszh.github.io/2019/01/08/day05/">
+  <link rel="canonical" href="https://oszh.github.io/2019/01/11/day13/">
 
 
 
 
 
-  <title>转发 | oszh</title>
+  <title>自定义标签 MVC | oszh</title>
   
 
 
@@ -264,7 +265,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://oszh.github.io/tarecode/2019/01/08/day05/">
+    <link itemprop="mainEntityOfPage" href="https://oszh.github.io/tarecode/2019/01/11/day13/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="懒人的我">
@@ -281,7 +282,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">转发</h1>
+          <h1 class="post-title" itemprop="name headline">自定义标签 MVC</h1>
         
 
         <div class="post-meta">
@@ -293,8 +294,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-08T18:52:36+08:00">
-                2019-01-08
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-11T18:09:52+08:00">
+                2019-01-11
               </time>
             
 
@@ -325,7 +326,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  367
+                  796
                 </span>
               
 
@@ -341,7 +342,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1
+                  3
                 </span>
               
             </div>
@@ -362,48 +363,104 @@
       
 
       
-        <h1 id="1-转发"><a href="#1-转发" class="headerlink" title="1.转发"></a>1.转发</h1><h2 id="1-什么是转发"><a href="#1-什么是转发" class="headerlink" title="(1)什么是转发?"></a>(1)什么是转发?</h2><p>一个web组件将未完成的处理交给另外一个web组件继续做。</p>
-<pre><code>注:
-    web组件(servlet/jsp)
-    最常见的情况：一个Servlet获得数据，然后将这些数据转发给
-    一个jsp来展现。
-</code></pre><p><img src="forward.png" alt=""></p>
-<h2 id="2-如何转发"><a href="#2-如何转发" class="headerlink" title="(2)如何转发?"></a>(2)如何转发?</h2><p>step1. 将数据绑订到request对象上。</p>
-<pre><code>request.setAtribute(String name,Object obj);
-注:
-    底层的实现 map.put(name,obj);
-</code></pre><p>step2. 获得转发器。</p>
-<pre><code>RequestDispatcher rd = 
-    request.getRequestDispatcher(String uri);
-注:
-    RequestDispatcher是一个接口。
-转发的本质就是一个web组件通知容器去调用另外一个web组件，
-可以将RequestDispatcher(转发器)当作是一个媒介。
-</code></pre><p>step3. 转发</p>
-<pre><code>rd.forward(request,response);
-</code></pre><h2 id="3-特点"><a href="#3-特点" class="headerlink" title="(3)特点"></a>(3)特点</h2><p>a.转发之后，浏览器地址栏的地址不变。</p>
-<p>b.转发的地址有限制(要求属于同一个应用)。</p>
-<h1 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h1><p>为用户管理添加登录功能。</p>
-<p>要求:</p>
-<pre><code>用户填写用户名和密码，然后提交表单，服务器进行验证，
-如果有符合条件的记录，则登录成功，跳转到用户列表页面，
-否则登录失败，跳转到登录页面，并给用户相应的提示
-(&quot;用户名或密码错误&quot;)。
-</code></pre><p>step1.添加login.jsp</p>
-<p>step2.添加LoginServlet(处理登录请求)</p>
-<pre><code>读取用户名(username)和密码(pwd)
+        <h1 id="1-自定义标签"><a href="#1-自定义标签" class="headerlink" title="1.自定义标签"></a>1.自定义标签</h1><p>step1. 写一个java类，继承SimpleTagSupport类。</p>
+<pre><code>注：
+    继承SimpleTagSupport类开发的标签属于简单标签技术。
+</code></pre><p>step2. override doTag方法，编写处理逻辑。</p>
+<pre><code>/**
+ * 标签类:
+ *    1.继承SimpleTagSupport类。
+ *    2.override doTag方法。
+ *      3.标签有哪些属性，标签类也得有对应的
+ *    属性，属性名要一样，类型要匹配，并且有对应的
+ *    set方法。
+ */
+public class HelloTag extends SimpleTagSupport{
 
-User user = UserDAO.find(username);
-if(user != null &amp;&amp; 
-       user.getPwd().equals(pwd)){
-    response.sendRedirect(&quot;list&quot;)
-}else{
-    request.setAttribute(&quot;login_failed&quot;,
-    &quot;用户名或密码错误&quot;);
-    request.getRequestDispatcher(&quot;login.jsp&quot;).for...
+private String info;
+private int qty;
+
+public HelloTag(){
+    System.out.println(
+            &quot;HelloTag&apos;s constructor&quot;);
 }
-</code></pre><p>step3. 修改login.jsp</p>
 
+
+public void setInfo(String info) {
+    System.out.println(&quot;HelloTag&apos;s setInfo&quot;);
+    this.info = info;
+}
+
+public void setQty(int qty) {
+    System.out.println(&quot;HelloTag&apos;s setQty&quot;);
+    this.qty = qty;
+}
+
+@Override
+public void doTag() throws JspException, IOException {
+
+    System.out.println(&quot;HelloTag&apos;s doTag&quot;);
+
+    /*
+     * 通过继承自SimpleTagSupport提供的
+     * 方法来获得PageContext，PageContext
+     * 提供了获得其它所有隐含对象的方法。
+     */
+    PageContext pctx = 
+            (PageContext)getJspContext();
+    JspWriter out = pctx.getOut();
+
+    for(int i = 0; i &lt; qty; i ++){
+        out.println(info+&quot;&lt;br/&gt;&quot;);
+        }
+    }
+}
+</code></pre><p>step3. 在.tld文件当中描述标签(.tld文件要放到WEB-INF下)。</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&lt;taglib xmlns=&quot;http://java.sun.com/xml/ns/javaee&quot;
+    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+    xsi:schemaLocation=&quot;http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd&quot;
+    version=&quot;2.1&quot;&gt;
+  &lt;tlib-version&gt;1.1&lt;/tlib-version&gt;
+  &lt;short-name&gt;t&lt;/short-name&gt;
+  &lt;uri&gt;http://tedu.cn/mytag&lt;/uri&gt;
+  &lt;tag&gt;
+    &lt;name&gt;hello&lt;/name&gt;
+    &lt;tag-class&gt;tag.HelloTag&lt;/tag-class&gt;
+    &lt;!-- 
+        body-content是用来告诉容器，标签
+        有没有标签体，如果有，可以出现哪些内容。
+        empty: 没有标签体。
+        scriptless:有标签体，但是，标签体里面不能
+            够出现java代码(&lt;%  %&gt;&lt;%= %&gt;&lt;%! %&gt;)。
+        JSP:有标签体，并且标签体里面允许出现java代码。
+        但是，只有复杂标签技术才支持这个值。
+     --&gt;
+    &lt;body-content&gt;empty&lt;/body-content&gt;
+    &lt;attribute&gt;
+        &lt;name&gt;info&lt;/name&gt;
+        &lt;!-- 
+            required值为true,表示该属性必选。
+         --&gt;
+        &lt;required&gt;true&lt;/required&gt;
+        &lt;!-- 
+            rtexprvalue值为true,表示该属性可以
+            动态赋值(比如可以使用el表达式来赋值)
+         --&gt;
+        &lt;rtexprvalue&gt;false&lt;/rtexprvalue&gt;
+    &lt;/attribute&gt;
+    &lt;attribute&gt;
+        &lt;name&gt;qty&lt;/name&gt;
+        &lt;required&gt;true&lt;/required&gt;
+        &lt;rtexprvalue&gt;true&lt;/rtexprvalue&gt;
+    &lt;/attribute&gt;
+  &lt;/tag&gt;
+&lt;/taglib&gt;
+</code></pre><h1 id="2-MVC-Model-View-Controller"><a href="#2-MVC-Model-View-Controller" class="headerlink" title="2.MVC(Model View Controller)"></a>2.MVC(Model View Controller)</h1><h2 id="1-什么是MVC"><a href="#1-什么是MVC" class="headerlink" title="(1)什么是MVC?"></a>(1)什么是MVC?</h2><p> 是一种软件架构思想、其核心思想是，在设计一个软件的时候，应该将数据处理<br>与数据展现分开，按照这种思想，我们可以将软件划分成三种不同类型的模块，<br>分别是模型、视图和控制器。<br> 其中，模型负责数据处理(业务逻辑)，视图负责数据展现(表示逻辑)，控制器<br>负责协调模型和视图(请求先发送给控制器，由控制器选择调用对应的模型来<br>处理；模型返回处理结果给控制器，由控制器选择调用对应的视图来展现)。</p>
+<h2 id="2-如何使用MVC来开发一个web应用"><a href="#2-如何使用MVC来开发一个web应用" class="headerlink" title="(2)如何使用MVC来开发一个web应用?"></a>(2)如何使用MVC来开发一个web应用?</h2><p><img src="mvc.png" alt=""></p>
+<h2 id="3-优缺点"><a href="#3-优缺点" class="headerlink" title="(3)优缺点"></a>(3)优缺点</h2><h1 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h1><p>写一个jsp标签，可以按照指定的日期格式输出当前的系统日期，比如</p>
+<pre><code>&lt;t:date pattern=&quot;yyyy-MM-dd&quot;/&gt;
+</code></pre>
       
     </div>
     
@@ -418,6 +475,12 @@ if(user != null &amp;&amp;
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tarecode/tags/标签/" rel="tag"># 标签</a>
+          
+        </div>
+      
 
       
       
@@ -427,8 +490,8 @@ if(user != null &amp;&amp;
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/tarecode/2019/01/08/day02/" rel="next" title="http协议">
-                <i class="fa fa-chevron-left"></i> http协议
+              <a href="/tarecode/2019/01/10/day12/" rel="next" title="jsp标签和el表达式">
+                <i class="fa fa-chevron-left"></i> jsp标签和el表达式
               </a>
             
           </div>
@@ -437,8 +500,8 @@ if(user != null &amp;&amp;
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/tarecode/2019/01/08/day06/" rel="prev" title="比较转发与重定向">
-                比较转发与重定向 <i class="fa fa-chevron-right"></i>
+              <a href="/tarecode/2019/01/11/day13-1/" rel="prev" title="day13">
+                day13 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -571,7 +634,7 @@ if(user != null &amp;&amp;
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-转发"><span class="nav-number">1.</span> <span class="nav-text">1.转发</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-什么是转发"><span class="nav-number">1.1.</span> <span class="nav-text">(1)什么是转发?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-如何转发"><span class="nav-number">1.2.</span> <span class="nav-text">(2)如何转发?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-特点"><span class="nav-number">1.3.</span> <span class="nav-text">(3)特点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#练习"><span class="nav-number">2.</span> <span class="nav-text">练习</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-自定义标签"><span class="nav-number">1.</span> <span class="nav-text">1.自定义标签</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-MVC-Model-View-Controller"><span class="nav-number">2.</span> <span class="nav-text">2.MVC(Model View Controller)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-什么是MVC"><span class="nav-number">2.1.</span> <span class="nav-text">(1)什么是MVC?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-如何使用MVC来开发一个web应用"><span class="nav-number">2.2.</span> <span class="nav-text">(2)如何使用MVC来开发一个web应用?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-优缺点"><span class="nav-number">2.3.</span> <span class="nav-text">(3)优缺点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#练习"><span class="nav-number">3.</span> <span class="nav-text">练习</span></a></li></ol></div>
             
 
           </div>
