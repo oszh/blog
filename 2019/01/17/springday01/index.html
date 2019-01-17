@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/tarecode/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/tarecode/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/tarecode/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/tarecode/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/tarecode/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/tarecode/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/tarecode/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="IoC,Sp_EL,内存溢出,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1. Spring IoCIoC：Inversion of control：控制反转：在传统开发模式下，对象的创建过程和管理过程都是由开发者通过Java程序来实现的，操作权在开发者的Java程序中，当使用了Spring框架后，对象的创建与管理都不再由开发者编写的程序来决定！而是交给框架来决定，具体的做法可以是通过配置框架的XML文件来实现，或其它方式。 DI：Dependency Injectio">
+<meta name="keywords" content="IoC,Sp_EL,内存溢出">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring IoC Sp_EL">
+<meta property="og:url" content="https://oszh.github.io/2019/01/17/springday01/index.html">
+<meta property="og:site_name" content="oszh">
+<meta property="og:description" content="1. Spring IoCIoC：Inversion of control：控制反转：在传统开发模式下，对象的创建过程和管理过程都是由开发者通过Java程序来实现的，操作权在开发者的Java程序中，当使用了Spring框架后，对象的创建与管理都不再由开发者编写的程序来决定！而是交给框架来决定，具体的做法可以是通过配置框架的XML文件来实现，或其它方式。 DI：Dependency Injectio">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://oszh.github.io/2019/01/17/springday01/01.png">
+<meta property="og:updated_time" content="2019-01-17T10:58:32.192Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring IoC Sp_EL">
+<meta name="twitter:description" content="1. Spring IoCIoC：Inversion of control：控制反转：在传统开发模式下，对象的创建过程和管理过程都是由开发者通过Java程序来实现的，操作权在开发者的Java程序中，当使用了Spring框架后，对象的创建与管理都不再由开发者编写的程序来决定！而是交给框架来决定，具体的做法可以是通过配置框架的XML文件来实现，或其它方式。 DI：Dependency Injectio">
+<meta name="twitter:image" content="https://oszh.github.io/2019/01/17/springday01/01.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/tarecode/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://oszh.github.io/2019/01/17/springday01/">
+
+
+
+
+
+  <title>Spring IoC Sp_EL | oszh</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/tarecode/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">oszh</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/tarecode/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tarecode/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/tarecode/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/tarecode/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/tarecode/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://oszh.github.io/tarecode/2019/01/17/springday01/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="懒人的我">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/tarecode/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="oszh">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Spring IoC Sp_EL</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-17T18:41:49+08:00">
+                2019-01-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/tarecode/categories/构造器注入/" itemprop="url" rel="index">
+                    <span itemprop="name">构造器注入</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/tarecode/categories/构造器注入/set注入/" itemprop="url" rel="index">
+                    <span itemprop="name">set注入</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.3k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  9
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="1-Spring-IoC"><a href="#1-Spring-IoC" class="headerlink" title="1. Spring IoC"></a>1. Spring IoC</h3><p>IoC：Inversion of control：控制反转：在传统开发模式下，对象的创建过程和管理过程都是由开发者通过Java程序来实现的，操作权在开发者的Java程序中，当使用了Spring框架后，对象的创建与管理都不再由开发者编写的程序来决定！而是交给框架来决定，具体的做法可以是通过配置框架的XML文件来实现，或其它方式。</p>
+<p>DI：Dependency Injection：依赖注入：为类的属性注入值。</p>
+<p>IoC是Spring框架所实现的目标，而DI是实现该目标所使用的手段，即：Spring通过DI实现了IoC。</p>
+<h3 id="2-通过SET方式为属性注入值"><a href="#2-通过SET方式为属性注入值" class="headerlink" title="2. 通过SET方式为属性注入值"></a>2. 通过SET方式为属性注入值</h3><p>可能通过配置Spring的配置文件，使得类中的属性是注入过值的，最终，当从Spring容器中获取对象时，其中的属性就已经有值了！</p>
+<p>要为属性注入值，首先，需要为属性添加SET方法：</p>
+<pre><code>public class User {
+    Integer age;
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+}
+</code></pre><p>然后，在Spring的配置的XML中：</p>
+<pre><code>&lt;bean id=&quot;xx&quot; class=&quot;xx.xx.xx&quot;&gt;
+    &lt;property name=&quot;age&quot; value=&quot;23&quot; /&gt;
+&lt;/bean&gt;
+</code></pre><p>以上配置中，<code>&lt;property&gt;</code>节点用于配置属性的值，<code>name</code>可以理解为属性名称，<code>value</code>就是需要注入的值，仅适用于属性的值是基本值（可以直接书写的值，例如数值、布尔值、字符或字符串）的情况，如果属性的值是对象型的，需要在Spring的配置文件中先配置对象所归属的类的<code>&lt;bean&gt;</code>，然后，注入值时，使用<code>ref</code>属性引用到那个<code>&lt;bean&gt;</code>的<code>id</code>值：</p>
+<pre><code>&lt;bean id=&quot;now&quot;
+    class=&quot;java.util.Date&quot; /&gt;
+
+&lt;bean id=&quot;user&quot;
+    class=&quot;cn.tedu.spring.User&quot;&gt;
+    &lt;property name=&quot;regTime&quot; ref=&quot;now&quot; /&gt;
+&lt;/bean&gt;
+</code></pre><p>注意：在<code>&lt;property&gt;</code>节点中，<code>name</code>属性的值，其实是类中的属性对应的SET方法名称中<code>set</code>右侧的名称且首字母小写，例如SET方法名是<code>setAge</code>，则此处<code>&lt;property name=&quot;???&quot;&gt;</code>的值应该是<code>age</code>，如果SET方法名是<code>setFrom</code>，则<code>&lt;property name=&quot;???&quot;&gt;</code>的值应该是<code>from</code>！但是，通常可以不必关心这个问题，因为SET方法应该是通过Eclipse这种开发工具自动生成的，SET方法的名称是规范的，与Spring框架使用的规则是相同的，所以，只要能保证SET方法的名称是规范的，不必纠结<code>&lt;property&gt;</code>中的<code>name</code>属性到底指的是什么。</p>
+<h3 id="3-【不常用】-通过构造方法注入属性的值"><a href="#3-【不常用】-通过构造方法注入属性的值" class="headerlink" title="3. 【不常用】 通过构造方法注入属性的值"></a>3. 【不常用】 通过构造方法注入属性的值</h3><p>假设存在：</p>
+<pre><code>public class Person {
+    public String from;
+
+    public Person(String from) {
+        this.from = from;
+    }
+}
+</code></pre><p>即：需要注入值的属性并没有SET方法，而是存在构造方法为该属性赋值，在这种情况下的配置应该是：</p>
+<pre><code>&lt;!-- 通过构造方法注入属性的值 --&gt;
+&lt;!-- constructor-arg节点用于配置构造方法的参数 --&gt;
+&lt;bean id=&quot;person&quot;
+    class=&quot;cn.tedu.spring.Person&quot;&gt;
+    &lt;constructor-arg 
+        index=&quot;0&quot; value=&quot;Shenzhen&quot; /&gt;
+&lt;/bean&gt;
+</code></pre><p>在以上配置中，<code>&lt;constructor-arg&gt;</code>节点用于配置构造方法的参数，节点中的<code>index</code>属性表示参数的序号，是从0开始顺序编号的，即第1个参数的<code>index</code>值应该是0，如果有更多的参数，第2个参数的<code>index</code>值应该是1，以此类推，需要注入的值根据类型选取<code>value</code>或<code>ref</code>即可。</p>
+<h3 id="4-注入集合类型的值"><a href="#4-注入集合类型的值" class="headerlink" title="4. 注入集合类型的值"></a>4. 注入集合类型的值</h3><p>常见的集合类型的数据有：List、Set、Map和数组，在注入这些类型的属性值时，还是应该先选取使用SET方式注入，或使用构造方法注入，通常，优先选择通过SET方式注入：</p>
+<pre><code>public class SampleBean {
+
+    // 期望值：Tom, Kate, Mary, David
+    private List&lt;String&gt; names;
+    // 期望值：Beijing, Shanghai, Guangzhou, Shenzhen
+    private Set&lt;String&gt; cities;
+    // 期望值：uid=9527, username=Jack, password=1234
+    private Map&lt;String, String&gt; session;
+    // 期望值：3个数字
+    private Integer[] numbers;
+
+    public List&lt;String&gt; getNames() {
+        return names;
+    }
+
+    public void setNames(List&lt;String&gt; names) {
+        this.names = names;
+    }
+
+    public Set&lt;String&gt; getCities() {
+        return cities;
+    }
+
+    public void setCities(Set&lt;String&gt; cities) {
+        this.cities = cities;
+    }
+
+    public Map&lt;String, String&gt; getSession() {
+        return session;
+    }
+
+    public void setSession(Map&lt;String, String&gt; session) {
+        this.session = session;
+    }
+
+    public Integer[] getNumbers() {
+        return numbers;
+    }
+
+    public void setNumbers(Integer[] numbers) {
+        this.numbers = numbers;
+    }
+
+}
+</code></pre><p>在编写XML配置时，由于使用的是SET方式注入，所以，还是在<code>&lt;bean&gt;</code>节点之下添加<code>&lt;property&gt;</code>进行注入，根据属性类型的不同，选择不同的子级节点，例如<code>&lt;list&gt;</code>、<code>&lt;set&gt;</code>、<code>&lt;map&gt;</code>、<code>&lt;array&gt;</code>：</p>
+<pre><code>&lt;!-- 注入集合类型的值 --&gt;
+&lt;bean id=&quot;sampleBean&quot;
+    class=&quot;cn.tedu.spring.SampleBean&quot;&gt;
+    &lt;!-- 注入List类型的值 --&gt;
+    &lt;property name=&quot;names&quot;&gt;
+        &lt;list&gt;
+            &lt;value&gt;Tom&lt;/value&gt;
+            &lt;value&gt;Kate&lt;/value&gt;
+            &lt;value&gt;Mary&lt;/value&gt;
+            &lt;value&gt;David&lt;/value&gt;
+        &lt;/list&gt;
+    &lt;/property&gt;
+    &lt;!-- 注入Set类型的值 --&gt;
+    &lt;property name=&quot;cities&quot;&gt;
+        &lt;set&gt;
+            &lt;value&gt;Hangzhou&lt;/value&gt;
+            &lt;value&gt;Beijing&lt;/value&gt;
+            &lt;value&gt;Shanghai&lt;/value&gt;
+            &lt;value&gt;Guangzhou&lt;/value&gt;
+            &lt;value&gt;Shenzhen&lt;/value&gt;
+        &lt;/set&gt;
+    &lt;/property&gt;
+    &lt;!-- 注入Map类型的值 --&gt;
+    &lt;property name=&quot;session&quot;&gt;
+        &lt;map&gt;
+            &lt;entry key=&quot;uid&quot; value=&quot;9527&quot; /&gt;
+            &lt;entry key=&quot;username&quot; value=&quot;Jack&quot; /&gt;
+            &lt;entry key=&quot;password&quot; value=&quot;1234&quot; /&gt;
+        &lt;/map&gt;
+    &lt;/property&gt;
+    &lt;!-- 注入数组类型的值 --&gt;
+    &lt;property name=&quot;numbers&quot;&gt;
+        &lt;list&gt;
+            &lt;value&gt;7&lt;/value&gt;
+            &lt;value&gt;3&lt;/value&gt;
+            &lt;value&gt;9&lt;/value&gt;
+        &lt;/list&gt;
+    &lt;/property&gt;
+&lt;/bean&gt;
+</code></pre><p>在实际应用中，还经常需要使用到<code>.properties</code>类型的配置文件，在Spring中，只需要通过<code>&lt;util:properties&gt;</code>节点就可以轻松读取这类型的配置文件：</p>
+<pre><code>&lt;!-- 读取.properties文件 --&gt;
+&lt;!-- classpath表示src/main/resources文件夹 --&gt;
+&lt;util:properties id=&quot;dbConfig&quot;
+    location=&quot;classpath:db.properties&quot; /&gt;
+</code></pre><p>需要注意的是<code>&lt;util:properties&gt;</code>本质上还是<code>&lt;bean&gt;</code>，所以，可以被其它的注入操作来引用：</p>
+<pre><code>&lt;!-- 注入来自.properties中的配置 --&gt;
+&lt;property name=&quot;properties&quot; ref=&quot;dbConfig&quot; /&gt;
+</code></pre><p>在某些场景中，如果一定需要自行配置<code>Properties</code>类型的值，其结构为：</p>
+<pre><code>&lt;property name=&quot;xx&quot;&gt;
+    &lt;props&gt;
+        &lt;prop key=&quot;username&quot;&gt;root&lt;/prop&gt;
+        &lt;prop key=&quot;password&quot;&gt;1234&lt;/prop&gt;
+    &lt;/props&gt;
+&lt;/property&gt;
+</code></pre><p>以上所有关于集合类型的值的注入操作中，<code>Properties</code>类型的相关操作属于略常用操作，其它类型的注入操作相对更少。</p>
+<h3 id="Spring表达式"><a href="#Spring表达式" class="headerlink" title="Spring表达式"></a>Spring表达式</h3><p>通过Spring表达式，可以在配置中访问到某个<code>Bean</code>的某个属性的值！</p>
+<p>Spring表达式的基本格式是<code>#{表达式}</code>，假设<code>ValueBean</code>中有<code>username</code>属性，其值是<code>User</code>中的<code>name</code>属性值，则配置为：</p>
+<pre><code>&lt;bean id=&quot;valueBean&quot;
+    class=&quot;cn.tedu.spring.ValueBean&quot;&gt;
+    &lt;property name=&quot;username&quot;
+        value=&quot;#{user.name}&quot; /&gt;
+&lt;/bean&gt;
+</code></pre><p>以上Spring表达式<code>#{user.name}</code>中，<code>user</code>是bean id，<code>name</code>是属性名。</p>
+<p>假设<code>ValueBean</code>中有<code>realname</code>属性，其值是<code>SampleBean</code>中的<code>names</code>（List类型的集合）中的第2个值，则配置为：</p>
+<pre><code>&lt;property name=&quot;realname&quot;
+        value=&quot;#{sampleBean.names[1]}&quot; /&gt;
+</code></pre><p>假设<code>ValueBean</code>中有<code>password</code>属性，其值是<code>SampleBean</code>中的<code>session</code>（Map类型的集合）中Key为<code>password</code>的值，则配置为：</p>
+<pre><code>&lt;property name=&quot;password&quot;
+        value=&quot;#{sampleBean.session.password}&quot; /&gt;
+</code></pre><p>以上访问Map集合中的数据的表达式还可以写为<code>#{sampleBean.session[&#39;password&#39;]}</code>，但是，使用相对比较麻烦，并不推荐这样使用！</p>
+<p>总的来说，使用Spring表达式可以访问其它Bean中的属性值：</p>
+<ul>
+<li>某属性的值：<code>#{bean-id.属性名称}</code></li>
+<li>访问List集合中的值：<code>#{bean-id.集合名称[下标或索引]}</code></li>
+<li>访问Map集合中的值：<code>#{bean-id.集合名称.key}</code>或<code>#{bean-id.集合名称[&#39;key&#39;]}</code></li>
+</ul>
+<h3 id="【附】-Resource-Leak-内存溢出-内存泄露"><a href="#【附】-Resource-Leak-内存溢出-内存泄露" class="headerlink" title="【附】 Resource Leak / 内存溢出 / 内存泄露"></a>【附】 Resource Leak / 内存溢出 / 内存泄露</h3><p>连接型资源在使用完之后，应该调用类似于<code>close()</code>的方法，以释放资源，否则，将可能导致内存溢出。</p>
+<p>内存溢出指的是：某个资源已经无法再使用，但是，连接可能依然存在，对于开发者而言，无法再调用其任何属性或方法，所以，是一个垃圾数据，但对于JVM而言，由于连接是存在的，被视为“仍处于使用状态”，不会认为它是一个垃圾数据，则不会回收！这样的数据的表现就是“对于程序员来说无法再使用，对于JVM而言却不会去回收”，所以，这样的数据会长期占用内存，如果这样数据越来越多，将导致可用内存越来越少，达到极限状态时就会出现溢出！</p>
+<p>所以，少量的内存溢出并没有明显的危害，但是，每一个开发者都应该尽量的解决所有可能的内存溢出问题！核心宗旨就是“用完了及时关闭，无法随时关闭的，善用try..catch..finally”。</p>
+<h3 id="【附】-关于解决XML文件无法自动提示的问题"><a href="#【附】-关于解决XML文件无法自动提示的问题" class="headerlink" title="【附】 关于解决XML文件无法自动提示的问题"></a>【附】 关于解决XML文件无法自动提示的问题</h3><p><a href="http://schema.tedu.cn/proxy/" target="_blank" rel="noopener">http://schema.tedu.cn/proxy/</a></p>
+<h3 id="【附】-在-properties文件中使用中文"><a href="#【附】-在-properties文件中使用中文" class="headerlink" title="【附】 在.properties文件中使用中文"></a>【附】 在.properties文件中使用中文</h3><p><img src="01.png" alt=""></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tarecode/tags/IoC/" rel="tag"># IoC</a>
+          
+            <a href="/tarecode/tags/Sp-EL/" rel="tag"># Sp_EL</a>
+          
+            <a href="/tarecode/tags/内存溢出/" rel="tag"># 内存溢出</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/tarecode/2019/01/17/springday01/DAY01 (2)/" rel="next" title="Spring IoC控制反转 Sp_EL表达式">
+                <i class="fa fa-chevron-left"></i> Spring IoC控制反转 Sp_EL表达式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">懒人的我</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/tarecode/archives/">
+              
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/tarecode/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tarecode/tags/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Spring-IoC"><span class="nav-number">1.</span> <span class="nav-text">1. Spring IoC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-通过SET方式为属性注入值"><span class="nav-number">2.</span> <span class="nav-text">2. 通过SET方式为属性注入值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-【不常用】-通过构造方法注入属性的值"><span class="nav-number">3.</span> <span class="nav-text">3. 【不常用】 通过构造方法注入属性的值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-注入集合类型的值"><span class="nav-number">4.</span> <span class="nav-text">4. 注入集合类型的值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Spring表达式"><span class="nav-number">5.</span> <span class="nav-text">Spring表达式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#【附】-Resource-Leak-内存溢出-内存泄露"><span class="nav-number">6.</span> <span class="nav-text">【附】 Resource Leak / 内存溢出 / 内存泄露</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#【附】-关于解决XML文件无法自动提示的问题"><span class="nav-number">7.</span> <span class="nav-text">【附】 关于解决XML文件无法自动提示的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#【附】-在-properties文件中使用中文"><span class="nav-number">8.</span> <span class="nav-text">【附】 在.properties文件中使用中文</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">懒人的我</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">45.2k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/tarecode/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/tarecode/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/tarecode/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/tarecode/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/tarecode/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

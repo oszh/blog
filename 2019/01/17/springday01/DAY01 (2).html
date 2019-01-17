@@ -1,0 +1,171 @@
+<hr>
+<p>title: Spring IoC控制反转 Sp_EL表达式<br>date: 2019-01-17 18:41:49<br>tags: [IoC,Sp_EL]</p>
+<h2 id="categories-依赖注入"><a href="#categories-依赖注入" class="headerlink" title="categories: [依赖注入]"></a>categories: [依赖注入]</h2><h3 id="1-Spring-IoC"><a href="#1-Spring-IoC" class="headerlink" title="1. Spring IoC"></a>1. Spring IoC</h3><p>IoC：Inversion of control：控制反转：在传统开发模式下，对象的创建过程和管理过程都是由开发者通过Java程序来实现的，操作权在开发者的Java程序中，当使用了Spring框架后，对象的创建与管理都不再由开发者编写的程序来决定！而是交给框架来决定，具体的做法可以是通过配置框架的XML文件来实现，或其它方式。</p>
+<p>DI：Dependency Injection：依赖注入：为类的属性注入值。</p>
+<p>IoC是Spring框架所实现的目标，而DI是实现该目标所使用的手段，即：Spring通过DI实现了IoC。</p>
+<h3 id="2-通过SET方式为属性注入值"><a href="#2-通过SET方式为属性注入值" class="headerlink" title="2. 通过SET方式为属性注入值"></a>2. 通过SET方式为属性注入值</h3><p>可能通过配置Spring的配置文件，使得类中的属性是注入过值的，最终，当从Spring容器中获取对象时，其中的属性就已经有值了！</p>
+<p>要为属性注入值，首先，需要为属性添加SET方法：</p>
+<pre><code>public class User {
+    Integer age;
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+}
+</code></pre><p>然后，在Spring的配置的XML中：</p>
+<pre><code>&lt;bean id=&quot;xx&quot; class=&quot;xx.xx.xx&quot;&gt;
+    &lt;property name=&quot;age&quot; value=&quot;23&quot; /&gt;
+&lt;/bean&gt;
+</code></pre><p>以上配置中，<code>&lt;property&gt;</code>节点用于配置属性的值，<code>name</code>可以理解为属性名称，<code>value</code>就是需要注入的值，仅适用于属性的值是基本值（可以直接书写的值，例如数值、布尔值、字符或字符串）的情况，如果属性的值是对象型的，需要在Spring的配置文件中先配置对象所归属的类的<code>&lt;bean&gt;</code>，然后，注入值时，使用<code>ref</code>属性引用到那个<code>&lt;bean&gt;</code>的<code>id</code>值：</p>
+<pre><code>&lt;bean id=&quot;now&quot;
+    class=&quot;java.util.Date&quot; /&gt;
+
+&lt;bean id=&quot;user&quot;
+    class=&quot;cn.tedu.spring.User&quot;&gt;
+    &lt;property name=&quot;regTime&quot; ref=&quot;now&quot; /&gt;
+&lt;/bean&gt;
+</code></pre><p>注意：在<code>&lt;property&gt;</code>节点中，<code>name</code>属性的值，其实是类中的属性对应的SET方法名称中<code>set</code>右侧的名称且首字母小写，例如SET方法名是<code>setAge</code>，则此处<code>&lt;property name=&quot;???&quot;&gt;</code>的值应该是<code>age</code>，如果SET方法名是<code>setFrom</code>，则<code>&lt;property name=&quot;???&quot;&gt;</code>的值应该是<code>from</code>！但是，通常可以不必关心这个问题，因为SET方法应该是通过Eclipse这种开发工具自动生成的，SET方法的名称是规范的，与Spring框架使用的规则是相同的，所以，只要能保证SET方法的名称是规范的，不必纠结<code>&lt;property&gt;</code>中的<code>name</code>属性到底指的是什么。</p>
+<h3 id="3-【不常用】-通过构造方法注入属性的值"><a href="#3-【不常用】-通过构造方法注入属性的值" class="headerlink" title="3. 【不常用】 通过构造方法注入属性的值"></a>3. 【不常用】 通过构造方法注入属性的值</h3><p>假设存在：</p>
+<pre><code>public class Person {
+    public String from;
+
+    public Person(String from) {
+        this.from = from;
+    }
+}
+</code></pre><p>即：需要注入值的属性并没有SET方法，而是存在构造方法为该属性赋值，在这种情况下的配置应该是：</p>
+<pre><code>&lt;!-- 通过构造方法注入属性的值 --&gt;
+&lt;!-- constructor-arg节点用于配置构造方法的参数 --&gt;
+&lt;bean id=&quot;person&quot;
+    class=&quot;cn.tedu.spring.Person&quot;&gt;
+    &lt;constructor-arg 
+        index=&quot;0&quot; value=&quot;Shenzhen&quot; /&gt;
+&lt;/bean&gt;
+</code></pre><p>在以上配置中，<code>&lt;constructor-arg&gt;</code>节点用于配置构造方法的参数，节点中的<code>index</code>属性表示参数的序号，是从0开始顺序编号的，即第1个参数的<code>index</code>值应该是0，如果有更多的参数，第2个参数的<code>index</code>值应该是1，以此类推，需要注入的值根据类型选取<code>value</code>或<code>ref</code>即可。</p>
+<h3 id="4-注入集合类型的值"><a href="#4-注入集合类型的值" class="headerlink" title="4. 注入集合类型的值"></a>4. 注入集合类型的值</h3><p>常见的集合类型的数据有：List、Set、Map和数组，在注入这些类型的属性值时，还是应该先选取使用SET方式注入，或使用构造方法注入，通常，优先选择通过SET方式注入：</p>
+<pre><code>public class SampleBean {
+
+    // 期望值：Tom, Kate, Mary, David
+    private List&lt;String&gt; names;
+    // 期望值：Beijing, Shanghai, Guangzhou, Shenzhen
+    private Set&lt;String&gt; cities;
+    // 期望值：uid=9527, username=Jack, password=1234
+    private Map&lt;String, String&gt; session;
+    // 期望值：3个数字
+    private Integer[] numbers;
+
+    public List&lt;String&gt; getNames() {
+        return names;
+    }
+
+    public void setNames(List&lt;String&gt; names) {
+        this.names = names;
+    }
+
+    public Set&lt;String&gt; getCities() {
+        return cities;
+    }
+
+    public void setCities(Set&lt;String&gt; cities) {
+        this.cities = cities;
+    }
+
+    public Map&lt;String, String&gt; getSession() {
+        return session;
+    }
+
+    public void setSession(Map&lt;String, String&gt; session) {
+        this.session = session;
+    }
+
+    public Integer[] getNumbers() {
+        return numbers;
+    }
+
+    public void setNumbers(Integer[] numbers) {
+        this.numbers = numbers;
+    }
+
+}
+</code></pre><p>在编写XML配置时，由于使用的是SET方式注入，所以，还是在<code>&lt;bean&gt;</code>节点之下添加<code>&lt;property&gt;</code>进行注入，根据属性类型的不同，选择不同的子级节点，例如<code>&lt;list&gt;</code>、<code>&lt;set&gt;</code>、<code>&lt;map&gt;</code>、<code>&lt;array&gt;</code>：</p>
+<pre><code>&lt;!-- 注入集合类型的值 --&gt;
+&lt;bean id=&quot;sampleBean&quot;
+    class=&quot;cn.tedu.spring.SampleBean&quot;&gt;
+    &lt;!-- 注入List类型的值 --&gt;
+    &lt;property name=&quot;names&quot;&gt;
+        &lt;list&gt;
+            &lt;value&gt;Tom&lt;/value&gt;
+            &lt;value&gt;Kate&lt;/value&gt;
+            &lt;value&gt;Mary&lt;/value&gt;
+            &lt;value&gt;David&lt;/value&gt;
+        &lt;/list&gt;
+    &lt;/property&gt;
+    &lt;!-- 注入Set类型的值 --&gt;
+    &lt;property name=&quot;cities&quot;&gt;
+        &lt;set&gt;
+            &lt;value&gt;Hangzhou&lt;/value&gt;
+            &lt;value&gt;Beijing&lt;/value&gt;
+            &lt;value&gt;Shanghai&lt;/value&gt;
+            &lt;value&gt;Guangzhou&lt;/value&gt;
+            &lt;value&gt;Shenzhen&lt;/value&gt;
+        &lt;/set&gt;
+    &lt;/property&gt;
+    &lt;!-- 注入Map类型的值 --&gt;
+    &lt;property name=&quot;session&quot;&gt;
+        &lt;map&gt;
+            &lt;entry key=&quot;uid&quot; value=&quot;9527&quot; /&gt;
+            &lt;entry key=&quot;username&quot; value=&quot;Jack&quot; /&gt;
+            &lt;entry key=&quot;password&quot; value=&quot;1234&quot; /&gt;
+        &lt;/map&gt;
+    &lt;/property&gt;
+    &lt;!-- 注入数组类型的值 --&gt;
+    &lt;property name=&quot;numbers&quot;&gt;
+        &lt;list&gt;
+            &lt;value&gt;7&lt;/value&gt;
+            &lt;value&gt;3&lt;/value&gt;
+            &lt;value&gt;9&lt;/value&gt;
+        &lt;/list&gt;
+    &lt;/property&gt;
+&lt;/bean&gt;
+</code></pre><p>在实际应用中，还经常需要使用到<code>.properties</code>类型的配置文件，在Spring中，只需要通过<code>&lt;util:properties&gt;</code>节点就可以轻松读取这类型的配置文件：</p>
+<pre><code>&lt;!-- 读取.properties文件 --&gt;
+&lt;!-- classpath表示src/main/resources文件夹 --&gt;
+&lt;util:properties id=&quot;dbConfig&quot;
+    location=&quot;classpath:db.properties&quot; /&gt;
+</code></pre><p>需要注意的是<code>&lt;util:properties&gt;</code>本质上还是<code>&lt;bean&gt;</code>，所以，可以被其它的注入操作来引用：</p>
+<pre><code>&lt;!-- 注入来自.properties中的配置 --&gt;
+&lt;property name=&quot;properties&quot; ref=&quot;dbConfig&quot; /&gt;
+</code></pre><p>在某些场景中，如果一定需要自行配置<code>Properties</code>类型的值，其结构为：</p>
+<pre><code>&lt;property name=&quot;xx&quot;&gt;
+    &lt;props&gt;
+        &lt;prop key=&quot;username&quot;&gt;root&lt;/prop&gt;
+        &lt;prop key=&quot;password&quot;&gt;1234&lt;/prop&gt;
+    &lt;/props&gt;
+&lt;/property&gt;
+</code></pre><p>以上所有关于集合类型的值的注入操作中，<code>Properties</code>类型的相关操作属于略常用操作，其它类型的注入操作相对更少。</p>
+<h3 id="Spring表达式"><a href="#Spring表达式" class="headerlink" title="Spring表达式"></a>Spring表达式</h3><p>通过Spring表达式，可以在配置中访问到某个<code>Bean</code>的某个属性的值！</p>
+<p>Spring表达式的基本格式是<code>#{表达式}</code>，假设<code>ValueBean</code>中有<code>username</code>属性，其值是<code>User</code>中的<code>name</code>属性值，则配置为：</p>
+<pre><code>&lt;bean id=&quot;valueBean&quot;
+    class=&quot;cn.tedu.spring.ValueBean&quot;&gt;
+    &lt;property name=&quot;username&quot;
+        value=&quot;#{user.name}&quot; /&gt;
+&lt;/bean&gt;
+</code></pre><p>以上Spring表达式<code>#{user.name}</code>中，<code>user</code>是bean id，<code>name</code>是属性名。</p>
+<p>假设<code>ValueBean</code>中有<code>realname</code>属性，其值是<code>SampleBean</code>中的<code>names</code>（List类型的集合）中的第2个值，则配置为：</p>
+<pre><code>&lt;property name=&quot;realname&quot;
+        value=&quot;#{sampleBean.names[1]}&quot; /&gt;
+</code></pre><p>假设<code>ValueBean</code>中有<code>password</code>属性，其值是<code>SampleBean</code>中的<code>session</code>（Map类型的集合）中Key为<code>password</code>的值，则配置为：</p>
+<pre><code>&lt;property name=&quot;password&quot;
+        value=&quot;#{sampleBean.session.password}&quot; /&gt;
+</code></pre><p>以上访问Map集合中的数据的表达式还可以写为<code>#{sampleBean.session[&#39;password&#39;]}</code>，但是，使用相对比较麻烦，并不推荐这样使用！</p>
+<p>总的来说，使用Spring表达式可以访问其它Bean中的属性值：</p>
+<ul>
+<li>某属性的值：<code>#{bean-id.属性名称}</code></li>
+<li>访问List集合中的值：<code>#{bean-id.集合名称[下标或索引]}</code></li>
+<li>访问Map集合中的值：<code>#{bean-id.集合名称.key}</code>或<code>#{bean-id.集合名称[&#39;key&#39;]}</code></li>
+</ul>
+<h3 id="【附】-Resource-Leak-内存溢出-内存泄露"><a href="#【附】-Resource-Leak-内存溢出-内存泄露" class="headerlink" title="【附】 Resource Leak / 内存溢出 / 内存泄露"></a>【附】 Resource Leak / 内存溢出 / 内存泄露</h3><p>连接型资源在使用完之后，应该调用类似于<code>close()</code>的方法，以释放资源，否则，将可能导致内存溢出。</p>
+<p>内存溢出指的是：某个资源已经无法再使用，但是，连接可能依然存在，对于开发者而言，无法再调用其任何属性或方法，所以，是一个垃圾数据，但对于JVM而言，由于连接是存在的，被视为“仍处于使用状态”，不会认为它是一个垃圾数据，则不会回收！这样的数据的表现就是“对于程序员来说无法再使用，对于JVM而言却不会去回收”，所以，这样的数据会长期占用内存，如果这样数据越来越多，将导致可用内存越来越少，达到极限状态时就会出现溢出！</p>
+<p>所以，少量的内存溢出并没有明显的危害，但是，每一个开发者都应该尽量的解决所有可能的内存溢出问题！核心宗旨就是“用完了及时关闭，无法随时关闭的，善用try..catch..finally”。</p>
+<h3 id="【附】-关于解决XML文件无法自动提示的问题"><a href="#【附】-关于解决XML文件无法自动提示的问题" class="headerlink" title="【附】 关于解决XML文件无法自动提示的问题"></a>【附】 关于解决XML文件无法自动提示的问题</h3><p><a href="http://schema.tedu.cn/proxy/">http://schema.tedu.cn/proxy/</a></p>
+<h3 id="【附】-在-properties文件中使用中文"><a href="#【附】-在-properties文件中使用中文" class="headerlink" title="【附】 在.properties文件中使用中文"></a>【附】 在.properties文件中使用中文</h3><p><img src="01.png" alt=""></p>
