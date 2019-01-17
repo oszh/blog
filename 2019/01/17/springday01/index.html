@@ -88,7 +88,7 @@
 <meta property="og:description" content="1. Spring IoCIoC：Inversion of control：控制反转：在传统开发模式下，对象的创建过程和管理过程都是由开发者通过Java程序来实现的，操作权在开发者的Java程序中，当使用了Spring框架后，对象的创建与管理都不再由开发者编写的程序来决定！而是交给框架来决定，具体的做法可以是通过配置框架的XML文件来实现，或其它方式。 DI：Dependency Injectio">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://oszh.github.io/2019/01/17/springday01/01.png">
-<meta property="og:updated_time" content="2019-01-17T10:58:32.192Z">
+<meta property="og:updated_time" content="2019-01-17T11:10:39.610Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring IoC Sp_EL">
 <meta name="twitter:description" content="1. Spring IoCIoC：Inversion of control：控制反转：在传统开发模式下，对象的创建过程和管理过程都是由开发者通过Java程序来实现的，操作权在开发者的Java程序中，当使用了Spring框架后，对象的创建与管理都不再由开发者编写的程序来决定！而是交给框架来决定，具体的做法可以是通过配置框架的XML文件来实现，或其它方式。 DI：Dependency Injectio">
@@ -563,7 +563,6 @@
 <h3 id="【附】-Resource-Leak-内存溢出-内存泄露"><a href="#【附】-Resource-Leak-内存溢出-内存泄露" class="headerlink" title="【附】 Resource Leak / 内存溢出 / 内存泄露"></a>【附】 Resource Leak / 内存溢出 / 内存泄露</h3><p>连接型资源在使用完之后，应该调用类似于<code>close()</code>的方法，以释放资源，否则，将可能导致内存溢出。</p>
 <p>内存溢出指的是：某个资源已经无法再使用，但是，连接可能依然存在，对于开发者而言，无法再调用其任何属性或方法，所以，是一个垃圾数据，但对于JVM而言，由于连接是存在的，被视为“仍处于使用状态”，不会认为它是一个垃圾数据，则不会回收！这样的数据的表现就是“对于程序员来说无法再使用，对于JVM而言却不会去回收”，所以，这样的数据会长期占用内存，如果这样数据越来越多，将导致可用内存越来越少，达到极限状态时就会出现溢出！</p>
 <p>所以，少量的内存溢出并没有明显的危害，但是，每一个开发者都应该尽量的解决所有可能的内存溢出问题！核心宗旨就是“用完了及时关闭，无法随时关闭的，善用try..catch..finally”。</p>
-<h3 id="【附】-关于解决XML文件无法自动提示的问题"><a href="#【附】-关于解决XML文件无法自动提示的问题" class="headerlink" title="【附】 关于解决XML文件无法自动提示的问题"></a>【附】 关于解决XML文件无法自动提示的问题</h3><p><a href="http://schema.tedu.cn/proxy/" target="_blank" rel="noopener">http://schema.tedu.cn/proxy/</a></p>
 <h3 id="【附】-在-properties文件中使用中文"><a href="#【附】-在-properties文件中使用中文" class="headerlink" title="【附】 在.properties文件中使用中文"></a>【附】 在.properties文件中使用中文</h3><p><img src="01.png" alt=""></p>
 
       
@@ -599,8 +598,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/tarecode/2019/01/17/springday01/DAY01 (2)/" rel="next" title="Spring IoC控制反转 Sp_EL表达式">
-                <i class="fa fa-chevron-left"></i> Spring IoC控制反转 Sp_EL表达式
+              <a href="/tarecode/2019/01/11/day13/" rel="next" title="自定义标签 MVC">
+                <i class="fa fa-chevron-left"></i> 自定义标签 MVC
               </a>
             
           </div>
@@ -684,7 +683,7 @@
               
                 <a href="/tarecode/archives/">
               
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">23</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -695,7 +694,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/tarecode/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -739,7 +738,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Spring-IoC"><span class="nav-number">1.</span> <span class="nav-text">1. Spring IoC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-通过SET方式为属性注入值"><span class="nav-number">2.</span> <span class="nav-text">2. 通过SET方式为属性注入值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-【不常用】-通过构造方法注入属性的值"><span class="nav-number">3.</span> <span class="nav-text">3. 【不常用】 通过构造方法注入属性的值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-注入集合类型的值"><span class="nav-number">4.</span> <span class="nav-text">4. 注入集合类型的值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Spring表达式"><span class="nav-number">5.</span> <span class="nav-text">Spring表达式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#【附】-Resource-Leak-内存溢出-内存泄露"><span class="nav-number">6.</span> <span class="nav-text">【附】 Resource Leak / 内存溢出 / 内存泄露</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#【附】-关于解决XML文件无法自动提示的问题"><span class="nav-number">7.</span> <span class="nav-text">【附】 关于解决XML文件无法自动提示的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#【附】-在-properties文件中使用中文"><span class="nav-number">8.</span> <span class="nav-text">【附】 在.properties文件中使用中文</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Spring-IoC"><span class="nav-number">1.</span> <span class="nav-text">1. Spring IoC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-通过SET方式为属性注入值"><span class="nav-number">2.</span> <span class="nav-text">2. 通过SET方式为属性注入值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-【不常用】-通过构造方法注入属性的值"><span class="nav-number">3.</span> <span class="nav-text">3. 【不常用】 通过构造方法注入属性的值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-注入集合类型的值"><span class="nav-number">4.</span> <span class="nav-text">4. 注入集合类型的值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Spring表达式"><span class="nav-number">5.</span> <span class="nav-text">Spring表达式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#【附】-Resource-Leak-内存溢出-内存泄露"><span class="nav-number">6.</span> <span class="nav-text">【附】 Resource Leak / 内存溢出 / 内存泄露</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#【附】-在-properties文件中使用中文"><span class="nav-number">7.</span> <span class="nav-text">【附】 在.properties文件中使用中文</span></a></li></ol></div>
             
 
           </div>
@@ -773,7 +772,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">45.2k</span>
+    <span title="Site words total count">42.9k</span>
   
 </div>
 
