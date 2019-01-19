@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="MVC,">
 
 
 
@@ -79,20 +79,20 @@
 
 
 
-<meta name="description" content="1.过滤器(1)什么是过滤器?Servlet规范当中定义的一种特殊的组件，用来拦截Servlet容器调用的过程。、 注：     容器收到请求之后，会先调用过滤器，再调用后续的组件，比如 调用servlet。  (2)如何写一个过滤器?step1. 写一个java类，实现Filter接口。 step2. 在doFilter方法当中，实现拦截处理逻辑。 public class CommentFil">
+<meta name="description" content="Spring MVC1. 框架的作用SpringMVC主要解决了控制器如何接收客户端的请求，并将处理结果响应给客户端的问题。 在传统的Java EE开发中，控制器是Servlet，主要存在的问题有：  每个Servlet都需要在web.xml中配置，一个完整的项目可能需要大量代码完成所有Servlet的配置，所以，存在配置过多、管理难度大的问题； 由于一个完整的项目中可能有大量的Servlet，则">
+<meta name="keywords" content="MVC">
 <meta property="og:type" content="article">
-<meta property="og:title" content="过滤器">
-<meta property="og:url" content="https://oszh.github.io/2019/01/08/day10/index.html">
+<meta property="og:title" content="SpringMVC">
+<meta property="og:url" content="https://oszh.github.io/2019/01/19/springmvc01/index.html">
 <meta property="og:site_name" content="oszh">
-<meta property="og:description" content="1.过滤器(1)什么是过滤器?Servlet规范当中定义的一种特殊的组件，用来拦截Servlet容器调用的过程。、 注：     容器收到请求之后，会先调用过滤器，再调用后续的组件，比如 调用servlet。  (2)如何写一个过滤器?step1. 写一个java类，实现Filter接口。 step2. 在doFilter方法当中，实现拦截处理逻辑。 public class CommentFil">
+<meta property="og:description" content="Spring MVC1. 框架的作用SpringMVC主要解决了控制器如何接收客户端的请求，并将处理结果响应给客户端的问题。 在传统的Java EE开发中，控制器是Servlet，主要存在的问题有：  每个Servlet都需要在web.xml中配置，一个完整的项目可能需要大量代码完成所有Servlet的配置，所以，存在配置过多、管理难度大的问题； 由于一个完整的项目中可能有大量的Servlet，则">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://oszh.github.io/2019/01/08/day10/filter.png">
-<meta property="og:image" content="https://oszh.github.io/2019/01/08/day10/listener.png">
-<meta property="og:updated_time" content="2019-01-08T11:06:07.711Z">
+<meta property="og:image" content="https://oszh.github.io/2019/01/19/springmvc01/01.png">
+<meta property="og:updated_time" content="2019-01-19T00:59:00.646Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="过滤器">
-<meta name="twitter:description" content="1.过滤器(1)什么是过滤器?Servlet规范当中定义的一种特殊的组件，用来拦截Servlet容器调用的过程。、 注：     容器收到请求之后，会先调用过滤器，再调用后续的组件，比如 调用servlet。  (2)如何写一个过滤器?step1. 写一个java类，实现Filter接口。 step2. 在doFilter方法当中，实现拦截处理逻辑。 public class CommentFil">
-<meta name="twitter:image" content="https://oszh.github.io/2019/01/08/day10/filter.png">
+<meta name="twitter:title" content="SpringMVC">
+<meta name="twitter:description" content="Spring MVC1. 框架的作用SpringMVC主要解决了控制器如何接收客户端的请求，并将处理结果响应给客户端的问题。 在传统的Java EE开发中，控制器是Servlet，主要存在的问题有：  每个Servlet都需要在web.xml中配置，一个完整的项目可能需要大量代码完成所有Servlet的配置，所以，存在配置过多、管理难度大的问题； 由于一个完整的项目中可能有大量的Servlet，则">
+<meta name="twitter:image" content="https://oszh.github.io/2019/01/19/springmvc01/01.png">
 
 
 
@@ -122,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="https://oszh.github.io/2019/01/08/day10/">
+  <link rel="canonical" href="https://oszh.github.io/2019/01/19/springmvc01/">
 
 
 
 
 
-  <title>过滤器 | oszh</title>
+  <title>SpringMVC | oszh</title>
   
 
 
@@ -265,7 +265,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://oszh.github.io/tarecode/2019/01/08/day10/">
+    <link itemprop="mainEntityOfPage" href="https://oszh.github.io/tarecode/2019/01/19/springmvc01/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="懒人的我">
@@ -282,7 +282,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">过滤器</h1>
+          <h1 class="post-title" itemprop="name headline">SpringMVC</h1>
         
 
         <div class="post-meta">
@@ -294,8 +294,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-08T19:03:51+08:00">
-                2019-01-08
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-19T08:55:58+08:00">
+                2019-01-19
               </time>
             
 
@@ -326,7 +326,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.1k
+                  1.5k
                 </span>
               
 
@@ -342,7 +342,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  4
+                  6
                 </span>
               
             </div>
@@ -363,138 +363,97 @@
       
 
       
-        <h1 id="1-过滤器"><a href="#1-过滤器" class="headerlink" title="1.过滤器"></a>1.过滤器</h1><h2 id="1-什么是过滤器"><a href="#1-什么是过滤器" class="headerlink" title="(1)什么是过滤器?"></a>(1)什么是过滤器?</h2><p>Servlet规范当中定义的一种特殊的组件，用来拦截Servlet容器调用的过程。、</p>
-<pre><code>注：
-    容器收到请求之后，会先调用过滤器，再调用后续的组件，比如
-调用servlet。
-</code></pre><p><img src="filter.png" alt=""></p>
-<h2 id="2-如何写一个过滤器"><a href="#2-如何写一个过滤器" class="headerlink" title="(2)如何写一个过滤器?"></a>(2)如何写一个过滤器?</h2><p>step1. 写一个java类，实现Filter接口。</p>
-<p>step2. 在doFilter方法当中，实现拦截处理逻辑。</p>
-<pre><code>public class CommentFilter implements Filter{
-/**
- * 容器启动之后，会立即创建过滤器实例。
- * 注：
- *      只会创建一个实例。
- */
-public CommentFilter(){
-    System.out.println(
-            &quot;CommentFilter&apos;s constructor&quot;);
-}
-/**
- * 容器在删除过滤器实例之前，会调用
- * destroy方法(只会调用一次)。
- */
-public void destroy() {
-    System.out.println(
-            &quot;CommentFilter&apos;s destroy&quot;);
-}
-/**
- * 容器收到请求之后，会调用过滤器的doFilter方法
- * (类似于Servlet的service方法)。
- * ServletRequest是HttpServletRequest的父接口，
- * ServletResponse是HttpServletResponse的父接口。
- * FilterChain(过滤器链)：如果调用了该
- * 对象的doFilter方法，容器会继续向后调用,
- * 否则，中断请求，返回处理结果。
- */
-public void doFilter(
-        ServletRequest arg0,
-        ServletResponse arg1, 
-        FilterChain arg2)
-        throws IOException, ServletException {
+        <h2 id="Spring-MVC"><a href="#Spring-MVC" class="headerlink" title="Spring MVC"></a>Spring MVC</h2><h3 id="1-框架的作用"><a href="#1-框架的作用" class="headerlink" title="1. 框架的作用"></a>1. 框架的作用</h3><p>SpringMVC主要解决了控制器如何接收客户端的请求，并将处理结果响应给客户端的问题。</p>
+<p>在传统的Java EE开发中，控制器是<code>Servlet</code>，主要存在的问题有：</p>
+<ol>
+<li>每个<code>Servlet</code>都需要在<code>web.xml</code>中配置，一个完整的项目可能需要大量代码完成所有<code>Servlet</code>的配置，所以，存在配置过多、管理难度大的问题；</li>
+<li>由于一个完整的项目中可能有大量的<code>Servlet</code>，则项目启动后，会消耗大量的内存去存储这些<code>Servlet</code>的对象；</li>
+<li>由于一个完整的项目中可能有大量的<code>Servlet</code>，在编码时，管理难度也会增加；</li>
+<li>原生的Java EE中的API使用并不便利！</li>
+</ol>
+<h3 id="2-框架的核心组件"><a href="#2-框架的核心组件" class="headerlink" title="2. 框架的核心组件"></a>2. 框架的核心组件</h3><p>在SpringMVC中，有以下5大核心组件（还有其它组件）：</p>
+<ul>
+<li><code>DispatcherServlet</code>：接收请求，并分发给各个控制器</li>
+<li><code>HandlerMapping</code>：处理请求路径与控制器的映射关系</li>
+<li><code>ModelAndView</code>：控制器的处理结果</li>
+<li><code>ViewResolver</code>：处理视图名与具体使用的视图组件的映射关系</li>
+<li><code>Controller</code>：具体处理请求并给出响应结果</li>
+</ul>
+<p>具体的工作流程图：</p>
+<p><img src="01.png" alt=""></p>
+<h3 id="3-Spring-MVC-Helloworld"><a href="#3-Spring-MVC-Helloworld" class="headerlink" title="3. Spring MVC - Helloworld"></a>3. Spring MVC - Helloworld</h3><p><strong>目标</strong></p>
+<p>在浏览器中输出<code>http://localhost:8080/项目名/hello.do</code>后，能显示某页面，页面中有<code>Hello, SpringMVC!</code>字样。</p>
+<p><strong>创建项目</strong></p>
+<p>创建Maven Project，<code>Group Id</code>为<code>cn.tedu.spring</code>，<code>Artifact Id</code>为<code>SPRINGMVC-01-HELLO</code>，<code>Packaging</code>为<code>war</code>。</p>
+<p>然后，生成<code>web.xml</code>文件，添加<code>spring-webmvc</code>依赖，复制此前项目中的<code>spring.xml</code>到当前项目中并清除原有的配置，添加Tomcat运行环境。</p>
+<p><strong>配置DispatcherServlet</strong></p>
+<p>由于希望SpringMVC框架能接收到相关的请求，所以，首先应该对<code>DispatcherServlet</code>进行配置：</p>
+<pre><code>&lt;servlet&gt;
+    &lt;servlet-name&gt;SpringMVC&lt;/servlet-name&gt;
+    &lt;servlet-class&gt;org.springframework.web.servlet.DispatcherServlet&lt;/servlet-class&gt;
+&lt;/servlet&gt;
 
-    System.out.println(
-            &quot;CommentFilter&apos;s doFilter begin...&quot;);
-    /*
-     * (了解)因为sun的过度设计，这儿需要做强制
-     * 转换(我们经常用的是子接口中的方法)。
-     */
-    HttpServletRequest request = 
-            (HttpServletRequest)arg0;
-    HttpServletResponse response = 
-            (HttpServletResponse)arg1;
+&lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;SpringMVC&lt;/servlet-name&gt;
+    &lt;url-pattern&gt;*.do&lt;/url-pattern&gt;
+&lt;/servlet-mapping&gt;
+</code></pre><blockquote>
+<p>关于DispatcherServlet的包名，可以在任意Java类中声明DispatcherServlet变量，由Eclipse完成导包，则在import语句中就有了该类的包名。</p>
+</blockquote>
+<p>以上配置中，<code>&lt;url-pattern&gt;</code>中配置的是<code>*.do</code>，表示SpringMVC框架将接收所有以<code>.do</code>作为资源名后缀的请求，而并不处理例如<code>.html</code>、<code>.jpg</code>等请求，如果希望接收并处理所有请求，可以使用<code>/*</code>或其它使用了通配符的配置。</p>
+<p>为了使得Spring的运行环境是正常的，应该保证在项目部署到Tomcat的第一时间就加载Spring的配置，要实现这样的效果，可以使得：<code>DispatcherServlet</code>是默认启动的（配置<code>&lt;load-on-startup&gt;</code>节点），并且，它启动时加载Spring的配置文件（<code>DispatcherServlet</code>的父类<code>FrameworkServlet</code>中有<code>contextConfigLocation</code>属性，表示初始化时加载哪个配置文件）！</p>
+<pre><code>&lt;servlet&gt;
+    &lt;servlet-name&gt;SpringMVC&lt;/servlet-name&gt;
+    &lt;servlet-class&gt;org.springframework.web.servlet.DispatcherServlet&lt;/servlet-class&gt;
+    &lt;init-param&gt;
+        &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;
+        &lt;param-value&gt;classpath:spring.xml&lt;/param-value&gt;
+    &lt;/init-param&gt;
+    &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;
+&lt;/servlet&gt;
 
-    request.setCharacterEncoding(&quot;utf-8&quot;);
-    response.setContentType(
-            &quot;text/html;charset=utf-8&quot;);
+&lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;SpringMVC&lt;/servlet-name&gt;
+    &lt;url-pattern&gt;*.do&lt;/url-pattern&gt;
+&lt;/servlet-mapping&gt;
+</code></pre><p>至此，项目的运行效果为：启动时，会直接初始化<code>DispatcherServlet</code>，并且在初始化时，还会自动加载<code>spring.xml</code>配置文件。</p>
+<p>如果需要检查配置是否成功，可以：使得某个类被Spring管理，且在构造方法中添加输出语句！如果启动项目时可以看到输出语句，则成功！</p>
+<p><strong>接收并处理请求</strong></p>
+<p>在实际开发中，并不会使用专门的配置文件去记录请求路径与处理请求的控制器的映射关系，即：不配置<code>HandlerMapping</code>（当然，这并不影响SpringMVC的工作流程，只是从代码上不这样体现而已）。</p>
+<p>可以直接创建控制器类，例如<code>cn.tedu.spring.HelloController</code>，需要该类在组件扫描范围之内，且应该添加<code>@Controller</code>注解，然后，在类中自定义处理请求的方法。</p>
+<p>关于处理请求的方法，访问权限应该是<code>public</code>，返回值类型暂时使用<code>String</code>，方法的名称可以自行定义，参数暂时留空，即不添加任何参数，然后，在方法之前添加<code>@RequestMapping(&quot;路径&quot;)</code>配置请求路径：</p>
+<pre><code>@Controller
+public class HelloController {
 
-    String content = 
-            request.getParameter(&quot;content&quot;);
-
-    if(content.indexOf(&quot;狗&quot;) != -1){
-        //有敏感字，中断请求，返回处理结果
-        response.getWriter()
-        .println(&quot;评论包含了敏感字&quot;);
-    }else{
-        //没有敏感字，则继续向后调用
-        arg2.doFilter(request, response);
-    }
-    System.out.println(
-            &quot;CommentFilter&apos;s doFilter end.&quot;);
-}
-/**
- * 容器在创建好过滤器实例之后，会调用该实例的
- * init方法(只会调用一次)，容器会将FilterConfig
- * 对象作为参数传递过来。
- * 可以利用FilterConfig来读取初始化参数,
- * 也可以用来获得ServletContext。
- * 注:
- *     ServletConfig也可以获得ServletContext。
- */
-public void init(FilterConfig arg0) throws ServletException {
-    System.out.println(
-            &quot;CommenetFilter&apos;s init&quot;);
-    }
-}
-</code></pre><p>step3. 配置过滤器。(web.xml)</p>
-<pre><code>&lt;filter&gt;
-      &lt;filter-name&gt;commentFilter&lt;/filter-name&gt;
-      &lt;filter-class&gt;web.CommentFilter&lt;/filter-class&gt;
-  &lt;/filter&gt;
-  &lt;filter-mapping&gt;
-      &lt;filter-name&gt;commentFilter&lt;/filter-name&gt;
-      &lt;url-pattern&gt;/comment&lt;/url-pattern&gt;
-  &lt;/filter-mapping&gt;
-</code></pre><h2 id="3-过滤器的优先级"><a href="#3-过滤器的优先级" class="headerlink" title="(3)过滤器的优先级"></a>(3)过滤器的优先级</h2><p>当有多个过滤器都满足拦截要求，则容器依据<filter-mapping><br>配置的先后顺序来执行。</filter-mapping></p>
-<h2 id="4-过滤器的初始化参数"><a href="#4-过滤器的初始化参数" class="headerlink" title="(4)过滤器的初始化参数"></a>(4)过滤器的初始化参数</h2><p>step1.配置初始化参数</p>
-<pre><code>&lt;init-param&gt;
-      &lt;param-name&gt;illegal&lt;/param-name&gt;
-      &lt;param-value&gt;猫&lt;/param-value&gt;
-  &lt;/init-param&gt;
-</code></pre><p>step2. 读取初始化参数值</p>
-<pre><code>String illegal = 
-        config.getInitParameter(&quot;illegal&quot;);
-</code></pre><h2 id="5-过滤器的优点"><a href="#5-过滤器的优点" class="headerlink" title="(5)过滤器的优点"></a>(5)过滤器的优点</h2><p>a.可以在不修改原有代码的基础上，为应用添加新的功能。</p>
-<p>b.可以将多个组件相同的功能集中写在一个过滤器里面，方便<br>代码的维护。</p>
-<h1 id="2-监听器"><a href="#2-监听器" class="headerlink" title="2.监听器"></a>2.监听器</h1><h2 id="1-什么是监听器"><a href="#1-什么是监听器" class="headerlink" title="(1)什么是监听器?"></a>(1)什么是监听器?</h2><p>servlet规范当中定义的一种特殊的组件，用于监听servlet容器产生的<br>事件并进行相应的处理。</p>
-<pre><code>注：容器主要产生两大类事件，分别是:
-1)生命周期相关的事件:
-        容器创建了或者销毁了request,session,servlet上下文
-        时产生的事件。
-2)绑订数据相关的事件:
-        调用了request,session,servlet上下文的setAttribute,
-        removeAttribute方法时产生的事件。
-</code></pre><h2 id="2-如何写一个监听器"><a href="#2-如何写一个监听器" class="headerlink" title="(2)如何写一个监听器?"></a>(2)如何写一个监听器?</h2><p>step1. 写一个java类，实现监听器接口。</p>
-<pre><code>注：依据监听的事件类型来选择实现相应的接口。
-比如，要监听session对象的创建和销毁，实现HttpSessionListener
-接口。
-</code></pre><p>step2. 在监听器接口方法当中，实现监听处理逻辑。</p>
-<p>step3. 配置监听器。(web.xml)    </p>
-<h2 id="3-统计在线人数"><a href="#3-统计在线人数" class="headerlink" title="(3)统计在线人数"></a>(3)统计在线人数</h2><p><img src="listener.png" alt=""></p>
-<h2 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h2><p>写一个监听器，容器启动之后，将用户表(t_user)中的所有用户信息<br>查询出来,然后将用户信息绑订到Servlet上下文上。</p>
-<p>step1. 将UserDAO相关的代码及配置文件拷贝过来。</p>
-<p>step2. 写一个java类:<br>    public class CacheListener<br>        implements ServletContextListener{</p>
-<pre><code>    public void contextInitialized(ServletContextEvent sce){
-        UserDAO dao = new UserDAO();
-        List&lt;User&gt; users = dao.findAll();
-        ServletContext sctx = 
-                sce.getServletContext();
-        sctx.setAttribute(&quot;users&quot;,users);    
+    // 处理请求的方法
+    // 权限：public
+    // 返回值：String（暂定）
+    // 方法名：自定义
+    // 参数列表：无（暂定）
+    @RequestMapping(&quot;hello.do&quot;)
+    public String showHello() {
+        System.out.println(&quot;HelloController.showHello()&quot;);
+        return null;
     }
 
 }
-</code></pre><p>step3.配置监听器。</p>
-<h1 id="练习-1"><a href="#练习-1" class="headerlink" title="练习"></a>练习</h1><p>写一个过滤器，检查评论的字数，如果超过10个字，则提示<br>“评论字数过多”。</p>
+</code></pre><p>至此，<code>hello.do</code>的请求已经可以被以上自定义的<code>showHello()</code>方法处理，在浏览器输出<code>http://localhost:8080/SPRINGMVC-01-HELLO/hello.do</code>后，虽然在浏览器中无法正确的显示内容，但是，在Eclipse控制台可以观察到<code>showHello()</code>方法已经被正确的调用。</p>
+<p><strong>配置视图解析器</strong></p>
+<p>处理完请求后，方法返回的<code>String</code>类型数据表示的就是视图名，例如返回<code>&quot;helloworld&quot;</code>，接下来，框架会根据视图名找到视图解析器，从而确定最终的视图组件，典型的视图解析器是<code>InternalResourceViewResolver</code>：</p>
+<pre><code>&lt;!-- ViewResolver：视图解析器 --&gt;
+&lt;bean class=&quot;org.springframework.web.servlet.view.InternalResourceViewResolver&quot;&gt;
+&lt;/bean&gt;
+</code></pre><p><code>InternalResourceViewResolver</code>的工作模式是：将<strong>前缀 + 控制器方法返回的视图名 + 后缀</strong>拼接起来，以项目的<code>webapp</code>为根目标，找到对应的页面文件，例如：</p>
+<pre><code>&lt;!-- ViewResolver：视图解析器 --&gt;
+&lt;bean class=&quot;org.springframework.web.servlet.view.InternalResourceViewResolver&quot;&gt;
+    &lt;!-- 前缀 --&gt;
+    &lt;property name=&quot;prefix&quot;
+        value=&quot;/WEB-INF/&quot; /&gt;
+    &lt;!-- 后缀 --&gt;
+    &lt;property name=&quot;suffix&quot;
+        value=&quot;.jsp&quot; /&gt;
+&lt;/bean&gt;
+</code></pre><p>结合此前方法返回的字符串值为<code>&quot;helloworld&quot;</code>，则视图解析器会找到<code>webapp/WEB-INF/helloworld.jsp</code>文件作为最终显示的视图组件！所以，创建对应的jsp文件，然后重新部署项目运行，即可看到最终运行效果。</p>
 
       
     </div>
@@ -510,6 +469,12 @@ public void init(FilterConfig arg0) throws ServletException {
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tarecode/tags/MVC/" rel="tag"># MVC</a>
+          
+        </div>
+      
 
       
       
@@ -519,8 +484,8 @@ public void init(FilterConfig arg0) throws ServletException {
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/tarecode/2019/01/08/day09/" rel="next" title="利用Servlet上下文读取全局的初始化参数">
-                <i class="fa fa-chevron-left"></i> 利用Servlet上下文读取全局的初始化参数
+              <a href="/tarecode/2019/01/17/springday01/" rel="next" title="Spring IoC Sp_EL">
+                <i class="fa fa-chevron-left"></i> Spring IoC Sp_EL
               </a>
             
           </div>
@@ -528,10 +493,6 @@ public void init(FilterConfig arg0) throws ServletException {
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/tarecode/2019/01/08/JQuery/" rel="prev" title="JQuery">
-                JQuery <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -663,7 +624,7 @@ public void init(FilterConfig arg0) throws ServletException {
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-过滤器"><span class="nav-number">1.</span> <span class="nav-text">1.过滤器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-什么是过滤器"><span class="nav-number">1.1.</span> <span class="nav-text">(1)什么是过滤器?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-如何写一个过滤器"><span class="nav-number">1.2.</span> <span class="nav-text">(2)如何写一个过滤器?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-过滤器的优先级"><span class="nav-number">1.3.</span> <span class="nav-text">(3)过滤器的优先级</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-过滤器的初始化参数"><span class="nav-number">1.4.</span> <span class="nav-text">(4)过滤器的初始化参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-过滤器的优点"><span class="nav-number">1.5.</span> <span class="nav-text">(5)过滤器的优点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-监听器"><span class="nav-number">2.</span> <span class="nav-text">2.监听器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-什么是监听器"><span class="nav-number">2.1.</span> <span class="nav-text">(1)什么是监听器?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-如何写一个监听器"><span class="nav-number">2.2.</span> <span class="nav-text">(2)如何写一个监听器?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-统计在线人数"><span class="nav-number">2.3.</span> <span class="nav-text">(3)统计在线人数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#练习"><span class="nav-number">2.4.</span> <span class="nav-text">练习</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#练习-1"><span class="nav-number">3.</span> <span class="nav-text">练习</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring-MVC"><span class="nav-number">1.</span> <span class="nav-text">Spring MVC</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-框架的作用"><span class="nav-number">1.1.</span> <span class="nav-text">1. 框架的作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-框架的核心组件"><span class="nav-number">1.2.</span> <span class="nav-text">2. 框架的核心组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Spring-MVC-Helloworld"><span class="nav-number">1.3.</span> <span class="nav-text">3. Spring MVC - Helloworld</span></a></li></ol></li></ol></div>
             
 
           </div>
