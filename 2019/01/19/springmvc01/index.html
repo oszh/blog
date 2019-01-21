@@ -86,12 +86,12 @@
 <meta property="og:site_name" content="oszh">
 <meta property="og:description" content="Spring MVC1. 框架的作用SpringMVC主要解决了控制器如何接收客户端的请求，并将处理结果响应给客户端的问题。 在传统的Java EE开发中，控制器是Servlet，主要存在的问题有：  每个Servlet都需要在web.xml中配置，一个完整的项目可能需要大量代码完成所有Servlet的配置，所以，存在配置过多、管理难度大的问题； 由于一个完整的项目中可能有大量的Servlet，则">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://oszh.github.io/2019/01/19/springmvc01/01.png">
-<meta property="og:updated_time" content="2019-01-21T09:58:06.440Z">
+<meta property="og:image" content="https://oszh.github.io/2019/01/19/springmvc01/springmvc.png">
+<meta property="og:updated_time" content="2019-01-21T11:05:46.263Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SpringMVC HelloWord">
 <meta name="twitter:description" content="Spring MVC1. 框架的作用SpringMVC主要解决了控制器如何接收客户端的请求，并将处理结果响应给客户端的问题。 在传统的Java EE开发中，控制器是Servlet，主要存在的问题有：  每个Servlet都需要在web.xml中配置，一个完整的项目可能需要大量代码完成所有Servlet的配置，所以，存在配置过多、管理难度大的问题； 由于一个完整的项目中可能有大量的Servlet，则">
-<meta name="twitter:image" content="https://oszh.github.io/2019/01/19/springmvc01/01.png">
+<meta name="twitter:image" content="https://oszh.github.io/2019/01/19/springmvc01/springmvc.png">
 
 
 
@@ -347,7 +347,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.5k
+                  1.9k
                 </span>
               
 
@@ -363,7 +363,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  6
+                  7
                 </span>
               
             </div>
@@ -401,7 +401,7 @@
 <li><code>Controller</code>：具体处理请求并给出响应结果</li>
 </ul>
 <p>具体的工作流程图：</p>
-<p><img src="01.png" alt=""></p>
+<p><img src="springmvc.png" alt=""></p>
 <h3 id="3-Spring-MVC-Helloworld"><a href="#3-Spring-MVC-Helloworld" class="headerlink" title="3. Spring MVC - Helloworld"></a>3. Spring MVC - Helloworld</h3><p><strong>目标</strong></p>
 <p>在浏览器中输出<code>http://localhost:8080/项目名/hello.do</code>后，能显示某页面，页面中有<code>Hello, SpringMVC!</code>字样。</p>
 <p><strong>创建项目</strong></p>
@@ -475,6 +475,29 @@ public class HelloController {
         value=&quot;.jsp&quot; /&gt;
 &lt;/bean&gt;
 </code></pre><p>结合此前方法返回的字符串值为<code>&quot;helloworld&quot;</code>，则视图解析器会找到<code>webapp/WEB-INF/helloworld.jsp</code>文件作为最终显示的视图组件！所以，创建对应的jsp文件，然后重新部署项目运行，即可看到最终运行效果。</p>
+<h3 id="1-编码规范"><a href="#1-编码规范" class="headerlink" title="1. 编码规范"></a>1. 编码规范</h3><p>代码的可维护性是评价项目的非常重要的指标之一！其中，代码的编码规范就是最基础的表现！</p>
+<p>首先，命名必须规范：</p>
+<ul>
+<li><p>包(package)名必须全部使用小写字母，例如<code>cn.tedu.spring.Controller</code>这样的包名就是不对的，其中的<code>Controller</code>子包的首字母不应该大写！</p>
+</li>
+<li><p>所有的类、接口的首字母必须大写，如果名称由多个单词组成，第2个单词开始，每个单词的首字母也必须是大写的，例如：<code>NullPointerException</code>、<code>FileNotFoundException</code>、<code>ArrayIndexOutOfBoundsException</code>……</p>
+</li>
+<li><p>所有的属性、方法、局部变量、参数的名称都必须是首字母小写，如果名称由多个单词组成，第2个单词开始，每个单词的首字母也必须是大写的</p>
+</li>
+<li><p>所有的常量的名称中，每个字母都必须是大写的，如果由多个单词组成，则各单词之间使用下划线分隔，例如：<code>state_ok</code>应该写成<code>STATE_OK</code></p>
+</li>
+<li><p>绝大部分的属性应该使用名词，例如：<code>name</code>、<code>age</code>……</p>
+</li>
+<li><p>绝大部分的方法应该使用动词作为前缀，例如：<code>setName</code>、<code>getName</code></p>
+</li>
+<li><p>不遵守以上命名原则的属性或方法应该是疑问类型的属性或方法，例如：<code>isAlive</code>、<code>hasNext</code>，即使用<code>is</code>或<code>has</code>作为前缀</p>
+</li>
+</ul>
+<p>代码的版式也非常重要：</p>
+<ul>
+<li>在类中，每个方法之间、属性与方法之间，应该添加1行空白</li>
+</ul>
+<p>如果对代码的正确版式不太了解，可以使用Eclipse的<code>Source</code>菜单中的<code>Format</code>指令，使Eclipse来帮助排版！</p>
 
       
     </div>
@@ -643,7 +666,7 @@ public class HelloController {
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring-MVC"><span class="nav-number">1.</span> <span class="nav-text">Spring MVC</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-框架的作用"><span class="nav-number">1.1.</span> <span class="nav-text">1. 框架的作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-框架的核心组件"><span class="nav-number">1.2.</span> <span class="nav-text">2. 框架的核心组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Spring-MVC-Helloworld"><span class="nav-number">1.3.</span> <span class="nav-text">3. Spring MVC - Helloworld</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring-MVC"><span class="nav-number">1.</span> <span class="nav-text">Spring MVC</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-框架的作用"><span class="nav-number">1.1.</span> <span class="nav-text">1. 框架的作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-框架的核心组件"><span class="nav-number">1.2.</span> <span class="nav-text">2. 框架的核心组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Spring-MVC-Helloworld"><span class="nav-number">1.3.</span> <span class="nav-text">3. Spring MVC - Helloworld</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-编码规范"><span class="nav-number">1.4.</span> <span class="nav-text">1. 编码规范</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -677,7 +700,7 @@ public class HelloController {
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">48.8k</span>
+    <span title="Site words total count">49.8k</span>
   
 </div>
 

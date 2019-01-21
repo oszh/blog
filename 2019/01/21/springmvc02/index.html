@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="oszh">
 <meta property="og:description" content="1. 接收请求参数1.1. 【不推荐】 通过HttpServletRequest获取请求参数假设存在： &amp;lt;form action=&amp;quot;handle_login.do&amp;quot; method=&amp;quot;POST&amp;quot;&amp;gt;     &amp;lt;div&amp;gt;请输入用户名&amp;lt;/div&amp;gt;     &amp;lt;div&amp;gt;&amp;lt;input name=&amp;quot;userna">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-21T09:55:32.475Z">
+<meta property="og:updated_time" content="2019-01-21T10:53:35.385Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring-MVC 获取请求参数,转发">
 <meta name="twitter:description" content="1. 接收请求参数1.1. 【不推荐】 通过HttpServletRequest获取请求参数假设存在： &amp;lt;form action=&amp;quot;handle_login.do&amp;quot; method=&amp;quot;POST&amp;quot;&amp;gt;     &amp;lt;div&amp;gt;请输入用户名&amp;lt;/div&amp;gt;     &amp;lt;div&amp;gt;&amp;lt;input name=&amp;quot;userna">
@@ -346,7 +346,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2.7k
+                  3.3k
                 </span>
               
 
@@ -362,7 +362,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  11
+                  13
                 </span>
               
             </div>
@@ -580,27 +580,57 @@ public String handleLogin(
 <p>如果希望URL发生变化，必须使用重定向！</p>
 <p>如果有大量的数据需要传递，可以考虑使用转发！</p>
 <p>控制器处理好的数据，不便于在JAVA中编写如何显示，则应该转发给JSP页面！</p>
-<pre><code>枚举
-
-gender; // 性别
-
-String gender = &quot;男&quot;; // &quot;女&quot;，&quot;帅哥&quot;/&quot;美女&quot;，&quot;先生&quot;/&quot;女士&quot;
-
-int gender = 1;
-
-
-
-
-public enum Gender {
-    MALE, FEMALE
+<h2 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h2><h3 id="1-关于构造方法"><a href="#1-关于构造方法" class="headerlink" title="1. 关于构造方法"></a>1. 关于构造方法</h3><p>每个类都有构造方法，用于确定对象的创建过程，当需要创建对象时，使用例如<code>new Object();</code>这样的语法，就是在调用构造方法。</p>
+<p>在编写类的时候，可以不需要显式的编写构造方法，当没有显式的编写时，编译器将自动添加公有的、无参数的构造方法！如果已经显式的编写了任何构造方法，编译器将不会自动添加构造方法！</p>
+<p>构造方法也是方法，可以重载。</p>
+<p>每次创建对象时，都会默认先调用其父类的构造方法！即：</p>
+<pre><code>public class User {
+    public User() {
+        super(); // 调用其父类的构造方法
+    }
 }
+</code></pre><p>且：使用<code>super</code>关键字调用父类的构造方法的语句，必须编写在子类的构造方法中，必须是子类构造方法中的第1条有效代码！</p>
+<p>抽象类的构造方法不允许直接调用，即不允许使用<code>new</code>语法调用抽象类的构造方法来直接创建抽象类的对象！</p>
+<p>通常，会在以下情景中自定义构造方法：</p>
+<ol>
+<li><p>更便捷的创建对象，会自定义若干个带参数的构造方法，使得创建对象时就可以直接确定某些属性的值；</p>
+</li>
+<li><p>需要确定创建对象时，就执行的任务，或确定某些属性的值；</p>
+</li>
+<li><p>需要限制创建对象，可能将构造方法的访问权限设置得更加严格！</p>
+</li>
+</ol>
+<h2 id="2-常用快捷键"><a href="#2-常用快捷键" class="headerlink" title="2. 常用快捷键"></a>2. 常用快捷键</h2><ul>
+<li>代码提示        Alt + /</li>
+<li>代码排版        Ctrl + Shift + F / Ctrl + A -&gt; Ctrl + I</li>
+<li>上下移动        Alt + 上/下</li>
+<li>上下复制        Ctrl + Alt + 上/下</li>
+<li>删除代码行        Ctrl + D</li>
+<li>重命名            Ctrl + 2, R</li>
+<li>导包            Ctrl + Shift + I</li>
+<li>整理包            Ctrl + Shift + O</li>
+<li>添加/去除注释    Ctrl + /</li>
+</ul>
+<p>由于使用的系统不同，可能某些系统上快捷键不同，或会发生冲突，如果无法调整，则应该使用<code>Source</code>菜单中对应的功能。</p>
+<h2 id="4-关于响应码"><a href="#4-关于响应码" class="headerlink" title="4. 关于响应码"></a>4. 关于响应码</h2><p>服务端对客户端进行响应时，除了有响应的正文以外，还会有响应代码。常见的响应码：</p>
+<ul>
+<li><p>2xx：正确响应，例如：200、206</p>
+</li>
+<li><p>3xx：重定向，例如：301、302</p>
+</li>
+<li><p>4xx：请求错误，例如：400、404、405、406</p>
+</li>
+<li><p>5xx：服务器内部错误，例如：500</p>
+</li>
+</ul>
+<h2 id="5-枚举类型"><a href="#5-枚举类型" class="headerlink" title="5. 枚举类型"></a>5. 枚举类型</h2><p>使用<code>enum</code>关键字可以声明枚举类型，例如：</p>
+<pre><code>public enum RequestMethod {
 
-if (gender == Gender.MALE) {
-    System.out.println(&quot;先生，您好！&quot;);
-} else {
-    System.out.println(&quot;女士，您好！&quot;);
+    GET, HEAD, POST, PUT, PATCH, DELETE, OPTIONS, TRACE
+
 }
-</code></pre>
+</code></pre><p>定义枚举的前提是：可以穷举所有可能的值，每个值都不相同，并不关心值本身而只关心它表达的意义。</p>
+
       
     </div>
     
@@ -772,7 +802,7 @@ if (gender == Gender.MALE) {
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-接收请求参数"><span class="nav-number">1.</span> <span class="nav-text">1. 接收请求参数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-【不推荐】-通过HttpServletRequest获取请求参数"><span class="nav-number">1.1.</span> <span class="nav-text">1.1. 【不推荐】 通过HttpServletRequest获取请求参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-【推荐】-直接使用同名参数"><span class="nav-number">1.2.</span> <span class="nav-text">1.2. 【推荐】 直接使用同名参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-【推荐】-通过对象接收请求参数"><span class="nav-number">1.3.</span> <span class="nav-text">1.3. 【推荐】 通过对象接收请求参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-小结"><span class="nav-number">1.4.</span> <span class="nav-text">1.4. 小结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-转发数据"><span class="nav-number">2.</span> <span class="nav-text">2. 转发数据</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-通过HttpServletRequest对象转发"><span class="nav-number">2.1.</span> <span class="nav-text">2.1. 通过HttpServletRequest对象转发</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-【不推荐】-使用ModelAndView转发"><span class="nav-number">2.2.</span> <span class="nav-text">2.2. 【不推荐】 使用ModelAndView转发</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-使用ModelMap"><span class="nav-number">2.3.</span> <span class="nav-text">2.3. 使用ModelMap</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-重定向"><span class="nav-number">3.</span> <span class="nav-text">3. 重定向</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-关于-RequestMapping"><span class="nav-number">4.</span> <span class="nav-text">4. 关于@RequestMapping</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-关于-RequestParam注解"><span class="nav-number">5.</span> <span class="nav-text">5. 关于@RequestParam注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#练习"><span class="nav-number">6.</span> <span class="nav-text">练习</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#【附】-转发与重定向"><span class="nav-number">7.</span> <span class="nav-text">【附】 转发与重定向</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-接收请求参数"><span class="nav-number">1.</span> <span class="nav-text">1. 接收请求参数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-【不推荐】-通过HttpServletRequest获取请求参数"><span class="nav-number">1.1.</span> <span class="nav-text">1.1. 【不推荐】 通过HttpServletRequest获取请求参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-【推荐】-直接使用同名参数"><span class="nav-number">1.2.</span> <span class="nav-text">1.2. 【推荐】 直接使用同名参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-【推荐】-通过对象接收请求参数"><span class="nav-number">1.3.</span> <span class="nav-text">1.3. 【推荐】 通过对象接收请求参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-小结"><span class="nav-number">1.4.</span> <span class="nav-text">1.4. 小结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-转发数据"><span class="nav-number">2.</span> <span class="nav-text">2. 转发数据</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-通过HttpServletRequest对象转发"><span class="nav-number">2.1.</span> <span class="nav-text">2.1. 通过HttpServletRequest对象转发</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-【不推荐】-使用ModelAndView转发"><span class="nav-number">2.2.</span> <span class="nav-text">2.2. 【不推荐】 使用ModelAndView转发</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-使用ModelMap"><span class="nav-number">2.3.</span> <span class="nav-text">2.3. 使用ModelMap</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-重定向"><span class="nav-number">3.</span> <span class="nav-text">3. 重定向</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-关于-RequestMapping"><span class="nav-number">4.</span> <span class="nav-text">4. 关于@RequestMapping</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-关于-RequestParam注解"><span class="nav-number">5.</span> <span class="nav-text">5. 关于@RequestParam注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#练习"><span class="nav-number">6.</span> <span class="nav-text">练习</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#【附】-转发与重定向"><span class="nav-number">7.</span> <span class="nav-text">【附】 转发与重定向</span></a></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#其它"><span class="nav-number"></span> <span class="nav-text">其它</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-关于构造方法"><span class="nav-number">1.</span> <span class="nav-text">1. 关于构造方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-常用快捷键"><span class="nav-number"></span> <span class="nav-text">2. 常用快捷键</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-关于响应码"><span class="nav-number"></span> <span class="nav-text">4. 关于响应码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-枚举类型"><span class="nav-number"></span> <span class="nav-text">5. 枚举类型</span></a></li></div>
             
 
           </div>
@@ -806,7 +836,7 @@ if (gender == Gender.MALE) {
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">48.8k</span>
+    <span title="Site words total count">49.8k</span>
   
 </div>
 
