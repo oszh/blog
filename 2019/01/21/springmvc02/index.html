@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/tarecode/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/tarecode/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/tarecode/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/tarecode/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/tarecode/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/tarecode/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/tarecode/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="请求参数,转发,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1. 接收请求参数1.1. 【不推荐】 通过HttpServletRequest获取请求参数假设存在： &amp;lt;form action=&amp;quot;handle_login.do&amp;quot; method=&amp;quot;POST&amp;quot;&amp;gt;     &amp;lt;div&amp;gt;请输入用户名&amp;lt;/div&amp;gt;     &amp;lt;div&amp;gt;&amp;lt;input name=&amp;quot;userna">
+<meta name="keywords" content="请求参数,转发">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring-MVC 获取请求参数,转发">
+<meta property="og:url" content="https://oszh.github.io/2019/01/21/springmvc02/index.html">
+<meta property="og:site_name" content="oszh">
+<meta property="og:description" content="1. 接收请求参数1.1. 【不推荐】 通过HttpServletRequest获取请求参数假设存在： &amp;lt;form action=&amp;quot;handle_login.do&amp;quot; method=&amp;quot;POST&amp;quot;&amp;gt;     &amp;lt;div&amp;gt;请输入用户名&amp;lt;/div&amp;gt;     &amp;lt;div&amp;gt;&amp;lt;input name=&amp;quot;userna">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-01-21T09:55:32.475Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring-MVC 获取请求参数,转发">
+<meta name="twitter:description" content="1. 接收请求参数1.1. 【不推荐】 通过HttpServletRequest获取请求参数假设存在： &amp;lt;form action=&amp;quot;handle_login.do&amp;quot; method=&amp;quot;POST&amp;quot;&amp;gt;     &amp;lt;div&amp;gt;请输入用户名&amp;lt;/div&amp;gt;     &amp;lt;div&amp;gt;&amp;lt;input name=&amp;quot;userna">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/tarecode/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://oszh.github.io/2019/01/21/springmvc02/">
+
+
+
+
+
+  <title>Spring-MVC 获取请求参数,转发 | oszh</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/tarecode/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">oszh</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/tarecode/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tarecode/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/tarecode/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/tarecode/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/tarecode/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://oszh.github.io/tarecode/2019/01/21/springmvc02/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="懒人的我">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/tarecode/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="oszh">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Spring-MVC 获取请求参数,转发</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-21T17:50:03+08:00">
+                2019-01-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/tarecode/categories/spring-mvc/" itemprop="url" rel="index">
+                    <span itemprop="name">spring-mvc</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.7k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  11
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="1-接收请求参数"><a href="#1-接收请求参数" class="headerlink" title="1. 接收请求参数"></a>1. 接收请求参数</h3><h4 id="1-1-【不推荐】-通过HttpServletRequest获取请求参数"><a href="#1-1-【不推荐】-通过HttpServletRequest获取请求参数" class="headerlink" title="1.1. 【不推荐】 通过HttpServletRequest获取请求参数"></a>1.1. 【不推荐】 通过HttpServletRequest获取请求参数</h4><p>假设存在：</p>
+<pre><code>&lt;form action=&quot;handle_login.do&quot; method=&quot;POST&quot;&gt;
+    &lt;div&gt;请输入用户名&lt;/div&gt;
+    &lt;div&gt;&lt;input name=&quot;username&quot; /&gt;&lt;/div&gt;
+    &lt;div&gt;请输入密码&lt;/div&gt;
+    &lt;div&gt;&lt;input name=&quot;password&quot; /&gt;&lt;/div&gt;
+    &lt;div&gt;&lt;input type=&quot;submit&quot; value=&quot;登录&quot; /&gt;&lt;/div&gt;
+&lt;/form&gt;
+</code></pre><p>则在控制器中：</p>
+<pre><code>@RequestMapping(&quot;handle_login.do&quot;)
+public String handleLogin() {
+
+    // 暂不关心后续的页面
+    return null;
+}
+</code></pre><p>当需要处理请求时，可以在方法的参数中添加<code>HttpServletRequest</code>，然后，在方法体中，通过该参数获取请求参数：</p>
+<pre><code>@RequestMapping(&quot;handle_login.do&quot;)
+public String handleLogin(
+        HttpServletRequest request) {
+    String username = request.getParameter(&quot;username&quot;);
+    String password = request.getParameter(&quot;password&quot;);
+
+    System.out.println(&quot;username=&quot; + username);
+    System.out.println(&quot;password=&quot; + password);
+
+    // 暂不关心后续的页面
+    return null;
+}
+</code></pre><p>注意：Spring MVC框架默认使用的编码是ISO-8859-1，是不支持中文的，解决方案再议。</p>
+<h4 id="1-2-【推荐】-直接使用同名参数"><a href="#1-2-【推荐】-直接使用同名参数" class="headerlink" title="1.2. 【推荐】 直接使用同名参数"></a>1.2. 【推荐】 直接使用同名参数</h4><p>在Spring MVC中，也可以直接将请求参数声明为处理请求的方法的参数，例如：</p>
+<pre><code>@RequestMapping(&quot;handle_reg.do&quot;)
+public String handleReg(
+        String username, String password,
+        Integer age, String phone,
+        String email) {
+    System.out.println(&quot;username=&quot; + username);
+    System.out.println(&quot;password=&quot; + password);
+    System.out.println(&quot;age=&quot; + age);
+    System.out.println(&quot;phone=&quot; + phone);
+    System.out.println(&quot;email=&quot; + email);
+
+    // 暂不关心后续的页面
+    return null;
+}
+</code></pre><p>使用这种做法时，需要保证请求参数的名称与方法参数名称是一致的！如果不一致，则无法获取到对应的参数，且服务器端会视为“客户端并没有提交名为xxx的参数，则值为null。”</p>
+<p>这种做法虽然简便，但是，不适合处理请求参数过多的请求，如果某个请求中有10个或更多参数，则处理请求的方法也需要添加这么多参数，是不合适的！</p>
+<h4 id="1-3-【推荐】-通过对象接收请求参数"><a href="#1-3-【推荐】-通过对象接收请求参数" class="headerlink" title="1.3. 【推荐】 通过对象接收请求参数"></a>1.3. 【推荐】 通过对象接收请求参数</h4><p>如果请求参数过多，可以将请求参数封装在某个类型中：</p>
+<pre><code>public class User {
+
+    private String username;
+    private String password;
+    private Integer age;
+    private String phone;
+    private String email;
+    // SET/GET
+}
+</code></pre><p>然后，在处理请求时，将该类型作为方法的参数即可：</p>
+<pre><code>@RequestMapping(&quot;handle_reg.do&quot;)
+public String handleReg(User user) {
+    System.out.println(user);
+
+    // 暂不关心后续的页面
+    return null;
+}
+</code></pre><p>在使用这种做法时，也需要保证名称的统一！</p>
+<h4 id="1-4-小结"><a href="#1-4-小结" class="headerlink" title="1.4. 小结"></a>1.4. 小结</h4><p>以上3种做法，除了第1种比较麻烦以外，另2种做法，请根据具体情况选择性的使用，甚至这2种做法可以混合使用，处理请求时，参数不区分先后顺序。</p>
+<p>当然，第1种做法也不是完全没有用武之地，在除了控制器以外的组件中依然可能需要使用。</p>
+<h3 id="2-转发数据"><a href="#2-转发数据" class="headerlink" title="2. 转发数据"></a>2. 转发数据</h3><h4 id="2-1-通过HttpServletRequest对象转发"><a href="#2-1-通过HttpServletRequest对象转发" class="headerlink" title="2.1. 通过HttpServletRequest对象转发"></a>2.1. 通过HttpServletRequest对象转发</h4><p>Spring MVC处理请求时，默认的返回即表示“转发”，所以，返回值应该理解为：处理完请求之后转发到的JSP文件的名称。</p>
+<p>当需要转发数据时，直接将数据封闭在<code>HttpServletRequest</code>对象中即可：</p>
+<pre><code>request.setAttribute(&quot;msg&quot;, message);
+</code></pre><p>后续，并不需要获取转发器执行转发！在SpringMVC中返回时，就会将数据进行转发的操作！</p>
+<h4 id="2-2-【不推荐】-使用ModelAndView转发"><a href="#2-2-【不推荐】-使用ModelAndView转发" class="headerlink" title="2.2. 【不推荐】 使用ModelAndView转发"></a>2.2. 【不推荐】 使用ModelAndView转发</h4><p>在ModelAndView中，model表示的就是转发的数据，而view表示的就是转发的目标JSP页面，在使用时：</p>
+<pre><code>@RequestMapping(&quot;handle_login.do&quot;)
+public ModelAndView handleLogin(
+        String username, String password) {
+    String viewName = null;
+    String message = null;
+    Map&lt;String, Object&gt; model
+        = new HashMap&lt;String, Object&gt;();
+    if (&quot;root&quot;.equals(username)) {
+        if (&quot;1234&quot;.equals(password)) {
+            // ...
+        } else {
+            viewName = &quot;error&quot;;
+            message = &quot;[2] 密码错误！&quot;;
+            model.put(&quot;msg&quot;, message);
+        }
+    } else {
+        viewName = &quot;error&quot;;
+        message = &quot;[2] 用户名不存在！&quot;;
+        model.put(&quot;msg&quot;, message);
+    }
+
+    ModelAndView mav 
+        = new ModelAndView(viewName, model);
+
+    return mav;
+}
+</code></pre><h4 id="2-3-使用ModelMap"><a href="#2-3-使用ModelMap" class="headerlink" title="2.3. 使用ModelMap"></a>2.3. 使用ModelMap</h4><p><code>ModelMap</code>的使用方式与<code>HttpServletRequest</code>几乎相同：</p>
+<pre><code>@RequestMapping(&quot;handle_login.do&quot;)
+public String handleLogin(
+        String username, String password,
+        ModelMap modelMap) {
+    String message = null;
+    if (&quot;root&quot;.equals(username)) {
+        if (&quot;1234&quot;.equals(password)) {
+            // ...
+        } else {
+            message = &quot;[3] 密码错误！&quot;;
+            modelMap.addAttribute(&quot;msg&quot;, message);
+            return &quot;error&quot;;
+        }
+    } else {
+        message = &quot;[3] 用户名不存在！&quot;;
+        modelMap.addAttribute(&quot;msg&quot;, message);
+        return &quot;error&quot;;
+    }
+    return null;
+}
+</code></pre><h3 id="3-重定向"><a href="#3-重定向" class="headerlink" title="3. 重定向"></a>3. 重定向</h3><p>在控制器中处理请求时，如果需要重定向，方法的返回值应该是<code>String</code>，则值应该是<code>redirect:目标资源</code>，关于<strong>目标资源</strong>的表示，可以使用相对路径，也可以使用绝对路径，例如使用相对路径时可以返回<code>&quot;redirect:index.do&quot;</code>。</p>
+<h3 id="4-关于-RequestMapping"><a href="#4-关于-RequestMapping" class="headerlink" title="4. 关于@RequestMapping"></a>4. 关于@RequestMapping</h3><p><code>@RequestMapping</code>注解的作用主要是配置映射的路径。</p>
+<p>该注解既可以添加在类之前，也可以添加在方法之前！例如：</p>
+<pre><code>@Controller
+@RequestMapping(&quot;user&quot;)
+public class UserController {
+
+    @RequestMapping(&quot;reg.do&quot;)
+    public String showReg() {
+        return &quot;reg&quot;;
+    }
+
+}
+</code></pre><p>以上配置后，访问时，所使用的URL应该是<code>http://localhost:8080/PROJECT/user/reg.do</code>。</p>
+<p>在类之前使用该注解，可以简化每个方法之前的注解，例如，在类之前没有注解时，可能配置为：</p>
+<pre><code>@RequestMapping(&quot;user_list.do&quot;)
+@RequestMapping(&quot;user_info.do&quot;)
+@RequestMapping(&quot;news_list.do&quot;)
+@RequestMapping(&quot;news_info.do&quot;)
+</code></pre><p>如果在类和方法之前都加注解，就可以：</p>
+<pre><code>@RequestMapping(&quot;user&quot;)
+    @RequestMapping(&quot;list.do&quot;)
+    @RequestMapping(&quot;info.do&quot;)
+
+@RequestMapping(&quot;news&quot;)
+    @RequestMapping(&quot;list.do&quot;)
+    @RequestMapping(&quot;info.do&quot;)
+</code></pre><p>所以，一般，推荐每个控制器只处理相关数据，例如<code>UserController</code>控制器只处理与<code>User</code>相关的请求，而<code>NewsController</code>控制器只处理与<code>News</code>相关的请求，并且，每个类之前都添加<code>@RequestMapping</code>注解。</p>
+<p>在配置路径时，并没有明确要求类的注解和方法的注解中是否使用<code>/</code>路径分隔符，例如以下4种配置是完全等效的：</p>
+<pre><code>@RequestMapping(&quot;user&quot;)        @RequestMapping(&quot;list.do&quot;)
+@RequestMapping(&quot;/user&quot;)    @RequestMapping(&quot;/list.do&quot;)
+@RequestMapping(&quot;/user&quot;)    @RequestMapping(&quot;list.do&quot;)
+@RequestMapping(&quot;user&quot;)        @RequestMapping(&quot;/list.do&quot;)
+</code></pre><p>使用<code>@RequestMapping</code>注解还可以限制请求方式，例如：</p>
+<pre><code>@RequestMapping(value=&quot;路径&quot;, method=RequestMethod.POST)
+</code></pre><p>对于以上映射路径，如果尝试进行GET请求，则会出现405错误：</p>
+<pre><code>HTTP Status 405 - Request method &apos;GET&apos; not supported
+</code></pre><p><strong>小结</strong></p>
+<p><code>@RequestMapping</code>主要用于配置请求路径，在实际应用时，首先，每个控制器类之前都应该添加该注解，用于配置路径中间层，然后，每个控制器类只处理1种数据相关的请求，每个处理请求的方法之前必须再使用该注解配置具体路径，可根据实际情况选择配置该注解的<code>method</code>属性，以限定请求方式。</p>
+<p>关于<code>@RequestMapping</code>的<code>value</code>属性和<code>method</code>属性的值，都可以是数组。</p>
+<p>从Spring 4.3起，另有<code>@GetMapping</code>和<code>@PostMapping</code>，等效于限制了请求方式的<code>@RequestMapping</code>，即<code>@GetMapping(&quot;路径&quot;) = @RequestMapping(value=&quot;路径&quot;, method=RequestMethod.GET)</code>。使用这些注解时，需要在Spring的配置文件中添加注解驱动<code>&lt;mvc:annotation-driven /&gt;</code>。</p>
+<h3 id="5-关于-RequestParam注解"><a href="#5-关于-RequestParam注解" class="headerlink" title="5. 关于@RequestParam注解"></a>5. 关于@RequestParam注解</h3><p><code>@RequestParam</code>注解是添加在处理请求的方法的参数之前的注解！</p>
+<p>使用<code>@RequestParam</code>可以解决客户端提交的参数名与服务器端处理请求时方法的参数名不一致的问题：</p>
+<pre><code>@PostMapping(&quot;handle_login.do&quot;)
+public String handleLogin(
+        String username,
+        @RequestParam(&quot;pwd&quot;) String password) {
+    System.out.println(&quot;username=&quot; + username);
+    System.out.println(&quot;password=&quot; + password);
+    return null;
+}
+</code></pre><p>当使用了<code>@RequestParam</code>注解后，默认情况下，参数是必须提交的，如果客户端提交的请求中并不包含该名称的参数，则会报告400错误：</p>
+<pre><code>HTTP Status 400 - Required String parameter &apos;pwd&apos; is not present
+</code></pre><p>如果并不强制要求客户端提交某参数，可以：</p>
+<pre><code>@RequestParam(value=&quot;pwd&quot;, required=false)
+</code></pre><p>通过该注解，还可以通过<code>defaultValue</code>属性来配置<strong>默认值</strong>，即客户端没有提交参数值时，服务器端视为提交了默认的某个值：</p>
+<pre><code>@RequestParam(value=&quot;pwd&quot;, required=false, defaultValue=&quot;111111&quot;)
+</code></pre><p>注意：当使用<code>defaultValue</code>时，必须显式的将<code>required</code>属性设置为<code>false</code>，否则，如果没有设置，默认是必须提交参数值的，那么，默认值就没有意义了！</p>
+<p><strong>小结</strong></p>
+<p>关于<code>@RequestParam</code>注解的应用场景，可以是：</p>
+<ul>
+<li>客户端提交的参数名与服务器端使用的方法的参数名不一致时；</li>
+<li>要求客户端必须提交某些参数时；</li>
+<li>为某些参数设置默认值时。</li>
+</ul>
+<h3 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h3><ol>
+<li>删除<code>UserController</code>中所有已经完成的代码；</li>
+<li>根据<code>/user/reg.do</code>、<code>/user/login.do</code>、<code>/user/index.do</code>分别显示注册页、登录页、主页；</li>
+<li>注册将提交到<code>/user/handle_reg.do</code>，如果注册时填写的用户名是<code>admin</code>，视为“用户名已经被占用”，将通过<code>error.jsp</code>提示错误信息，否则，视为注册成功，成功时将跳转到登录页；</li>
+<li>登录将提交到<code>/user/handle_login.do</code>，如果登录时填写的用户名是<code>root</code>且密码是<code>1234</code>，视为成功登录，成功时将跳转到主页，否则，通过<code>error.jsp</code>提示用户名不存在或密码错误这类错误信息；</li>
+<li>请根据具体功能合理的使用相关注解及注解中的参数配置。</li>
+</ol>
+<h3 id="【附】-转发与重定向"><a href="#【附】-转发与重定向" class="headerlink" title="【附】 转发与重定向"></a>【附】 转发与重定向</h3><p>转发与重定向的核心区别在于客户端请求了几次！在转发的处理过程中，客户端其实只发出了1次请求，而在重定向中，客户端发出了2次请求！</p>
+<p>转发是发生在服务器内部的！所以，转发时的URL并不会发生变化！并且，JSP文件可以存放在WEB-INF目录下（该目录是不允许通过http协议访问的）。由于转发是在服务器内部完成的，所以，组件之间（控制器与JSP）可以直接传递数据。</p>
+<p>重定向的本质是第1次请求时，服务器端可能无法完全全部的处理，所以，服务器向客户端响应了重定向（通常响应码是302），客户端得到这第1次的响应结果时，由于响应码表示的是重定向，所以，会再次发生第2次请求，以尝试得到最终的响应结果。由于客户端发出了第2次请求，所以，在重定向时，URL是会发生变化的！并且，两次请求之间的数据默认是无法共享或传递的！</p>
+<p>如果希望URL发生变化，必须使用重定向！</p>
+<p>如果有大量的数据需要传递，可以考虑使用转发！</p>
+<p>控制器处理好的数据，不便于在JAVA中编写如何显示，则应该转发给JSP页面！</p>
+<pre><code>枚举
+
+gender; // 性别
+
+String gender = &quot;男&quot;; // &quot;女&quot;，&quot;帅哥&quot;/&quot;美女&quot;，&quot;先生&quot;/&quot;女士&quot;
+
+int gender = 1;
+
+
+
+
+public enum Gender {
+    MALE, FEMALE
+}
+
+if (gender == Gender.MALE) {
+    System.out.println(&quot;先生，您好！&quot;);
+} else {
+    System.out.println(&quot;女士，您好！&quot;);
+}
+</code></pre>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tarecode/tags/请求参数/" rel="tag"># 请求参数</a>
+          
+            <a href="/tarecode/tags/转发/" rel="tag"># 转发</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/tarecode/2019/01/19/springmvc01/" rel="next" title="SpringMVC HelloWord">
+                <i class="fa fa-chevron-left"></i> SpringMVC HelloWord
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">懒人的我</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/tarecode/archives/">
+              
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/tarecode/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tarecode/tags/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-接收请求参数"><span class="nav-number">1.</span> <span class="nav-text">1. 接收请求参数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-【不推荐】-通过HttpServletRequest获取请求参数"><span class="nav-number">1.1.</span> <span class="nav-text">1.1. 【不推荐】 通过HttpServletRequest获取请求参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-【推荐】-直接使用同名参数"><span class="nav-number">1.2.</span> <span class="nav-text">1.2. 【推荐】 直接使用同名参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-【推荐】-通过对象接收请求参数"><span class="nav-number">1.3.</span> <span class="nav-text">1.3. 【推荐】 通过对象接收请求参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-小结"><span class="nav-number">1.4.</span> <span class="nav-text">1.4. 小结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-转发数据"><span class="nav-number">2.</span> <span class="nav-text">2. 转发数据</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-通过HttpServletRequest对象转发"><span class="nav-number">2.1.</span> <span class="nav-text">2.1. 通过HttpServletRequest对象转发</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-【不推荐】-使用ModelAndView转发"><span class="nav-number">2.2.</span> <span class="nav-text">2.2. 【不推荐】 使用ModelAndView转发</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-使用ModelMap"><span class="nav-number">2.3.</span> <span class="nav-text">2.3. 使用ModelMap</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-重定向"><span class="nav-number">3.</span> <span class="nav-text">3. 重定向</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-关于-RequestMapping"><span class="nav-number">4.</span> <span class="nav-text">4. 关于@RequestMapping</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-关于-RequestParam注解"><span class="nav-number">5.</span> <span class="nav-text">5. 关于@RequestParam注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#练习"><span class="nav-number">6.</span> <span class="nav-text">练习</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#【附】-转发与重定向"><span class="nav-number">7.</span> <span class="nav-text">【附】 转发与重定向</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">懒人的我</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">48.8k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/tarecode/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/tarecode/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/tarecode/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/tarecode/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/tarecode/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
