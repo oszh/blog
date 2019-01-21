@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/tarecode/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/tarecode/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/tarecode/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/tarecode/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/tarecode/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/tarecode/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/tarecode/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Autowire,Annotation,SingleTon,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1. 自动装配：Autowire自动装配是一种自动为Bean的属性注入值的做法！ 假设存在Student类： public class Student {      private City from;      public City getFrom() {         return from;     }      public void setFrom(City from) {">
+<meta name="keywords" content="Autowire,Annotation,SingleTon">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自动装配 注解 单例">
+<meta property="og:url" content="https://oszh.github.io/2019/01/19/spring02/index.html">
+<meta property="og:site_name" content="oszh">
+<meta property="og:description" content="1. 自动装配：Autowire自动装配是一种自动为Bean的属性注入值的做法！ 假设存在Student类： public class Student {      private City from;      public City getFrom() {         return from;     }      public void setFrom(City from) {">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-01-19T01:12:30.844Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="自动装配 注解 单例">
+<meta name="twitter:description" content="1. 自动装配：Autowire自动装配是一种自动为Bean的属性注入值的做法！ 假设存在Student类： public class Student {      private City from;      public City getFrom() {         return from;     }      public void setFrom(City from) {">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/tarecode/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://oszh.github.io/2019/01/19/spring02/">
+
+
+
+
+
+  <title>自动装配 注解 单例 | oszh</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/tarecode/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">oszh</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/tarecode/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tarecode/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/tarecode/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/tarecode/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/tarecode/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://oszh.github.io/tarecode/2019/01/19/spring02/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="懒人的我">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/tarecode/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="oszh">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">自动装配 注解 单例</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-19T00:00:00+08:00">
+                2019-01-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.7k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  6
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="1-自动装配：Autowire"><a href="#1-自动装配：Autowire" class="headerlink" title="1. 自动装配：Autowire"></a>1. 自动装配：Autowire</h3><p>自动装配是一种自动为Bean的属性注入值的做法！</p>
+<p>假设存在<code>Student</code>类：</p>
+<pre><code>public class Student {
+
+    private City from;
+
+    public City getFrom() {
+        return from;
+    }
+
+    public void setFrom(City from) {
+        this.from = from;
+    }
+
+}
+</code></pre><p>类的属性希望被自动的注入值，则应该配置它的<code>autowire</code>属性：</p>
+<pre><code>&lt;bean id=&quot;student&quot;
+    class=&quot;cn.tedu.spring.Student&quot;
+    autowire=&quot;default&quot;&gt;
+&lt;/bean&gt;
+</code></pre><p>关于<code>autowire</code>属性，取值可以是<code>byName</code>，表示<strong>根据名称实现自动装配</strong>，即：要求类中的属性名与被装配进来的Bean的id保持一致（其实本质上还是通过SET方法注入的，要求的是SET方法的名称与Bean的id保持一致），所以：</p>
+<pre><code>&lt;bean id=&quot;from&quot;
+    class=&quot;cn.tedu.spring.City&quot; /&gt;
+
+&lt;bean id=&quot;student&quot;
+    class=&quot;cn.tedu.spring.Student&quot;
+    autowire=&quot;byName&quot;&gt;
+&lt;/bean&gt;
+</code></pre><p>自动装配其实是<strong>尝试自动装配</strong>，即：能够装配就装配，不能装配也不会报错！</p>
+<p>配置时，<code>autowire</code>属性的取值还可以是<code>byType</code>，即<strong>根据类型实现自动装配</strong>，Spring容器在尝试自动装配时，会在容器中（Spring管理的范围内）查找类型匹配的对象，如果没有，则不装配，如果有1个，则可以成功的自动装配，如果匹配类型的有2个或更多，则抛出异常<code>UnsatisfiedDependencyException</code>！</p>
+<p>除此以外，该属性还可以有其它取值，但是，通常，并不会在开发中使用该属性，因为它存在是否装配不明确的问题！而且，在实际开发中，其实自定义的Bean根本就不会在XML文件中配置，所以更加无处使用该属性！</p>
+<p>关于自动装配，重点理解<code>byName</code>和<code>byType</code>的特点。</p>
+<h3 id="2-注解"><a href="#2-注解" class="headerlink" title="2. 注解"></a>2. 注解</h3><h4 id="2-1-为什么要使用注解"><a href="#2-1-为什么要使用注解" class="headerlink" title="2.1. 为什么要使用注解"></a>2.1. 为什么要使用注解</h4><p>使用XML应用Spring时，需要使用大量的配置，导致代码的可读性较差（在阅读代码时，经常需要结合多个Java文件和XML配置一起查阅），并且，在XML配置中，如果出现拼写错误也不会实时提示错误信息！</p>
+<p>在实际使用时，会大量的使用注解，来取代XML中的配置！</p>
+<h4 id="2-2-基本注解"><a href="#2-2-基本注解" class="headerlink" title="2.2. 基本注解"></a>2.2. 基本注解</h4><p>如果希望某个类被Spring管理，可以在类上添加<code>@Component</code>注解，并且，在Spring的配置文件中添加组件扫描的配置：</p>
+<pre><code>&lt;!-- 组件扫描 --&gt;
+&lt;!-- base-package：根包 --&gt;
+&lt;context:component-scan 
+    base-package=&quot;cn.tedu.spring&quot; /&gt;
+</code></pre><p>以上配置中的<code>base-package</code>用于指定组件所在的包，当加载该配置文件时，Spring框架会扫描指定的包，如果类之前添加了注解，则会被Spring管理。</p>
+<p>扫描的包之所以是<code>base-package</code>，表示各个类在其各层级的子包下，都会被扫描到，例如配置为<code>cn.tedu.spring</code>时，如果类是<code>cn.tedu.spring.dao.UserDao</code>，也是在扫描范围之内的！</p>
+<p>默认情况下，会使用类名且首字母改为小写作为Bean的id，所以，如果被Spring管理的是<code>Student</code>类，则默认的id就是<code>student</code>，当然，如果觉得默认的id命名不满足当前的应用需求，可以配置注解属性：</p>
+<pre><code>@Component(&quot;stu&quot;)
+public class Student {
+}
+</code></pre><p>与<code>@Component</code>相同的注解还有：</p>
+<ul>
+<li><code>@Controller</code>：如果某个类在应用中起到的作用是控制器，则应该使用该注解</li>
+<li><code>@Service</code>：如果某个类在应用中起到的作用是业务逻辑类，则应该使用该注解</li>
+<li><code>@Repository</code>：如果某个类在应用中起到的作用是持久层处理（增删改查），则应该使用该注解</li>
+</ul>
+<p>其实，以上4个的作用、语法是完全相同的，只是语义不同，建议区分使用。</p>
+<h4 id="2-3-【不常用】-作用域与生命周期的注解"><a href="#2-3-【不常用】-作用域与生命周期的注解" class="headerlink" title="2.3. 【不常用】 作用域与生命周期的注解"></a>2.3. 【不常用】 作用域与生命周期的注解</h4><p>使用<code>@Scope</code>注解可以配置Bean的作用域，例如希望实现非单例效果时：</p>
+<pre><code>@Component(&quot;stu&quot;)
+@Scope(&quot;prototype&quot;)
+public class Student extends Object {
+
+}
+</code></pre><p>在单例的情况下，如果需要单例模式是懒汉式的，则可以使用<code>@Lazy</code>注解：</p>
+<pre><code>@Component(&quot;stu&quot;)
+@Lazy
+public class Student extends Object {
+
+    public Student() {
+        System.out.println(&quot;Student()&quot;);
+    }
+
+}
+</code></pre><p>其实，<code>@Lazy</code>注解也可以配置属性值为<code>true</code>或<code>false</code>，但是，没有添加该注解时就是饿汉式的，添加该注解表示懒汉式且值为<code>true</code>，所以，不必配置属性值！</p>
+<p>关于生命周期方法：</p>
+<pre><code>@PostConstruct
+public void init() {
+    System.out.println(&quot;Student.init()&quot;);
+}
+
+@PreDestroy
+public void destroy() {
+    System.out.println(&quot;Student.destroy()&quot;);
+}
+</code></pre><p>注意：以上2个注解是<code>javax</code>包中的注解，应该添加Tomcat或其它服务端环境。</p>
+<h3 id="2-4-自动装配的注解"><a href="#2-4-自动装配的注解" class="headerlink" title="2.4. 自动装配的注解"></a>2.4. 自动装配的注解</h3><p>假设存在<code>Student</code>类中的<code>public City from;</code>属性需要被装配值：</p>
+<pre><code>@Component
+public class Student {
+    public City from;
+}
+</code></pre><p>首先，<code>City</code>应该在Spring管理范围之内，即：需要在组件扫描范围之内，且添加了注解：</p>
+<pre><code>package cn.tedu.spring;
+
+@Component
+public class City {
+}
+</code></pre><p>然后，在<code>Student</code>类的<code>from</code>属性之前，添加<code>@Autowired</code>注解即可：</p>
+<pre><code>@Autowired
+public City from;
+</code></pre><p>至此，自动装配已经完成！</p>
+<p>与使用XML配置自动装配不同，注解方式的自动装配并不要求属性有SET方法，对属性的访问权限也没有要求，即使属性是私有的，也不影响装配过程！</p>
+<p><code>@Autowired</code>注解是<code>byType</code>模式来装配的！所以，要求匹配类型的Bean对象有且仅有1个（0个则无法装配，属性值为null，多个则直接抛出异常）！如果项目中确实有多个匹配类型的类，则只保留1个被Spring管理，其它的不由Spring管理即可，例如去掉类之前的<code>@Component</code>或相同作用的注解，或把这些类转移到组件扫描的包以外去。</p>
+<p>使用<code>@Resource</code>注解也可以实现自动装配，它是优先<code>byName</code>，如果失败，则会尝试<code>byType</code>。并且，使用<code>@Resource</code>时，如果一定要根据名称来装配，却存在名称不匹配的问题，可以在注解中配置名称：</p>
+<pre><code>@Resource(name=&quot;city&quot;)
+public City from;
+</code></pre><p>以上<code>@Autowired</code>和<code>@Resource</code>都可以实现自动装配，在实际应用中，使用任何一个都可以！因为<code>@Resource</code>功能更强，所以很多人喜欢使用它，但是，并不是每个Java项目都是服务端项目，某些项目中可能并没有<code>javax</code>包中的内容，也就根本没有<code>@Resource</code>注解，就只能使用<code>@Autowired</code>，当然，这样的项目毕竟是少数，所以，在使用Java开发的Web应用程序中，使用这2种注解中的任何一个都是正确的做法！</p>
+<h3 id="2-5-小结"><a href="#2-5-小结" class="headerlink" title="2.5. 小结"></a>2.5. 小结</h3><p>常用注解：</p>
+<ul>
+<li><code>@Controller</code></li>
+<li><code>@Service</code></li>
+<li><code>@Component</code></li>
+<li><code>@Autowired</code> / <code>@Resource</code></li>
+</ul>
+<p>非常用注解：</p>
+<ul>
+<li><code>@Repository</code></li>
+<li><code>@Scope</code></li>
+<li><code>@Lazy</code></li>
+<li><code>@PostConstruct</code></li>
+<li><code>@PreDetroy</code></li>
+</ul>
+<h3 id="【附】-关于单例模式"><a href="#【附】-关于单例模式" class="headerlink" title="【附】 关于单例模式"></a>【附】 关于单例模式</h3><pre><code>public class King {
+    private static King king;
+
+    private King() {
+    }
+
+    public static King getInstance() {
+        synchronized(&quot;lock&quot;) {
+            if (king == null) {
+                king = new King();
+            }
+        }
+        return king;
+    }
+
+}
+</code></pre>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tarecode/tags/Autowire/" rel="tag"># Autowire</a>
+          
+            <a href="/tarecode/tags/Annotation/" rel="tag"># Annotation</a>
+          
+            <a href="/tarecode/tags/SingleTon/" rel="tag"># SingleTon</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/tarecode/2019/01/17/springday01/" rel="next" title="Spring IoC Sp_EL">
+                <i class="fa fa-chevron-left"></i> Spring IoC Sp_EL
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/tarecode/2019/01/19/springmvc01/" rel="prev" title="SpringMVC HelloWord">
+                SpringMVC HelloWord <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">懒人的我</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/tarecode/archives/">
+              
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/tarecode/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tarecode/tags/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-自动装配：Autowire"><span class="nav-number">1.</span> <span class="nav-text">1. 自动装配：Autowire</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-注解"><span class="nav-number">2.</span> <span class="nav-text">2. 注解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-为什么要使用注解"><span class="nav-number">2.1.</span> <span class="nav-text">2.1. 为什么要使用注解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-基本注解"><span class="nav-number">2.2.</span> <span class="nav-text">2.2. 基本注解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-【不常用】-作用域与生命周期的注解"><span class="nav-number">2.3.</span> <span class="nav-text">2.3. 【不常用】 作用域与生命周期的注解</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-自动装配的注解"><span class="nav-number">3.</span> <span class="nav-text">2.4. 自动装配的注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-小结"><span class="nav-number">4.</span> <span class="nav-text">2.5. 小结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#【附】-关于单例模式"><span class="nav-number">5.</span> <span class="nav-text">【附】 关于单例模式</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">懒人的我</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">46.1k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/tarecode/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/tarecode/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/tarecode/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/tarecode/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/tarecode/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
