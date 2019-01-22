@@ -79,14 +79,17 @@
 
 
 
+<meta name="description" content="1. 使用Session通常，会在Session中存放：  客户端（用户）的身份标识，通常是用户的id； 使用频率非常高的数据，例如显示在页面中的用户名、头像等； 其它的不便于使用其它存储方案来存取或传递的数据。  关于Session的使用，和ModelMap几乎一样，即在处理请求的方法中添加HttpSession参数，并在方法体中操作该参数对象即可。 2. 拦截器：InterceptorSpri">
 <meta property="og:type" content="article">
-<meta property="og:title" content="springmvc03">
+<meta property="og:title" content="SpringMVC 拦截器">
 <meta property="og:url" content="https://oszh.github.io/2019/01/22/springmvc03/index.html">
 <meta property="og:site_name" content="oszh">
+<meta property="og:description" content="1. 使用Session通常，会在Session中存放：  客户端（用户）的身份标识，通常是用户的id； 使用频率非常高的数据，例如显示在页面中的用户名、头像等； 其它的不便于使用其它存储方案来存取或传递的数据。  关于Session的使用，和ModelMap几乎一样，即在处理请求的方法中添加HttpSession参数，并在方法体中操作该参数对象即可。 2. 拦截器：InterceptorSpri">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-22T03:55:04.675Z">
+<meta property="og:updated_time" content="2019-01-22T03:56:41.018Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="springmvc03">
+<meta name="twitter:title" content="SpringMVC 拦截器">
+<meta name="twitter:description" content="1. 使用Session通常，会在Session中存放：  客户端（用户）的身份标识，通常是用户的id； 使用频率非常高的数据，例如显示在页面中的用户名、头像等； 其它的不便于使用其它存储方案来存取或传递的数据。  关于Session的使用，和ModelMap几乎一样，即在处理请求的方法中添加HttpSession参数，并在方法体中操作该参数对象即可。 2. 拦截器：InterceptorSpri">
 
 
 
@@ -122,7 +125,7 @@
 
 
 
-  <title>springmvc03 | oszh</title>
+  <title>SpringMVC 拦截器 | oszh</title>
   
 
 
@@ -276,7 +279,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">springmvc03</h1>
+          <h1 class="post-title" itemprop="name headline">SpringMVC 拦截器</h1>
         
 
         <div class="post-meta">
@@ -299,6 +302,28 @@
           </span>
 
           
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/tarecode/categories/springmvc/" itemprop="url" rel="index">
+                    <span itemprop="name">springmvc</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -320,7 +345,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  0
+                  1.1k
                 </span>
               
 
@@ -336,7 +361,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1
+                  4
                 </span>
               
             </div>
@@ -357,7 +382,73 @@
       
 
       
-        
+        <h3 id="1-使用Session"><a href="#1-使用Session" class="headerlink" title="1. 使用Session"></a>1. 使用Session</h3><p>通常，会在Session中存放：</p>
+<ol>
+<li>客户端（用户）的身份标识，通常是用户的id；</li>
+<li>使用频率非常高的数据，例如显示在页面中的用户名、头像等；</li>
+<li>其它的不便于使用其它存储方案来存取或传递的数据。</li>
+</ol>
+<p>关于Session的使用，和<code>ModelMap</code>几乎一样，即在处理请求的方法中添加<code>HttpSession</code>参数，并在方法体中操作该参数对象即可。</p>
+<h3 id="2-拦截器：Interceptor"><a href="#2-拦截器：Interceptor" class="headerlink" title="2. 拦截器：Interceptor"></a>2. 拦截器：Interceptor</h3><p>Spring MVC中的拦截器(Interceptor)与Java EE中的过滤器(Filter)比较相似，可以对某些请求尝试拦截，由开发者自行编写拦截的逻辑，使得某些请求可以执行，而某些请求将不允许执行，实现统一管理的效果。</p>
+<p>在使用时，必须先自定义拦截器类，实现<code>HandlerInterceptor</code>接口，然后在Spring的配置文件中进行配置。</p>
+<p>当实现<code>HandlerInterceptor</code>接口后，需要重写3个未实现的方法，其中，<code>public boolean preHandle()</code>方法是起到拦截作用的，在运行在控制器之前的，该方法的返回值是boolean类型的，表示是否放行，即返回true则放行，返回false则拦截！一旦拦截，控制器方法将不会被执行，并且拦截器中剩下的2个方法也不会被执行，如果通过浏览器进行访问，界面将显示一片空白！</p>
+<p>注意：即使执行重定向语法，如果拦截器<code>return true;</code>，依然会执行控制器中的方法和拦截器中另2个方法，则没有拦截效果，所以，当符合拦截条件时，应该<code>return false;</code>。</p>
+<p>关于拦截器的配置大致如下：</p>
+<pre><code>&lt;!-- 拦截器链 --&gt;
+&lt;mvc:interceptors&gt;
+    &lt;!-- 第1个拦截器 --&gt;
+    &lt;mvc:interceptor&gt;
+        &lt;!-- 拦截路径 --&gt;
+        &lt;mvc:mapping path=&quot;/user/index.do&quot;/&gt;
+        &lt;!-- 拦截器类 --&gt;
+        &lt;bean class=&quot;cn.tedu.spring.interceptor.LoginInterceptor&quot;&gt;&lt;/bean&gt;
+    &lt;/mvc:interceptor&gt;
+    &lt;!-- 第2个拦截器 --&gt;
+    &lt;!-- 第3个拦截器 --&gt;
+    &lt;!-- 第N个拦截器 --&gt;
+&lt;/mvc:interceptors&gt;
+</code></pre><p>即：SpringMVC是支持<strong>拦截器链</strong>的，在同一个项目中，允许存在多个拦截器，形成拦截器链，多个拦截器的执行先后顺序取决于配置的先后顺序。</p>
+<p>在配置每一个拦截器的<code>&lt;mvc:interceptor&gt;</code>节点中，<code>&lt;mvc:mapping&gt;</code>节点用于配置需要拦截的路径，该节点可以存在若干个，例如：</p>
+<pre><code>&lt;mvc:interceptor&gt;
+    &lt;!-- 拦截路径 --&gt;
+    &lt;mvc:mapping path=&quot;/user/index.do&quot;/&gt;
+    &lt;mvc:mapping path=&quot;/user/logout.do&quot;/&gt;
+    &lt;!-- 拦截器类 --&gt;
+    &lt;bean class=&quot;cn.tedu.spring.interceptor.LoginInterceptor&quot;&gt;&lt;/bean&gt;
+&lt;/mvc:interceptor&gt;
+</code></pre><p>并且，在配置路径时，是支持通配符的，例如：</p>
+<pre><code>&lt;mvc:mapping path=&quot;/user/*&quot;/&gt;
+</code></pre><p>即：例如<code>/user/reg.do</code>、<code>/user/login.do</code>、<code>/user/handle_reg.do</code>等这些路径都在拦截范围之内！</p>
+<p>但是，需要注意的是：1个星号表示的通配符只能匹配1层路径，例如<code>/user/*</code>不可以匹配到<code>/user/news/list.do</code>这样的路径！如果要匹配若干层路径，可以使用2个星号，例如配置为<code>/user/**</code>。</p>
+<p>除此以外，在配置时，还可以添加<code>&lt;mvc:exclude-mapping&gt;</code>节点，以配置例外，例如：</p>
+<pre><code>&lt;!-- 拦截路径 --&gt;
+&lt;mvc:mapping path=&quot;/user/*&quot;/&gt;
+&lt;!-- 添加例外 --&gt;
+&lt;mvc:exclude-mapping path=&quot;/user/reg.do&quot;/&gt;
+&lt;mvc:exclude-mapping path=&quot;/user/login.do&quot;/&gt;
+&lt;mvc:exclude-mapping path=&quot;/user/handle_reg.do&quot;/&gt;
+&lt;mvc:exclude-mapping path=&quot;/user/handle_login.do&quot;/&gt;
+</code></pre><p>关于<code>&lt;mvc:exclude-mapping&gt;</code>的配置方式，与<code>&lt;mvc:mapping&gt;</code>相同，也可以使用通配符。</p>
+<p>以上<code>&lt;mvc:mapping&gt;</code>也可以理解为<strong>拦截名单</strong>，而<code>&lt;mvc:exclude-mapping&gt;</code>就是<strong>白名单</strong>。</p>
+<p>以上配置是必须有先后顺序的，<code>&lt;mvc:mapping&gt;</code>必须在最前，其次是<code>&lt;mvc:exclude-mapping&gt;</code>，最后是拦截器<code>&lt;bean&gt;</code>。</p>
+<p>仅在拦截范围之内的，才会触发拦截器执行（无论最终是拦截还是放行），如果某路径不在拦截范围之内（包含被添加到例外的），将根本就不触发拦截器的执行。</p>
+<pre><code>&lt;filter&gt;
+    &lt;filter-name&gt;&lt;/filter-name&gt;
+    &lt;filter-class&gt;&lt;/filter-class&gt;
+&lt;/filter&gt;
+
+&lt;filter-mapping&gt;
+    &lt;filter-name&gt;&lt;/filter-name&gt;
+    &lt;url-pattern&gt;*.do&lt;/url-pattern&gt;
+&lt;/filter-mapping&gt;
+
+登录过滤器
+    判断请求路径是否必须登录
+    是：判断是否已登录
+        是：放行
+        否：重定向
+    否：直接放行
+</code></pre>
       
     </div>
     
@@ -381,8 +472,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/tarecode/2019/01/22/springmvc01/DAY03/" rel="next" title="SpringMVC 拦截器">
-                <i class="fa fa-chevron-left"></i> SpringMVC 拦截器
+              <a href="/tarecode/2019/01/21/springmvc02/" rel="next" title="Spring-MVC 获取请求参数,转发">
+                <i class="fa fa-chevron-left"></i> Spring-MVC 获取请求参数,转发
               </a>
             
           </div>
@@ -441,8 +532,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -457,7 +557,7 @@
               
                 <a href="/tarecode/archives/">
               
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">27</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -502,6 +602,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-使用Session"><span class="nav-number">1.</span> <span class="nav-text">1. 使用Session</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-拦截器：Interceptor"><span class="nav-number">2.</span> <span class="nav-text">2. 拦截器：Interceptor</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
