@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="拦截器,乱码,异常处理,">
 
 
 
@@ -80,15 +80,16 @@
 
 
 <meta name="description" content="1. 使用Session通常，会在Session中存放：  客户端（用户）的身份标识，通常是用户的id； 使用频率非常高的数据，例如显示在页面中的用户名、头像等； 其它的不便于使用其它存储方案来存取或传递的数据。  关于Session的使用，和ModelMap几乎一样，即在处理请求的方法中添加HttpSession参数，并在方法体中操作该参数对象即可。 2. 拦截器：InterceptorSpri">
+<meta name="keywords" content="拦截器,乱码,异常处理">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SpringMVC 拦截器">
+<meta property="og:title" content="SpringMVC 拦截器 异常处理 乱码">
 <meta property="og:url" content="https://oszh.github.io/2019/01/22/springmvc03/index.html">
 <meta property="og:site_name" content="oszh">
 <meta property="og:description" content="1. 使用Session通常，会在Session中存放：  客户端（用户）的身份标识，通常是用户的id； 使用频率非常高的数据，例如显示在页面中的用户名、头像等； 其它的不便于使用其它存储方案来存取或传递的数据。  关于Session的使用，和ModelMap几乎一样，即在处理请求的方法中添加HttpSession参数，并在方法体中操作该参数对象即可。 2. 拦截器：InterceptorSpri">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-22T03:56:41.018Z">
+<meta property="og:updated_time" content="2019-01-22T11:10:34.529Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="SpringMVC 拦截器">
+<meta name="twitter:title" content="SpringMVC 拦截器 异常处理 乱码">
 <meta name="twitter:description" content="1. 使用Session通常，会在Session中存放：  客户端（用户）的身份标识，通常是用户的id； 使用频率非常高的数据，例如显示在页面中的用户名、头像等； 其它的不便于使用其它存储方案来存取或传递的数据。  关于Session的使用，和ModelMap几乎一样，即在处理请求的方法中添加HttpSession参数，并在方法体中操作该参数对象即可。 2. 拦截器：InterceptorSpri">
 
 
@@ -125,7 +126,7 @@
 
 
 
-  <title>SpringMVC 拦截器 | oszh</title>
+  <title>SpringMVC 拦截器 异常处理 乱码 | oszh</title>
   
 
 
@@ -279,7 +280,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">SpringMVC 拦截器</h1>
+          <h1 class="post-title" itemprop="name headline">SpringMVC 拦截器 异常处理 乱码</h1>
         
 
         <div class="post-meta">
@@ -345,7 +346,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.1k
+                  2.9k
                 </span>
               
 
@@ -361,7 +362,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  4
+                  11
                 </span>
               
             </div>
@@ -432,7 +433,138 @@
 <p>以上<code>&lt;mvc:mapping&gt;</code>也可以理解为<strong>拦截名单</strong>，而<code>&lt;mvc:exclude-mapping&gt;</code>就是<strong>白名单</strong>。</p>
 <p>以上配置是必须有先后顺序的，<code>&lt;mvc:mapping&gt;</code>必须在最前，其次是<code>&lt;mvc:exclude-mapping&gt;</code>，最后是拦截器<code>&lt;bean&gt;</code>。</p>
 <p>仅在拦截范围之内的，才会触发拦截器执行（无论最终是拦截还是放行），如果某路径不在拦截范围之内（包含被添加到例外的），将根本就不触发拦截器的执行。</p>
+<h3 id="3-SpringMVC项目的乱码解决方案"><a href="#3-SpringMVC项目的乱码解决方案" class="headerlink" title="3. SpringMVC项目的乱码解决方案"></a>3. SpringMVC项目的乱码解决方案</h3><p>整个SpringMVC框架默认使用的编码都是ISO-8859-1，是不支持中文的，所以，在<code>DispatcherServlet</code>接收到请求的那一刻起，数据的编码就已经是ISO-8859-1，为了修改编码，只能通过过滤器(Filter)来设置，在SpringMVC中也定义好了<code>CharacterEncodingFilter</code>，用于设置字符编码，所以，当使用SpringMVC时，应该在<code>web.xml</code>中配置该过滤器，并为这个过滤器类的<code>encoding</code>属性设置编码值：</p>
 <pre><code>&lt;filter&gt;
+    &lt;filter-name&gt;CharacterEncodingFilter&lt;/filter-name&gt;
+    &lt;filter-class&gt;org.springframework.web.filter.CharacterEncodingFilter&lt;/filter-class&gt;
+    &lt;init-param&gt;
+        &lt;param-name&gt;encoding&lt;/param-name&gt;
+        &lt;param-value&gt;utf-8&lt;/param-value&gt;
+    &lt;/init-param&gt;
+&lt;/filter&gt;
+
+&lt;filter-mapping&gt;
+    &lt;filter-name&gt;CharacterEncodingFilter&lt;/filter-name&gt;
+    &lt;url-pattern&gt;/*&lt;/url-pattern&gt;
+&lt;/filter-mapping&gt;
+</code></pre><h3 id="4-SpringMVC处理异常"><a href="#4-SpringMVC处理异常" class="headerlink" title="4. SpringMVC处理异常"></a>4. SpringMVC处理异常</h3><p>控制器是向客户端进行响应的组件，如果在控制器中的代码运行时出现异常，应该进行处理，如果不处理异常，则会按照默认的方式处理，有几处问题：</p>
+<ol>
+<li>对于没有计算机开发相关基础的用户而言，体验很差（界面上显示的错误完全看不懂）；</li>
+<li>对于掌握了计算机开发相关技术的用户而言，可能从中获取当前项目的某些实现细节（异常的跟踪信息中会显示某些类、方法的名称等），导致项目的部分内容外泄；</li>
+<li>其它问题。</li>
+</ol>
+<p>所以，在控制器中，应该对可能存在的异常进行处理！注意：此处的“处理”不包括使用<code>throw</code>抛出，而是通过<code>try...catch</code>类似的方式捕获并在<code>catch</code>代码块中进行处理，例如：</p>
+<pre><code>@RequestMapping(&quot;null.do&quot;)
+public String showNull(
+        String username, ModelMap modelMap) {
+    try {
+        username.length();
+    } catch (NullPointerException e) {
+        String message = &quot;您的操作有误，未提交必要的参数，请&lt;a href=input.do&gt;重新提交&lt;/a&gt;！&quot;;
+        modelMap.addAttribute(&quot;msg&quot;, message);
+        return &quot;error&quot;;
+    }
+
+    return null;
+}
+</code></pre><p>由于异常出现的频率可能较高，或者，在多个不同的请求中都可能出现，那么，在每个方法中都进行处理，是不现实的，也不便于代码的管理！</p>
+<p>在SpringMVC中，提供了2种统一处理异常的做法：</p>
+<p><strong>1. 通过SimpleMappingExceptionResolver</strong></p>
+<p>在Spring的配置文件中，对<code>SimpleMappingExceptionResolver</code>进行配置，确定异常与转发的页面的映射即可：</p>
+<pre><code>&lt;!-- 处理异常 --&gt;
+&lt;bean class=&quot;org.springframework.web.servlet.handler.SimpleMappingExceptionResolver&quot;&gt;
+    &lt;property name=&quot;exceptionMappings&quot;&gt;
+        &lt;props&gt;
+            &lt;prop key=&quot;java.lang.NullPointerException&quot;&gt;error&lt;/prop&gt;
+            &lt;prop key=&quot;java.lang.StringIndexOutOfBoundsException&quot;&gt;oob&lt;/prop&gt;
+            &lt;prop key=&quot;java.lang.RuntimeException&quot;&gt;runtime&lt;/prop&gt;
+        &lt;/props&gt;
+    &lt;/property&gt;
+&lt;/bean&gt;
+</code></pre><p>使用这种做法时，如果出现异常，框架将自动转发到对应的页面，开发者难以对异常出现的原因作出针对性的处理！所以，这种做法只适合比较粗糙的、大概的处理异常！</p>
+<p>同时，这种做法固定使用转发来显示错误提示页面，无法更改为其它方式的响应！</p>
+<p><strong>2. 使用@ExceptionHandler</strong></p>
+<p> 在控制器类中，可以自定义处理异常的方法，并在方法之前添加<code>@ExceptionHandler</code>注解，该方法的设计规则与处理请求的方法大致相同，区别在于参数不可以随便写，必须包含1个异常类型的参数，</p>
+<pre><code>@ExceptionHandler
+public String handleException(Exception e) {
+    if (e instanceof NullPointerException) {
+        return &quot;error&quot;;
+    } else if (e instanceof StringIndexOutOfBoundsException) {
+        return &quot;oob&quot;;
+    }
+    return &quot;exception&quot;;
+}
+</code></pre><blockquote>
+<p>使用<code>@ExceptionHandler</code>之前，必须保证在Spring配置文件中已经配置了注解驱动，即<code>&lt;mvc:annotation-driven /&gt;</code>。</p>
+</blockquote>
+<p>在使用<code>@ExceptionHandler</code>注解时，可以在注解中添加属性的配置，以确定所处理的异常的范围，例如：</p>
+<pre><code>@ExceptionHandler(IndexOutOfBoundsException.class)
+</code></pre><p>经过以上配置，仅<code>IndexOutOfBoundsException</code>及其子孙类异常会被接下来的方法进行处理，而其它异常的出现，并不会导致对应的方法被执行！</p>
+<p>在控制器中，允许同时存在多个处理异常的方法！</p>
+<p>处理异常的方法仅能作用于当前控制器类中的请求！如果某个处理异常的方法的代码希望被通用，可以将这个处理异常的方法写在控制器类的基类中。</p>
+<p>以上两种统一处理异常的方式是可以同时存在的！且第2种方式的优先级高于第1种方式。</p>
+<p><strong>附：常见异常</strong></p>
+<pre><code>Throwable
+    Error
+        OutOfMemoryError
+    Exception
+        SqlException
+        IOException
+            FileNotFoundException
+        RuntimeException
+            NullPointException
+            ClassCastException
+            ArithmeticException
+            IndexOutOfBoundsException
+                ArrayIndexOutOfBoundsException
+</code></pre><h3 id="【附】-拦截器和过滤器的区别"><a href="#【附】-拦截器和过滤器的区别" class="headerlink" title="【附】 拦截器和过滤器的区别"></a>【附】 拦截器和过滤器的区别</h3><p>过滤器(Filter)是Java EE体系中的，而拦截器(Interceptor)是SpringMVC中的；</p>
+<p>过滤器是在所有的Servlet之前执行的，而拦截器的初次执行是在DispatcherServlet之后、在Controller之前执行的；</p>
+<p>过滤器的过滤范围只能在web.xml中通过<url-pattern>这1个节点来配置，而拦截器可以配置多个拦截路径，且可以添加例外，配置更加灵活；</url-pattern></p>
+<p>所有的请求都可以被过滤器进行处理，却只有交由DispatcherServlet分发的请求才可能被拦截器处理！</p>
+<h3 id="【附】-字符编码问题-出错时的乱码问题"><a href="#【附】-字符编码问题-出错时的乱码问题" class="headerlink" title="【附】 字符编码问题 / 出错时的乱码问题"></a>【附】 字符编码问题 / 出错时的乱码问题</h3><p>在不考虑某些编码不支持中文的情况下，使用了支持中文的编码，仍会出现乱码的原因只有1个：存和取的时候使用了不同的编码。</p>
+<p>所以，解决方案就是：整个项目涉及的所有位置全部使用相同的编码！</p>
+<p>通常，需要指定编码的位置有：</p>
+<ol>
+<li>项目的源代码，例如某个String类型数据的值；</li>
+<li>显示界面的组件所使用的编码，例如HTML/JSP使用的编码；</li>
+<li>数据存储位置使用的编码，例如数据库中的编码；</li>
+<li>数据传输过程中使用的编码，例如请求、响应，或数据库连接的URL。</li>
+</ol>
+<h3 id="【作业】"><a href="#【作业】" class="headerlink" title="【作业】"></a>【作业】</h3><ol>
+<li>创建新的数据库<code>tedu_ums</code>；</li>
+<li>在新数据库中创建数据表<code>t_user</code>，表中至少包含id, username, password, age, phone, email这6个属性； </li>
+<li>添加不少于10条数据；</li>
+<li>查询所有数据；</li>
+<li>根据id查询某用户的详细信息；</li>
+<li>根据username查询某用户的详细信息；</li>
+<li>查询当前表中数据的数量；</li>
+<li>查询年龄大于20的前3条数据；</li>
+<li>删除id=3的数据；</li>
+<li>删除id=6、id=8、id=9的数据；</li>
+<li>将id&lt;7的所有数据的password设置为1234。</li>
+</ol>
+<pre><code>0, 1
+
+位：bit，二进制位，任何1个0或1所占用的空间就是1个二进制位，是计算机中最小的存储单位
+
+字节：byte，1个字节为8个二进制位，例如 0000 1100，字节是计算机存储数据的基本单位
+
+0000 0000
+0000 0001
+1111 1111
+
+ASCII编码
+
+a        0110 0001
+
+中文编码：GBK, GB2312, UTF-8
+
+中    0000 0000 0000 0000
+中    0000 0100 0000 0000
+
+
+
+&lt;filter&gt;
     &lt;filter-name&gt;&lt;/filter-name&gt;
     &lt;filter-class&gt;&lt;/filter-class&gt;
 &lt;/filter&gt;
@@ -462,6 +594,16 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tarecode/tags/拦截器/" rel="tag"># 拦截器</a>
+          
+            <a href="/tarecode/tags/乱码/" rel="tag"># 乱码</a>
+          
+            <a href="/tarecode/tags/异常处理/" rel="tag"># 异常处理</a>
+          
+        </div>
       
 
       
@@ -579,7 +721,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tarecode/tags/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -612,7 +754,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-使用Session"><span class="nav-number">1.</span> <span class="nav-text">1. 使用Session</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-拦截器：Interceptor"><span class="nav-number">2.</span> <span class="nav-text">2. 拦截器：Interceptor</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-使用Session"><span class="nav-number">1.</span> <span class="nav-text">1. 使用Session</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-拦截器：Interceptor"><span class="nav-number">2.</span> <span class="nav-text">2. 拦截器：Interceptor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-SpringMVC项目的乱码解决方案"><span class="nav-number">3.</span> <span class="nav-text">3. SpringMVC项目的乱码解决方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-SpringMVC处理异常"><span class="nav-number">4.</span> <span class="nav-text">4. SpringMVC处理异常</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#【附】-拦截器和过滤器的区别"><span class="nav-number">5.</span> <span class="nav-text">【附】 拦截器和过滤器的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#【附】-字符编码问题-出错时的乱码问题"><span class="nav-number">6.</span> <span class="nav-text">【附】 字符编码问题 / 出错时的乱码问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#【作业】"><span class="nav-number">7.</span> <span class="nav-text">【作业】</span></a></li></ol></div>
             
 
           </div>
@@ -646,7 +788,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">50.9k</span>
+    <span title="Site words total count">52.6k</span>
   
 </div>
 
