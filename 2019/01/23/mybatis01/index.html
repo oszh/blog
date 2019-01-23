@@ -79,22 +79,22 @@
 
 
 
-<meta name="description" content="【前序作业】 创建新的数据库tedu_ums；  CREATE DATABASE tedu_ums;  在新数据库中创建数据表t_user，表中至少包含id, username, password, age, phone, email这6个属性；   USE tedu_ums;  CREATE TABLE t_user ( id INT AUTO_INCREMENT, username VARCH">
+<meta name="description" content="【练习】 创建新的数据库tedu_ums；  CREATE DATABASE tedu_ums;  在新数据库中创建数据表t_user，表中至少包含id, username, password, age, phone, email这6个属性；   USE tedu_ums;  CREATE TABLE t_user ( id INT AUTO_INCREMENT, username VARCHAR">
 <meta name="keywords" content="mybatis">
 <meta property="og:type" content="article">
 <meta property="og:title" content="mybatis与spring整合">
 <meta property="og:url" content="https://oszh.github.io/2019/01/23/mybatis01/index.html">
 <meta property="og:site_name" content="oszh">
-<meta property="og:description" content="【前序作业】 创建新的数据库tedu_ums；  CREATE DATABASE tedu_ums;  在新数据库中创建数据表t_user，表中至少包含id, username, password, age, phone, email这6个属性；   USE tedu_ums;  CREATE TABLE t_user ( id INT AUTO_INCREMENT, username VARCH">
+<meta property="og:description" content="【练习】 创建新的数据库tedu_ums；  CREATE DATABASE tedu_ums;  在新数据库中创建数据表t_user，表中至少包含id, username, password, age, phone, email这6个属性；   USE tedu_ums;  CREATE TABLE t_user ( id INT AUTO_INCREMENT, username VARCHAR">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://oszh.github.io/2019/01/23/mybatis01/01.png">
+<meta property="og:image" content="https://oszh.github.io/2019/01/23/mybatis01/confi.png">
 <meta property="og:image" content="https://oszh.github.io/2019/01/23/mybatis01/02.png">
 <meta property="og:image" content="https://oszh.github.io/2019/01/23/mybatis01/03.png">
-<meta property="og:updated_time" content="2019-01-23T10:04:09.183Z">
+<meta property="og:updated_time" content="2019-01-23T10:23:39.153Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mybatis与spring整合">
-<meta name="twitter:description" content="【前序作业】 创建新的数据库tedu_ums；  CREATE DATABASE tedu_ums;  在新数据库中创建数据表t_user，表中至少包含id, username, password, age, phone, email这6个属性；   USE tedu_ums;  CREATE TABLE t_user ( id INT AUTO_INCREMENT, username VARCH">
-<meta name="twitter:image" content="https://oszh.github.io/2019/01/23/mybatis01/01.png">
+<meta name="twitter:description" content="【练习】 创建新的数据库tedu_ums；  CREATE DATABASE tedu_ums;  在新数据库中创建数据表t_user，表中至少包含id, username, password, age, phone, email这6个属性；   USE tedu_ums;  CREATE TABLE t_user ( id INT AUTO_INCREMENT, username VARCHAR">
+<meta name="twitter:image" content="https://oszh.github.io/2019/01/23/mybatis01/confi.png">
 
 
 
@@ -387,7 +387,7 @@
       
 
       
-        <h3 id="【前序作业】"><a href="#【前序作业】" class="headerlink" title="【前序作业】"></a>【前序作业】</h3><ol>
+        <h3 id="【练习】"><a href="#【练习】" class="headerlink" title="【练习】"></a>【练习】</h3><ol>
 <li><p>创建新的数据库<code>tedu_ums</code>；</p>
 <p> CREATE DATABASE tedu_ums;</p>
 </li>
@@ -505,7 +505,7 @@ maxActive=50
         value=&quot;#{dbConfig.maxActive}&quot; /&gt;
 &lt;/bean&gt;
 </code></pre><p>以上配置时，各文件之间的关系如下图所示：</p>
-<p><img src="01.png" alt=""></p>
+<p><img src="confi.png" alt=""></p>
 <p>完成后，可以通过单元测试，以测试是否可以正确的获取到数据库的连接：</p>
 <pre><code>public class ConnectionTestCase {
 
@@ -786,7 +786,7 @@ maxActive=50
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#【前序作业】"><span class="nav-number">1.</span> <span class="nav-text">【前序作业】</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-MYBATIS简介"><span class="nav-number">2.</span> <span class="nav-text">1. MYBATIS简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-基本使用"><span class="nav-number">3.</span> <span class="nav-text">2. 基本使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-添加依赖"><span class="nav-number">3.1.</span> <span class="nav-text">2.1. 添加依赖</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-数据库连接"><span class="nav-number">3.2.</span> <span class="nav-text">2.2. 数据库连接</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-创建实体类"><span class="nav-number">3.3.</span> <span class="nav-text">2.3. 创建实体类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-创建接口，声明抽象方法"><span class="nav-number">3.4.</span> <span class="nav-text">2.4. 创建接口，声明抽象方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-5-配置接口所在的包"><span class="nav-number">3.5.</span> <span class="nav-text">2.5. 配置接口所在的包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-6-在XML中配置接口方法对应的SQL语句"><span class="nav-number">3.6.</span> <span class="nav-text">2.6. 在XML中配置接口方法对应的SQL语句</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-7-配置XML文件的位置与数据源"><span class="nav-number">3.7.</span> <span class="nav-text">2.7. 配置XML文件的位置与数据源</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-8-单元测试"><span class="nav-number">3.8.</span> <span class="nav-text">2.8. 单元测试</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-查询数据"><span class="nav-number">4.</span> <span class="nav-text">3. 查询数据</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-根据id查询某个用户的信息"><span class="nav-number">4.1.</span> <span class="nav-text">3.1. 根据id查询某个用户的信息</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#【练习】"><span class="nav-number">1.</span> <span class="nav-text">【练习】</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-MYBATIS简介"><span class="nav-number">2.</span> <span class="nav-text">1. MYBATIS简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-基本使用"><span class="nav-number">3.</span> <span class="nav-text">2. 基本使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-添加依赖"><span class="nav-number">3.1.</span> <span class="nav-text">2.1. 添加依赖</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-数据库连接"><span class="nav-number">3.2.</span> <span class="nav-text">2.2. 数据库连接</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-创建实体类"><span class="nav-number">3.3.</span> <span class="nav-text">2.3. 创建实体类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-创建接口，声明抽象方法"><span class="nav-number">3.4.</span> <span class="nav-text">2.4. 创建接口，声明抽象方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-5-配置接口所在的包"><span class="nav-number">3.5.</span> <span class="nav-text">2.5. 配置接口所在的包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-6-在XML中配置接口方法对应的SQL语句"><span class="nav-number">3.6.</span> <span class="nav-text">2.6. 在XML中配置接口方法对应的SQL语句</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-7-配置XML文件的位置与数据源"><span class="nav-number">3.7.</span> <span class="nav-text">2.7. 配置XML文件的位置与数据源</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-8-单元测试"><span class="nav-number">3.8.</span> <span class="nav-text">2.8. 单元测试</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-查询数据"><span class="nav-number">4.</span> <span class="nav-text">3. 查询数据</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-根据id查询某个用户的信息"><span class="nav-number">4.1.</span> <span class="nav-text">3.1. 根据id查询某个用户的信息</span></a></li></ol></li></ol></div>
             
 
           </div>
