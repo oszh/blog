@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/tarecode/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/tarecode/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/tarecode/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/tarecode/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/tarecode/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/tarecode/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/tarecode/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="mybatis,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="【前序作业】 创建新的数据库tedu_ums；  CREATE DATABASE tedu_ums;  在新数据库中创建数据表t_user，表中至少包含id, username, password, age, phone, email这6个属性；   USE tedu_ums;  CREATE TABLE t_user ( id INT AUTO_INCREMENT, username VARCH">
+<meta name="keywords" content="mybatis">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mybatis与spring整合">
+<meta property="og:url" content="https://oszh.github.io/2019/01/23/mybatis01/index.html">
+<meta property="og:site_name" content="oszh">
+<meta property="og:description" content="【前序作业】 创建新的数据库tedu_ums；  CREATE DATABASE tedu_ums;  在新数据库中创建数据表t_user，表中至少包含id, username, password, age, phone, email这6个属性；   USE tedu_ums;  CREATE TABLE t_user ( id INT AUTO_INCREMENT, username VARCH">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://oszh.github.io/2019/01/23/mybatis01/01.png">
+<meta property="og:image" content="https://oszh.github.io/2019/01/23/mybatis01/02.png">
+<meta property="og:image" content="https://oszh.github.io/2019/01/23/mybatis01/03.png">
+<meta property="og:updated_time" content="2019-01-23T10:04:09.183Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="mybatis与spring整合">
+<meta name="twitter:description" content="【前序作业】 创建新的数据库tedu_ums；  CREATE DATABASE tedu_ums;  在新数据库中创建数据表t_user，表中至少包含id, username, password, age, phone, email这6个属性；   USE tedu_ums;  CREATE TABLE t_user ( id INT AUTO_INCREMENT, username VARCH">
+<meta name="twitter:image" content="https://oszh.github.io/2019/01/23/mybatis01/01.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/tarecode/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://oszh.github.io/2019/01/23/mybatis01/">
+
+
+
+
+
+  <title>mybatis与spring整合 | oszh</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/tarecode/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">oszh</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/tarecode/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tarecode/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/tarecode/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/tarecode/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/tarecode/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://oszh.github.io/tarecode/2019/01/23/mybatis01/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="懒人的我">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/tarecode/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="oszh">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">mybatis与spring整合</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-23T18:00:50+08:00">
+                2019-01-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/tarecode/categories/mybatis/" itemprop="url" rel="index">
+                    <span itemprop="name">mybatis</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.9k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  9
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="【前序作业】"><a href="#【前序作业】" class="headerlink" title="【前序作业】"></a>【前序作业】</h3><ol>
+<li><p>创建新的数据库<code>tedu_ums</code>；</p>
+<p> CREATE DATABASE tedu_ums;</p>
+</li>
+<li><p>在新数据库中创建数据表<code>t_user</code>，表中至少包含id, username, password, age, phone, email这6个属性； </p>
+<p> USE tedu_ums;</p>
+<p> CREATE TABLE t_user (</p>
+<pre><code>id INT AUTO_INCREMENT,
+username VARCHAR(20) UNIQUE NOT NULL,
+password VARCHAR(20) NOT NULL,
+age INT,
+phone VARCHAR(20),
+email VARCHAR(50),
+PRIMARY KEY(id)
+</code></pre><p> ) DEFAULT CHARSET=utf8;</p>
+</li>
+<li><p>添加不少于10条数据；</p>
+<p> INSERT INTO t_user </p>
+<pre><code>(username, password, age, phone, email) 
+</code></pre><p> VALUES </p>
+<pre><code>(&apos;root&apos;, &apos;1234&apos;, 18, &apos;13800138001&apos;, &apos;root@tedu.cn&apos;),
+(&apos;admin&apos;, &apos;4567&apos;, 19, &apos;13800138002&apos;, &apos;admin@tedu.cn&apos;),
+(&apos;jack&apos;, &apos;1234&apos;, 20, &apos;13800138003&apos;, &apos;jack@tedu.cn&apos;),
+(&apos;tom&apos;, &apos;1234&apos;, 22, &apos;13800138010&apos;, &apos;tom@tedu.cn&apos;),
+(&apos;jerry&apos;, &apos;1234&apos;, 25, &apos;13800138011&apos;, &apos;jerry@tedu.cn&apos;),
+(&apos;rose&apos;, &apos;1234&apos;, 21, &apos;13800138004&apos;, &apos;rose@tedu.cn&apos;),
+(&apos;mike&apos;, &apos;1234&apos;, 22, &apos;13800138005&apos;, &apos;mike@tedu.cn&apos;),
+(&apos;lily&apos;, &apos;1234&apos;, 23, &apos;13800138006&apos;, &apos;lily@tedu.cn&apos;),
+(&apos;lucy&apos;, &apos;1234&apos;, 24, &apos;13800138007&apos;, &apos;lucy@tedu.cn&apos;),
+(&apos;mary&apos;, &apos;1234&apos;, 25, &apos;13800138008&apos;, &apos;mary@tedu.cn&apos;),
+(&apos;alex&apos;, &apos;1234&apos;, 26, &apos;13800138009&apos;, &apos;alex@tedu.cn&apos;);
+</code></pre></li>
+<li><p>查询所有数据；</p>
+<p> SELECT id,username,password,age,phone,email FROM t_user;    </p>
+</li>
+<li><p>根据id查询某用户的详细信息；</p>
+<p> SELECT id,username,password,age,phone,email FROM t_user WHERE id=8;</p>
+</li>
+<li><p>根据username查询某用户的详细信息；</p>
+<p> SELECT id,username,password,age,phone,email FROM t_user WHERE username=’jack’;</p>
+</li>
+<li><p>查询当前表中数据的数量；</p>
+<p> SELECT COUNT(id) FROM t_user;</p>
+</li>
+<li><p>查询年龄大于20的前3条数据；</p>
+<p> SELECT id,username,password,age,phone,email FROM t_user WHERE age&gt;20 LIMIT 0,3;</p>
+</li>
+<li><p>删除id=3的数据；</p>
+<p> DELETE FROM t_user WHERE id=3;</p>
+</li>
+<li><p>删除id=6、id=8、id=9的数据；</p>
+<p>DELETE FROM t_user WHERE id IN (6,8,9);</p>
+<p>DELETE FROM t_user WHERE id=6 OR id=8 OR id=9;</p>
+</li>
+<li><p>将id&lt;7的所有数据的password设置为1234。</p>
+<p>UPDATE t_user SET password=’1234’ WHERE id&lt;7;</p>
+</li>
+</ol>
+<h3 id="1-MYBATIS简介"><a href="#1-MYBATIS简介" class="headerlink" title="1. MYBATIS简介"></a>1. MYBATIS简介</h3><p>MYBATIS是持久层框架，大大的简化了持久层开发。</p>
+<p>当使用MYBATIS框架时，开发人员不必再编写繁琐的JDBC代码，只需要定义好每个功能对应的抽象方法与需要执行的SQL语句即可！</p>
+<h3 id="2-基本使用"><a href="#2-基本使用" class="headerlink" title="2. 基本使用"></a>2. 基本使用</h3><h4 id="2-1-添加依赖"><a href="#2-1-添加依赖" class="headerlink" title="2.1. 添加依赖"></a>2.1. 添加依赖</h4><p>需要在<code>pom.xml</code>中添加MyBatis的依赖：</p>
+<pre><code>&lt;dependency&gt;
+    &lt;groupId&gt;org.mybatis&lt;/groupId&gt;
+    &lt;artifactId&gt;mybatis&lt;/artifactId&gt;
+    &lt;version&gt;3.4.6&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre><p>然后添加MyBatis整合Spring的依赖：</p>
+<pre><code>&lt;dependency&gt;
+    &lt;groupId&gt;org.mybatis&lt;/groupId&gt;
+    &lt;artifactId&gt;mybatis-spring&lt;/artifactId&gt;
+    &lt;version&gt;1.3.2&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre><p>其底层实现是基于JDBC的，所以，还需要添加<code>spring-jdbc</code>的依赖，需要注意的是：此次使用的版本必须与<code>spring-webmvc</code>的保持一致：</p>
+<pre><code>&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-jdbc&lt;/artifactId&gt;
+    &lt;version&gt;4.3.9.RELEASE&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre><p>根据使用的数据库，添加数据库连接驱动的依赖：</p>
+<pre><code>&lt;dependency&gt;
+    &lt;groupId&gt;mysql&lt;/groupId&gt;
+    &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
+    &lt;version&gt;8.0.13&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre><p>添加数据源的依赖：</p>
+<pre><code>&lt;dependency&gt;
+    &lt;groupId&gt;commons-dbcp&lt;/groupId&gt;
+    &lt;artifactId&gt;commons-dbcp&lt;/artifactId&gt;
+    &lt;version&gt;1.4&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre><h4 id="2-2-数据库连接"><a href="#2-2-数据库连接" class="headerlink" title="2.2. 数据库连接"></a>2.2. 数据库连接</h4><p>在<code>src/main/resources</code>下创建<code>db.properties</code>文件，用于配置数据库连接的相关信息：</p>
+<pre><code>url=jdbc:mysql://localhost:3306/tedu_ums?useUnicode=true&amp;characterEncoding=utf-8&amp;serverTimezone=Asia/Shanghai
+driver=com.mysql.cj.jdbc.Driver
+username=root
+password=root
+initialSize=2
+maxActive=50
+</code></pre><p>在项目中准备名为<code>spring-dao.xml</code>的Spring配置文件，并加载以上数据库的配置文件：</p>
+<pre><code>&lt;!-- 加载数据库的配置文件 --&gt;
+&lt;util:properties
+    location=&quot;classpath:db.properties&quot; /&gt;
+</code></pre><p>然后，将以上读取到的配置值应用于数据源<code>BasicDataSource</code>中：</p>
+<pre><code>&lt;!-- 配置数据源 --&gt;
+&lt;bean class=&quot;org.apache.commons.dbcp.BasicDataSource&quot;&gt;
+    &lt;property name=&quot;url&quot; 
+        value=&quot;#{dbConfig.url}&quot; /&gt;
+    &lt;property name=&quot;driverClassName&quot;
+        value=&quot;#{dbConfig.driver}&quot; /&gt;
+    &lt;property name=&quot;username&quot;
+        value=&quot;#{dbConfig.username}&quot; /&gt;
+    &lt;property name=&quot;password&quot;
+        value=&quot;#{dbConfig.password}&quot; /&gt;
+    &lt;property name=&quot;initialSize&quot;
+        value=&quot;#{dbConfig.initialSize}&quot; /&gt;
+    &lt;property name=&quot;maxActive&quot;
+        value=&quot;#{dbConfig.maxActive}&quot; /&gt;
+&lt;/bean&gt;
+</code></pre><p>以上配置时，各文件之间的关系如下图所示：</p>
+<p><img src="01.png" alt=""></p>
+<p>完成后，可以通过单元测试，以测试是否可以正确的获取到数据库的连接：</p>
+<pre><code>public class ConnectionTestCase {
+
+    @Test
+    public void getConnection() throws SQLException {
+        AbstractApplicationContext ac
+            = new ClassPathXmlApplicationContext(
+                    &quot;spring-dao.xml&quot;);
+
+        DataSource dataSource = 
+                ac.getBean(&quot;dataSource&quot;, DataSource.class);
+
+        System.out.println(dataSource.getConnection());
+
+        ac.close();
+    }
+
+}
+</code></pre><h4 id="2-3-创建实体类"><a href="#2-3-创建实体类" class="headerlink" title="2.3. 创建实体类"></a>2.3. 创建实体类</h4><p>每张数据表都应该有1个对应的实体类，所以，创建<code>cn.tedu.mybatis.entity.User</code>类，属性的数量与类型请参考数据表的设计：</p>
+<pre><code>public class User implements Serializable {
+
+    private static final long serialVersionUID = 7323921614984096421L;
+
+    private Integer id;
+    private String username;
+    private String password;
+    private Integer age;
+    private String phone;
+    private String email;
+    // SET/GET，toString()
+}
+</code></pre><h4 id="2-4-创建接口，声明抽象方法"><a href="#2-4-创建接口，声明抽象方法" class="headerlink" title="2.4. 创建接口，声明抽象方法"></a>2.4. 创建接口，声明抽象方法</h4><p>创建<code>cn.tedu.mybatis.mapper.UserMapper</code>接口，并在接口中声明“插入用户数据”的抽象方法：</p>
+<pre><code>public interface UserMapper {
+
+    Integer addnew(User user);
+
+}
+</code></pre><p>关于抽象方法，在MyBatis中，执行的操作如果是增、删、改，返回值均使用<code>Integer</code>，表示受影响的行数；方法的名称可以自定义，只要不违反Java的命名规则即可，另外，不允许在接口中使用重载机制；参数也可以自定义，如果执行的是增加操作，参数应该是与数据表对应的实体类的类型。</p>
+<h4 id="2-5-配置接口所在的包"><a href="#2-5-配置接口所在的包" class="headerlink" title="2.5. 配置接口所在的包"></a>2.5. 配置接口所在的包</h4><p>在MyBatis中，通过<code>MapperScannerConfigurer</code>类扫描持久层接口的，所以，应该在<code>spring-dao.xml</code>文件中进行配置：</p>
+<pre><code>&lt;!-- MapperScannerConfigurer --&gt;
+&lt;bean class=&quot;org.mybatis.spring.mapper.MapperScannerConfigurer&quot;&gt;
+    &lt;!-- 配置接口文件所在的包 --&gt;
+    &lt;property name=&quot;basePackage&quot;
+        value=&quot;cn.tedu.mybatis.mapper&quot; /&gt;
+&lt;/bean&gt;
+</code></pre><h4 id="2-6-在XML中配置接口方法对应的SQL语句"><a href="#2-6-在XML中配置接口方法对应的SQL语句" class="headerlink" title="2.6. 在XML中配置接口方法对应的SQL语句"></a>2.6. 在XML中配置接口方法对应的SQL语句</h4><p>从FTP下载<code>somemapper.zip</code>压缩包，得到<code>SomeMapper.xml</code>文件。</p>
+<p>在<code>src/main/resources</code>下创建名为<code>mappers</code>文件夹，然后将<code>SomeMapper.xml</code>重命名为<code>UserMapper.xml</code>，并粘贴到<code>mappers</code>文件夹下：</p>
+<p><img src="02.png" alt=""></p>
+<blockquote>
+<p>其实，这些XML文件的名称并不重要，可以自由命名，通常，推荐使用与接口文件相同的名称，便于管理。</p>
+</blockquote>
+<p>然后，编写<code>UserMapper.xml</code>文件中的内容，首先，根节点必须是<code>&lt;mapper&gt;</code>，且根节点的<code>namespace</code>表示对应的接口文件，然后，添加子节点，以对应接口中的抽象方法：</p>
+<p><img src="03.png" alt=""></p>
+<h4 id="2-7-配置XML文件的位置与数据源"><a href="#2-7-配置XML文件的位置与数据源" class="headerlink" title="2.7. 配置XML文件的位置与数据源"></a>2.7. 配置XML文件的位置与数据源</h4><p>MyBatis通过<code>SqlSessionFactoryBean</code>获取数据源，并且扫描配置了SQL语句的XML文件，最终由MyBatis框架来执行SQL语句，所以，需要在<code>spring-dao.xml</code>中配置<code>SqlSessionFactoryBean</code>：</p>
+<pre><code>&lt;!-- SqlSessionFactoryBean --&gt;
+&lt;bean class=&quot;org.mybatis.spring.SqlSessionFactoryBean&quot;&gt;
+    &lt;!-- 数据源，值为以上配置BasicDataSource节点的bean-id --&gt;
+    &lt;property name=&quot;dataSource&quot; 
+        ref=&quot;dataSource&quot; /&gt;
+    &lt;!-- XML文件在哪里 --&gt;
+    &lt;property name=&quot;mapperLocations&quot; 
+        value=&quot;classpath:mappers/*.xml&quot; /&gt;
+&lt;/bean&gt;
+</code></pre><h4 id="2-8-单元测试"><a href="#2-8-单元测试" class="headerlink" title="2.8. 单元测试"></a>2.8. 单元测试</h4><pre><code>public class UserMapperTestCase {
+
+    AbstractApplicationContext ac;
+    UserMapper mapper;
+
+    @Before
+    public void doBefore() {
+        ac = new ClassPathXmlApplicationContext(&quot;spring-dao.xml&quot;);
+        mapper = ac.getBean(&quot;userMapper&quot;, UserMapper.class);
+    }
+
+    @After
+    public void doAfter() {
+        ac.close();
+    }
+
+    @Test
+    public void addnew() {
+        User user = new User();
+        user.setUsername(&quot;刘GB&quot;);
+        user.setPassword(&quot;666&quot;);
+        Integer rows = mapper.addnew(user);
+        System.out.println(&quot;rows=&quot; + rows);
+    }
+
+}
+</code></pre><h3 id="3-查询数据"><a href="#3-查询数据" class="headerlink" title="3. 查询数据"></a>3. 查询数据</h3><h4 id="3-1-根据id查询某个用户的信息"><a href="#3-1-根据id查询某个用户的信息" class="headerlink" title="3.1. 根据id查询某个用户的信息"></a>3.1. 根据id查询某个用户的信息</h4><p>首先，在<code>UserMapper.java</code>接口中添加该功能对应的抽象方法：</p>
+<pre><code>User findById(Integer id);
+</code></pre><blockquote>
+<p>查询方法的返回可以根据所需要的类型来决定。</p>
+</blockquote>
+<p>然后，在<code>UserMapper.xml</code>映射文件中添加新的节点配置抽象方法对应的SQL语句：</p>
+<pre><code>&lt;select id=&quot;findById&quot;
+    resultType=&quot;cn.tedu.mybatis.entity.User&quot;&gt;
+    SELECT 
+        id, username, 
+        password, age, 
+        phone, email
+    FROM 
+        t_user
+    WHERE 
+        id=#{id}
+&lt;select&gt;
+</code></pre><blockquote>
+<p>执行查询时，<code>&lt;select&gt;</code>节点中必须配置<code>resultType</code>属性（或者是<code>resultMap</code>属性）。</p>
+</blockquote>
+<p>以上方法执行时，如果查询到匹配的数据，则返回有效的User对象，如果没有匹配的数据，则返回null。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tarecode/tags/mybatis/" rel="tag"># mybatis</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/tarecode/2019/01/22/springmvc03/" rel="next" title="SpringMVC 拦截器 异常处理 乱码">
+                <i class="fa fa-chevron-left"></i> SpringMVC 拦截器 异常处理 乱码
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">懒人的我</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/tarecode/archives/">
+              
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/tarecode/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tarecode/tags/index.html">
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#【前序作业】"><span class="nav-number">1.</span> <span class="nav-text">【前序作业】</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-MYBATIS简介"><span class="nav-number">2.</span> <span class="nav-text">1. MYBATIS简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-基本使用"><span class="nav-number">3.</span> <span class="nav-text">2. 基本使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-添加依赖"><span class="nav-number">3.1.</span> <span class="nav-text">2.1. 添加依赖</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-数据库连接"><span class="nav-number">3.2.</span> <span class="nav-text">2.2. 数据库连接</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-创建实体类"><span class="nav-number">3.3.</span> <span class="nav-text">2.3. 创建实体类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-创建接口，声明抽象方法"><span class="nav-number">3.4.</span> <span class="nav-text">2.4. 创建接口，声明抽象方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-5-配置接口所在的包"><span class="nav-number">3.5.</span> <span class="nav-text">2.5. 配置接口所在的包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-6-在XML中配置接口方法对应的SQL语句"><span class="nav-number">3.6.</span> <span class="nav-text">2.6. 在XML中配置接口方法对应的SQL语句</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-7-配置XML文件的位置与数据源"><span class="nav-number">3.7.</span> <span class="nav-text">2.7. 配置XML文件的位置与数据源</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-8-单元测试"><span class="nav-number">3.8.</span> <span class="nav-text">2.8. 单元测试</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-查询数据"><span class="nav-number">4.</span> <span class="nav-text">3. 查询数据</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-根据id查询某个用户的信息"><span class="nav-number">4.1.</span> <span class="nav-text">3.1. 根据id查询某个用户的信息</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">懒人的我</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">54.5k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/tarecode/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/tarecode/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/tarecode/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/tarecode/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/tarecode/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
