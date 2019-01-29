@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/blog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/blog/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/blog/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1. Spring复习Spring主要是创建对象和管理对象的框架。 Spring通过DI实现了IoC。 Spring能很大程度的实现解耦。 需要掌握SET方式注入属性的值。 需要理解自动装配。 需要掌握Spring表达式。 需要掌握AOP（暂时没学）。 2. Spring MVC复习Spring MVC框架是解决了V-C交互的问题，即：服务器端如何接收客户端的请求，并如何给予响应。 需要掌握如何接">
+<meta property="og:type" content="article">
+<meta property="og:title" content="oszh">
+<meta property="og:url" content="https://oszh.github.io/2019/01/29/project01/index.html">
+<meta property="og:site_name" content="oszh">
+<meta property="og:description" content="1. Spring复习Spring主要是创建对象和管理对象的框架。 Spring通过DI实现了IoC。 Spring能很大程度的实现解耦。 需要掌握SET方式注入属性的值。 需要理解自动装配。 需要掌握Spring表达式。 需要掌握AOP（暂时没学）。 2. Spring MVC复习Spring MVC框架是解决了V-C交互的问题，即：服务器端如何接收客户端的请求，并如何给予响应。 需要掌握如何接">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-01-29T12:13:22.326Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="oszh">
+<meta name="twitter:description" content="1. Spring复习Spring主要是创建对象和管理对象的框架。 Spring通过DI实现了IoC。 Spring能很大程度的实现解耦。 需要掌握SET方式注入属性的值。 需要理解自动装配。 需要掌握Spring表达式。 需要掌握AOP（暂时没学）。 2. Spring MVC复习Spring MVC框架是解决了V-C交互的问题，即：服务器端如何接收客户端的请求，并如何给予响应。 需要掌握如何接">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/blog/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://oszh.github.io/2019/01/29/project01/">
+
+
+
+
+
+  <title> | oszh</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/blog/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">oszh</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/blog/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/blog/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/blog/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/blog/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://oszh.github.io/blog/2019/01/29/project01/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="懒人的我">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="oszh">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline"></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-29T20:14:57+08:00">
+                2019-01-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.7k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  11
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="1-Spring复习"><a href="#1-Spring复习" class="headerlink" title="1. Spring复习"></a>1. Spring复习</h3><p>Spring主要是创建对象和管理对象的框架。</p>
+<p>Spring通过DI实现了IoC。</p>
+<p>Spring能很大程度的实现解耦。</p>
+<p>需要掌握SET方式注入属性的值。</p>
+<p>需要理解自动装配。</p>
+<p>需要掌握Spring表达式。</p>
+<p>需要掌握AOP（暂时没学）。</p>
+<h3 id="2-Spring-MVC复习"><a href="#2-Spring-MVC复习" class="headerlink" title="2. Spring MVC复习"></a>2. Spring MVC复习</h3><p>Spring MVC框架是解决了V-C交互的问题，即：服务器端如何接收客户端的请求，并如何给予响应。</p>
+<p>需要掌握如何接收请求参数。</p>
+<p>需要掌握如何转发数据。</p>
+<p>需要掌握转发与重定向。</p>
+<p>需要掌握响应JSON数据。</p>
+<p>需要掌握统一处理异常的做法。</p>
+<p>需要掌握拦截器的使用。</p>
+<h3 id="3-MyBatis复习"><a href="#3-MyBatis复习" class="headerlink" title="3. MyBatis复习"></a>3. MyBatis复习</h3><p>执行增删改的操作的方法应该返回Integer，表示受影响的行数；</p>
+<p>执行查询方法的<code>&lt;select&gt;</code>节点必须配置<code>resultType</code>或<code>resultMap</code>；</p>
+<p>执行查询时如果列名与字段名不一致，在查询时需要自定义别名，以保证名称统一；</p>
+<p>掌握<code>&lt;resultMap&gt;</code>的配置。</p>
+<h1 id="————————————–"><a href="#————————————–" class="headerlink" title="————————————–"></a>————————————–</h1><h3 id="1-项目开发流程"><a href="#1-项目开发流程" class="headerlink" title="1. 项目开发流程"></a>1. 项目开发流程</h3><p>关于项目的开发，首先应该确定需要处理的数据有哪些：商品，用户，收藏，订单，购物车，商品分类，收货地址……</p>
+<p>然后，确定这些数据的开发、管理的先后顺序，因为某些数据是必须建立在其它数据基础之上的，例如必须先有用户数据，才可以有订单数据或收货地址数据，另外，不同的数据功能，开发的难度也有差异，应该尽可能的先开发简单的、熟悉的数据功能，然后再开发相对较难的数据功能，所以，以上数据的开发顺序大概可以是：用户 &gt; 收货地址 &gt; 商品分类 &gt; 商品 &gt; 收藏 &gt; 购物车 &gt; 订单……</p>
+<p>每种类型的数据的处理，都应该遵循：增 &gt; 查 &gt; 删 &gt; 改。</p>
+<p>每个功能的处理，应该：持久层 &gt; 业务层 &gt; 控制器层 &gt; 界面。</p>
+<p>核心原则：一次只解决一个问题！</p>
+<h3 id="2-用户-注册-持久层"><a href="#2-用户-注册-持久层" class="headerlink" title="2. 用户-注册-持久层"></a>2. 用户-注册-持久层</h3><p><strong>关于持久层，应该先检查有没有对应的数据库/表，及对应的实体类。</strong></p>
+<p>关于数据库：</p>
+<pre><code>CREATE DATABASE tedu_store;
+
+USE tedu_store;
+</code></pre><p>关于数据表：</p>
+<pre><code>CREATE TABLE t_user (
+    uid INT AUTO_INCREMENT COMMENT &apos;用户id&apos;,
+    username VARCHAR(20) UNIQUE NOT NULL COMMENT &apos;用户名&apos;,
+    password CHAR(32) NOT NULL COMMENT &apos;密码&apos;,
+    salt CHAR(36) COMMENT &apos;盐&apos;,
+    gender INT COMMENT &apos;性别，0-女，1-男&apos;,
+    avatar VARCHAR(50) COMMENT &apos;头像&apos;,
+    phone VARCHAR(20) COMMENT &apos;手机号码&apos;,
+    email VARCHAR(30) COMMENT &apos;电子邮箱&apos;,
+    is_delete INT COMMENT &apos;是否已删除，0-未删除，1-已删除&apos;,
+    created_user VARCHAR(20) COMMENT &apos;创建者&apos;,
+    created_time DATETIME COMMENT &apos;创建时间&apos;,
+    modified_user VARCHAR(20) COMMENT &apos;修改者&apos;,
+    modified_time DATETIME COMMENT &apos;修改时间&apos;,
+    PRIMARY KEY(uid)
+) DEFAULT CHARSET=UTF8;
+</code></pre><p>然后，下载本次项目<code>store.zip</code>，解压到Workspace中，通过Import &gt; Existing Maven Projects导入项目。</p>
+<p>由于以上数据表中关于日志的4个字段是后续每张表都应该有的，则后续的每张表对应的实体类中也应该有4个对应的属性，所以，应该创建实体类的基类来封装这4个字段对应的属性，且，当前项目中的所有实体类都应该继承自该基类：</p>
+<pre><code>/**
+ * 实体类的基类
+ */
+public abstract class BaseEntity implements Serializable {
+
+    private static final long serialVersionUID = -6185124879935579311L;
+
+    private String createdUser;
+    private Date createdTime;
+    private String modifiedUser;
+    private Date modifiedTime;
+
+    // SET/GET ...
+
+}
+</code></pre><p>创建与数据表对应的实体类<code>cn.tedu.store.entity.User</code>：</p>
+<pre><code>/**
+ * 用户数据的实体类
+ */
+public class User extends BaseEntity {
+
+    private static final long serialVersionUID = 8777086855777796877L;
+
+    private Integer uid;
+    private String username;
+    private String password;
+    private String salt;
+    private Integer gender;
+    private String avatar;
+    private String phone;
+    private String email;
+    private Integer isDelete;
+
+    // SET/GET ...
+}
+</code></pre><p><strong>持久层的开发重点应该分为3个步骤：</strong></p>
+<p><strong>1. 分析当前功能所需要执行的SQL语句</strong></p>
+<p>当前执行“注册”功能，必然需要执行插入数据操作：</p>
+<pre><code>INSERT INTO t_user (
+    username, password ... modified_time
+) VALUES (
+    ?, ?, ... ?
+)
+</code></pre><p>为了保证“用户名唯一”，还应该有“根据用户名查询数据”的操作：</p>
+<pre><code>SELECT 
+    uid 
+FROM 
+    t_user 
+WHERE 
+    username=?
+</code></pre><p><strong>2. 创建接口（如果必要的话），并设计抽象方法</strong></p>
+<p>创建<code>cn.tedu.store.mapper.UserMapper</code>接口文件，并在其中添加抽象方法：</p>
+<pre><code>/**
+ * 处理用户数据的持久层接口
+ */
+public interface UserMapper {
+
+    /**
+     * 插入用户数据
+     * @param user 用户数据
+     * @return 受影响的行数
+     */
+    Integer addnew(User user);
+
+    /**
+     * 根据用户名查询用户信息
+     * @param username 用户名
+     * @return 匹配的用户数据，如果没有匹配的数据，则返回null
+     */
+    User findByUsername(String username);
+}
+</code></pre><p><strong>3. 在XML中配置抽象方法的映射</strong></p>
+<p>在<code>src/main/resources</code>下创建<code>mappers</code>文件夹，然后复制此前的项目得到<code>UserMapper.xml</code>，配置好该文件中根节点的<code>namespace</code>对应的接口，然后，再配置以上2个抽象方法对应的映射：</p>
+<pre><code>&lt;mapper namespace=&quot;cn.tedu.store.mapper.UserMapper&quot;&gt;
+
+    &lt;!-- 插入用户数据 --&gt;
+    &lt;!-- Integer addnew(User user) --&gt;
+    &lt;insert id=&quot;addnew&quot;&gt;
+    INSERT INTO t_user (
+        username, password,
+        salt, gender,
+        phone, email,
+        avatar, is_delete,
+        created_user, created_time,
+        modified_user, modified_time
+    ) VALUES (
+        #{username}, #{password},
+        #{salt}, #{gender},
+        #{phone}, #{email},
+        #{avatar}, #{isDelete},
+        #{createdUser}, #{createdTime},
+        #{modifiedUser}, #{modifiedTime}
+    )
+    &lt;/insert&gt;
+
+    &lt;!-- 根据用户名查询用户信息 --&gt;
+    &lt;!-- User findByUsername(String username) --&gt;
+    &lt;select id=&quot;findByUsername&quot;
+        resultType=&quot;cn.tedu.store.entity.User&quot;&gt;
+        SELECT 
+            uid 
+        FROM 
+            t_user 
+        WHERE 
+            username=#{username}
+    &lt;/select&gt;
+
+&lt;/mapper&gt;
+</code></pre><p>注意：此次并没有在接口文件之前添加<code>@Mapper</code>注解，由于这个注解是添加在接口之前的，则项目中可能出现的多个持久层接口都需要添加该注解，管理起来比较麻烦，所以，改为在执行程序<code>StoreApplication</code>之前添加<code>@MapperScan(&quot;cn.tedu.store.mapper&quot;)</code>注解，以指定持久层接口所在的包，则后续每个持久层接口都不必再添加<code>@Mapper</code>注解。</p>
+<p>最后，在<code>src/test/java</code>下，创建<code>cn.tedu.store.mapper.UserMapperTestCase</code>测试类：</p>
+<pre><code>@RunWith(SpringRunner.class)
+@SpringBootTest
+public class UserMapperTestCase {
+
+    @Autowired
+    private UserMapper mapper;
+
+    @Test
+    public void addnew() {
+        User user = new User();
+        user.setUsername(&quot;root&quot;);
+        user.setPassword(&quot;1234&quot;);
+        Integer rows = mapper.addnew(user);
+        System.err.println(&quot;rows=&quot; + rows);
+    }
+
+    @Test
+    public void findByUsername() {
+        String username = &quot;root&quot;;
+        User user = mapper.findByUsername(username);
+        System.err.println(user);
+    }
+
+}
+</code></pre><h3 id="3-用户-注册-业务层"><a href="#3-用户-注册-业务层" class="headerlink" title="3. 用户-注册-业务层"></a>3. 用户-注册-业务层</h3><p><strong>业务层的开发通常也是3个步骤来完成！</strong></p>
+<p><strong>1. 规划异常</strong></p>
+<p>业务层中的方法的返回值，仅以操作成功为标准，判断是否需要返回某种数据。</p>
+<p>由于返回值并不体现操作成功与否，则还需要考虑失败的情况，并抛出对应的异常，通常，建议自定义异常，针对不同的操作错误（操作失败的原因）抛出不同的异常，并且，这些异常都应该继承自<code>RuntimeException</code>（原因后续再讲）。实际做法是自定义<code>ServiceException</code>，是继承自<code>RuntimeException</code>的，而其它自定义的异常都继承自<code>ServiceException</code>：</p>
+<pre><code>/**
+ * 业务异常，当前项目中自定义异常类的基类
+ */
+public class ServiceException extends RuntimeException {
+
+    private static final long serialVersionUID = 980104530291206274L;
+
+    public ServiceException() {
+        super();
+    }
+
+    public ServiceException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+        super(message, cause, enableSuppression, writableStackTrace);
+    }
+
+    public ServiceException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public ServiceException(String message) {
+        super(message);
+    }
+
+    public ServiceException(Throwable cause) {
+        super(cause);
+    }
+
+}
+</code></pre><p>然后，本次的“注册”功能可能抛出“用户名被占用”和“插入数据失败”错误，则需要创建对应的异常<code>UserConflictException</code>和<code>InsertException</code>以备抛出。</p>
+<p><strong>2. 在业务层接口中声明抽象方法</strong></p>
+<p>在业务层中声明的方法是被控制器层（Controller）调用的，且在实现业务层功能时，需要调用持久层对象中的方法，所以，在参数方面，应该是承上启下的，即：能满足调用和被调用的需求。</p>
+<p>创建业务层接口<code>cn.tedu.store.service.IUserService</code>接口，并添加抽象方法：</p>
+<pre><code>void reg(User user) 
+    throws UserConflictException, InsertException;
+</code></pre><p><strong>3. 实现接口中的抽象方法</strong></p>
+<p>创建<code>cn.tedu.store.service.impl.UserServiceImpl</code>类，实现<code>IUserService</code>接口，在类中声明持久层对象<code>@Autowired private UserMapper userMapper;</code>，在类之前添加<code>@Service</code>注解：</p>
+<pre><code>@Service
+public class UserServiceImpl
+    implements IUserService {
+
+    @Autowired
+    private UserMapper userMapper;
+
+    @Override
+    public void reg(User user) throws UserConflictException, InsertException {
+        // TODO Auto-generated method stub
+
+    }
+
+}
+</code></pre><p><strong>通常，应该把持久层中声明的抽象方法复制到业务层的实现类中，并且通过持久层对象直接调用来实现方法的功能，这些方法应该是私有的，如果是查询类的方法，应该直接返回调用持久层方法的返回结果，如果是增删改的方法，应该将方法的返回值修改为<code>void</code>，并且，在方法体中，判断调用时的返回结果，如果结果不符合预期，则抛出异常。</strong></p>
+<p>基于以上原则，应该在业务层的实现类中添加：</p>
+<pre><code>/**
+ * 插入用户数据
+ * @param user 用户数据
+ * @return 受影响的行数
+ */
+private void addnew(User user) {
+    Integer rows = userMapper.addnew(user);
+    if (rows != 1) {
+        throw new InsertException(&quot;增加用户数据时出现未知错误！请联系系统管理员！&quot;);
+    }
+}
+
+/**
+ * 根据用户名查询用户信息
+ * @param username 用户名
+ * @return 匹配的用户数据，如果没有匹配的数据，则返回null
+ */
+private User findByUsername(String username) {
+    return userMapper.findByUsername(username);
+}
+</code></pre><p>然后，重写接口中定义的抽象方法，在编写时，应该先分析过程，然后再编写代码：</p>
+<pre><code>@Override
+public void reg(User user) throws UserConflictException, InsertException {
+    // 根据user.getUsername()获取用户名匹配的数据
+    // 检查数据是否为null
+    // 是：为null，用户名未被占用，则应该补全参数中的属性值
+    // - 1. 密码加密，并封装
+    // - 2. 封装salt
+    // - 3. 封装isDelete，固定为0
+    // - 4. 封装4项日志数据
+    // - 执行注册：addnew(user)
+    // 否：非null，用户名被占用，则抛出UserConflictException
+}
+</code></pre><p>分析完成，编写可以完成的部分的代码（暂不包括密码加密与salt的处理）：</p>
+<pre><code>@Override
+public void reg(User user) throws UserConflictException, InsertException {
+    // 根据user.getUsername()获取用户名匹配的数据
+    String username = user.getUsername();
+    User data = findByUsername(username);
+    // 检查数据是否为null
+    if (data == null) {
+        // 是：为null，用户名未被占用，则应该补全参数中的属性值
+        // TODO - 1. 密码加密，并封装
+        // TODO - 2. 封装salt
+        // - 3. 封装isDelete，固定为0
+        user.setIsDelete(0);
+        // - 4. 封装4项日志数据
+        Date now = new Date();
+        user.setCreatedTime(now);
+        user.setModifiedTime(now);
+        user.setCreatedUser(username);
+        user.setModifiedUser(username);
+        // - 执行注册：addnew(user)
+        addnew(user);
+    } else {
+        // 否：非null，用户名被占用，则抛出UserConflictException
+        throw new UserConflictException(
+            &quot;注册失败！您尝试注册的用户名(&quot; + username + &quot;)已经被占用！&quot;);
+    }
+}
+</code></pre><p>完成后，仍编写对应的单元测试：</p>
+<pre><code>@RunWith(SpringRunner.class)
+@SpringBootTest
+public class UserServiceTestCase {
+
+    @Autowired
+    private IUserService service;
+
+    @Test
+    public void reg() {
+        try {
+            User user = new User();
+            user.setUsername(&quot;admin&quot;);
+            user.setPassword(&quot;8888&quot;);
+            user.setPhone(&quot;13800138001&quot;);
+            user.setEmail(&quot;admin@tedu.cn&quot;);
+            user.setGender(1);
+            user.setAvatar(&quot;http://www.tedu.cn/logo.png&quot;);
+            service.reg(user);
+            System.err.println(&quot;OK.&quot;);
+        } catch (ServiceException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
+}
+</code></pre><h3 id="4-用户-注册-控制器层"><a href="#4-用户-注册-控制器层" class="headerlink" title="4. 用户-注册-控制器层"></a>4. 用户-注册-控制器层</h3><h3 id="5-用户-注册-界面"><a href="#5-用户-注册-界面" class="headerlink" title="5. 用户-注册-界面"></a>5. 用户-注册-界面</h3>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2019/01/28/springboot01/" rel="next" title="SpringBoot 创建">
+                <i class="fa fa-chevron-left"></i> SpringBoot 创建
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">懒人的我</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/blog/archives/">
+              
+                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/blog/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/blog/tags/index.html">
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Spring复习"><span class="nav-number">1.</span> <span class="nav-text">1. Spring复习</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Spring-MVC复习"><span class="nav-number">2.</span> <span class="nav-text">2. Spring MVC复习</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-MyBatis复习"><span class="nav-number">3.</span> <span class="nav-text">3. MyBatis复习</span></a></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#————————————–"><span class="nav-number"></span> <span class="nav-text">————————————–</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-项目开发流程"><span class="nav-number">1.</span> <span class="nav-text">1. 项目开发流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-用户-注册-持久层"><span class="nav-number">2.</span> <span class="nav-text">2. 用户-注册-持久层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-用户-注册-业务层"><span class="nav-number">3.</span> <span class="nav-text">3. 用户-注册-业务层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-用户-注册-控制器层"><span class="nav-number">4.</span> <span class="nav-text">4. 用户-注册-控制器层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-用户-注册-界面"><span class="nav-number">5.</span> <span class="nav-text">5. 用户-注册-界面</span></a></li></ol></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">懒人的我</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">64.8k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/blog/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/blog/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
