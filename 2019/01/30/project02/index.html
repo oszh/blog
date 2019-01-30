@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/blog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/blog/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/blog/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="【续】 3. 用户-注册-业务层在业务层的实现类中添加加密方法，基于密码的原文和盐值，执行加密，得到密文： /**  * 使用MD5算法执行密码加密  * @param password 密码原文  * @param salt 盐值  * @return 加密后的密文  */ private String getMd5Password(         String password, Strin">
+<meta property="og:type" content="article">
+<meta property="og:title" content="oszh">
+<meta property="og:url" content="https://oszh.github.io/2019/01/30/project02/index.html">
+<meta property="og:site_name" content="oszh">
+<meta property="og:description" content="【续】 3. 用户-注册-业务层在业务层的实现类中添加加密方法，基于密码的原文和盐值，执行加密，得到密文： /**  * 使用MD5算法执行密码加密  * @param password 密码原文  * @param salt 盐值  * @return 加密后的密文  */ private String getMd5Password(         String password, Strin">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-01-30T11:26:08.277Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="oszh">
+<meta name="twitter:description" content="【续】 3. 用户-注册-业务层在业务层的实现类中添加加密方法，基于密码的原文和盐值，执行加密，得到密文： /**  * 使用MD5算法执行密码加密  * @param password 密码原文  * @param salt 盐值  * @return 加密后的密文  */ private String getMd5Password(         String password, Strin">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/blog/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://oszh.github.io/2019/01/30/project02/">
+
+
+
+
+
+  <title> | oszh</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/blog/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">oszh</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/blog/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/blog/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/blog/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/blog/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://oszh.github.io/blog/2019/01/30/project02/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="懒人的我">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="oszh">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline"></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-30T19:26:08+08:00">
+                2019-01-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.7k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  10
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="【续】-3-用户-注册-业务层"><a href="#【续】-3-用户-注册-业务层" class="headerlink" title="【续】 3. 用户-注册-业务层"></a>【续】 3. 用户-注册-业务层</h3><p>在业务层的实现类中添加加密方法，基于密码的原文和盐值，执行加密，得到密文：</p>
+<pre><code>/**
+ * 使用MD5算法执行密码加密
+ * @param password 密码原文
+ * @param salt 盐值
+ * @return 加密后的密文
+ */
+private String getMd5Password(
+        String password, String salt) {
+    // 加密规则
+    // 1. 将盐值添加到原文的左侧
+    // 2. 执行加密10次
+    String str = salt + password;
+    for (int i = 0; i &lt; 10; i++) {
+        str = DigestUtils
+                .md5DigestAsHex(str.getBytes())
+                .toUpperCase();
+    }
+    return str;
+}
+</code></pre><p>然后，在注册过程中，执行加密，并把加密后的密文和盐值封装到user中，以备增加数据：</p>
+<pre><code>// - 1. 密码加密，并封装
+String salt = UUID.randomUUID().toString().toUpperCase();
+String md5Password
+            = getMd5Password(user.getPassword(), salt);
+user.setPassword(md5Password);
+// - 2. 封装salt
+user.setSalt(salt);
+</code></pre><p>至此，业务层完成。</p>
+<h3 id="4-用户-注册-控制器层"><a href="#4-用户-注册-控制器层" class="headerlink" title="4. 用户-注册-控制器层"></a>4. 用户-注册-控制器层</h3><p><strong>1. 统一处理异常</strong></p>
+<p>由于调用的业务层方法可能抛出异常，则控制器层应该进行捕获处理，推荐使用SpringMVC提供的统一处理异常的方法，即：使用<code>@ExceptionHandler</code>注解处理异常的方法。</p>
+<p>处理异常的方法只作用于当前类，为了统一处理，应该先创建控制器类的基类，并且在基类中处理异常，从而实现所有的其它控制器类都相当于已经处理过异常，而不必关心“操作失败”的情况。所以，先创建响应结果的类型<code>ResponseResult</code>类：</p>
+<pre><code>/**
+ * 响应结果类型
+ * @param &lt;T&gt; 服务器向客户端响应的数据的类型
+ */
+public class ResponseResult&lt;T&gt; implements Serializable {
+
+    private static final long serialVersionUID = -1626793180717240861L;
+
+    private Integer state;
+    private String message;
+    private T data;
+
+    // SET/GET ...
+
+}
+</code></pre><p>然后，创建控制器类的基类，统一处理异常：</p>
+<pre><code>/**
+ * 控制器类的基类
+ */
+public class BaseController {
+
+    @ExceptionHandler(ServiceException.class)
+    public ResponseResult&lt;Void&gt;
+        handleException(Exception e) {
+        // 声明返回对象
+        ResponseResult&lt;Void&gt; rr = new ResponseResult&lt;Void&gt;();
+        // 在返回对象封装错误提示的文字
+        rr.setMessage(e.getMessage());
+
+        // 根据异常的不同，返回的错误代码也不同
+        if (e instanceof UserConflictException) {
+            // 400-用户名冲突
+            rr.setState(400);
+        } else if (e instanceof InsertException) {
+            // 500-插入数据异常
+            rr.setState(500);
+        }
+
+        // 返回
+        return rr;
+    }
+
+}
+</code></pre><p>然后，创建处理用户数据请求的控制器类：</p>
+<pre><code>/**
+ * 处理用户数据请求的控制器类
+ */
+@RestController
+@RequestMapping
+public class UserController
+    extends BaseController {
+
+    @Autowired
+    private IUserService userService;
+
+}
+</code></pre><p><strong>2. 设计请求</strong></p>
+<pre><code>请求路径：/users/reg
+请求参数：User
+请求类型：POST
+响应数据：ResponseResult&lt;Void&gt;
+</code></pre><p><strong>3. 处理请求</strong></p>
+<p>由于请求路径设计为<code>/users/reg</code>，则应该在类的<code>@RequestMapping</code>注解中配置<code>users</code>。</p>
+<p>由于控制器类中只需要关注“操作正确”，且操作正确时可以不向客户端反馈message，所以，在响应结果的类型中添加新的构造方法用于快速创建“操作正确”时的响应结果：</p>
+<pre><code>public ResponseResult(Integer state) {
+    super();
+    this.state = state;
+}
+</code></pre><p>同时，为了使得代码的可读性更高，在基类中添加常量表示操作正确时的代码：</p>
+<pre><code>/**
+ * 处理请求时，用于表示操作正确的代码
+ */
+public static final int SUCCESS = 200;
+</code></pre><p>然后，在控制器类中添加处理请求的方法：</p>
+<pre><code>@PostMapping(&quot;reg&quot;)
+public ResponseResult&lt;Void&gt; handleReg(User user) {
+    userService.reg(user);
+    return new ResponseResult&lt;Void&gt;(SUCCESS);
+}
+</code></pre><p>关于控制器层的测试，可以与此前相同，编写单元测试，也可以通过浏览器进行测试，如果使用后者，应该先将<code>@PostMapping</code>调整为<code>@GetMapping</code>或<code>@RequestMapping</code>，然后在浏览器的地址栏中输入例如<code>http://localhost:8080/users/reg?username=rest&amp;password=1234</code>，如果测试没有问题，再将<code>@PostMapping</code>设置回来。</p>
+<h3 id="5-用户-注册-界面"><a href="#5-用户-注册-界面" class="headerlink" title="5. 用户-注册-界面"></a>5. 用户-注册-界面</h3><p>（待补）</p>
+<h3 id="6-用户-登录-持久层"><a href="#6-用户-登录-持久层" class="headerlink" title="6. 用户-登录-持久层"></a>6. 用户-登录-持久层</h3><p><strong>关于持久层，应该先检查有没有对应的数据库/表，及对应的实体类。</strong></p>
+<p>已存在，无须再创建。</p>
+<p><strong>1. 分析当前功能所需要执行的SQL语句</strong></p>
+<pre><code>SELECT 
+    uid, username, password, salt, is_delete
+FROM 
+    t_user
+WHERE 
+    username=?
+</code></pre><p><strong>2. 创建接口（如果必要的话），并设计抽象方法</strong></p>
+<p>对应的功能已经完成，无须再次开发！</p>
+<p><strong>3. 在XML中配置抽象方法的映射</strong></p>
+<p>将已经存在的查询的SQL语句所查询的字段列表修改为<code>uid, username, password, salt, is_delete</code>，且<code>is_delete</code>需要自定义别名：</p>
+<pre><code>&lt;!-- 根据用户名查询用户信息 --&gt;
+&lt;!-- User findByUsername(String username) --&gt;
+&lt;select id=&quot;findByUsername&quot;
+    resultType=&quot;cn.tedu.store.entity.User&quot;&gt;
+    SELECT 
+        uid, username, 
+        password, salt, 
+        is_delete AS isDelete
+    FROM 
+        t_user 
+    WHERE 
+        username=#{username}
+&lt;/select&gt;
+</code></pre><p>由于对现有的方法和其它代码进行了调整，所以，完成后，还是应该是执行单元测试。</p>
+<h3 id="7-用户-登录-业务层"><a href="#7-用户-登录-业务层" class="headerlink" title="7. 用户-登录-业务层"></a>7. 用户-登录-业务层</h3><p><strong>1. 规划异常</strong></p>
+<p>用户登录时，可能会出现“用户名不存在”、“密码错误”、“用户数据已被删除”这几种错误，则应该创建与之匹配的异常类：<code>UserNotFoundException</code>、<code>PasswordNotMatchException</code>，这2个异常都应该继承自<code>ServiceException</code>。</p>
+<p><strong>2. 在业务层接口中声明抽象方法</strong></p>
+<pre><code>User login(String username, String password)
+    throws UserNotFoundException, PasswordNotMatchException;
+</code></pre><p><strong>3. 实现接口中的抽象方法</strong></p>
+<pre><code>public User login(String username, String password)
+    throws UserNotFoundException, PasswordNotMatchException {
+    // 根据username查询用户数据
+    // 判断用户数据是否为null
+    // 是：为null，即用户数据不存在，则抛出UserNotFoundException
+    // 否：非null，即用户数据存在，判断是否已删除：isDelete.eqauls(1)
+    // -- 是：已删除，则抛出UserNotFoundException
+    // -- 否：未删除，先取出salt
+    // -- 将参数password结合salt执行加密
+    // -- 判断密码是否匹配
+    // -- -- 是：先将查询到的用户数据中的password和salt属性设置为null再返回
+    // -- -- 否：则抛出PasswordNotMatchException
+}
+</code></pre><p>实现以上代码：</p>
+<pre><code>@Override
+public User login(String username, String password) throws UserNotFoundException, PasswordNotMatchException {
+    // 根据username查询用户数据
+    User data = findByUsername(username);
+    // 判断用户数据是否为null
+    if (data == null) {
+        // 是：为null，即用户数据不存在，则抛出UserNotFoundException
+        throw new UserNotFoundException(&quot;登录失败！用户名不存在！&quot;);
+    }
+
+    // 否：非null，即用户数据存在，判断是否已删除：isDelete.eqauls(1)
+    if (data.getIsDelete().equals(1)) {
+        // 是：已删除，则抛出UserNotFoundException
+        throw new UserNotFoundException(&quot;登录失败！用户名不存在！&quot;);
+    }
+
+    // 否：未删除，先取出salt
+    String salt = data.getSalt();
+    // 将参数password结合salt执行加密
+    String md5Password 
+        = getMd5Password(password, salt);
+    // 判断密码是否匹配
+    if (data.getPassword().equals(md5Password)) {
+        // 是：先将查询到的用户数据中的password和salt属性设置为null再返回
+        data.setPassword(null);
+        data.setSalt(null);
+        data.setIsDelete(null);
+        return data;
+    } else {
+        // 否：则抛出PasswordNotMatchException
+        throw new PasswordNotMatchException(&quot;登录失败！密码错误！&quot;);
+    }
+}
+</code></pre><p>完成后，在<code>UserServiceTestCase</code>中编写测试方法，以执行单元测试：</p>
+<pre><code>@Test
+public void login() {
+    try {
+        String username = &quot;chengheng&quot;;
+        String password = &quot;8888&quot;;
+        User user = service.login(username, password);
+        System.err.println(user);
+    } catch (ServiceException e) {
+        System.err.println(e.getMessage());
+    }
+}
+</code></pre><h3 id="8-用户-登录-控制器层"><a href="#8-用户-登录-控制器层" class="headerlink" title="8. 用户-登录-控制器层"></a>8. 用户-登录-控制器层</h3><p><strong>1. 统一处理异常</strong></p>
+<p>此次业务层开发后，产生了2种新的异常：<code>UserNotFoundException</code>和<code>PasswordNotMatchException</code>，则应该在<code>BaseController</code>中对这2种异常进行处理！由于处理异常的方法已经存在，所以，只需要产生2个新的分支即可：</p>
+<pre><code>// 根据异常的不同，返回的错误代码也不同
+if (e instanceof UserConflictException) {
+    // 400-用户名冲突
+    rr.setState(400);
+} else if (e instanceof UserNotFoundException) {
+    // 401-用户数据不存在的异常
+    rr.setState(401);
+} else if (e instanceof PasswordNotMatchException) {
+    // 402-验证用户密码失败的异常
+    rr.setState(402);
+} else if (e instanceof InsertException) {
+    // 500-插入数据异常
+    rr.setState(500);
+}
+</code></pre><p><strong>2. 设计请求</strong></p>
+<pre><code>请求路径：/users/login
+请求参数：username(*), password(*)
+请求类型：POST
+响应数据：ResponseResult&lt;User&gt;
+</code></pre><p><strong>3. 处理请求</strong></p>
+<pre><code>@PostMapping(&quot;login&quot;)
+public ResponseResult&lt;User&gt; handleLogin(
+    @RequestParam(&quot;username&quot;) String username,
+    @RequestParam(&quot;password&quot;) String password) {
+    User user = userService.login(username, password);
+    return new ResponseResult&lt;User&gt;(SUCCESS, user);
+}
+</code></pre><p>编写完成后，仍应该执行单元测试。</p>
+<h3 id="作业"><a href="#作业" class="headerlink" title="作业"></a>作业</h3><ol>
+<li>检查代码是否都排版了；</li>
+<li>检查是否添加了必要的注释；</li>
+<li>下载前端页面的压缩包，解压后，将5个文件夹复制到项目的static中；</li>
+<li>尝试完成注册和登录的前端交互，即通过AJAX技术实现注册和登录；</li>
+<li>思考如何开发“修改密码”。</li>
+</ol>
+<h3 id="【附】-密码加密"><a href="#【附】-密码加密" class="headerlink" title="【附】 密码加密"></a>【附】 密码加密</h3><p>将密码直接使用原文存储是非常不安全的，应该使用某种算法进行加密后再存储。</p>
+<p>普通的加密算法都是可以逆运算的，如果能够得到加密过程中的所有参数，就可以将密码逆运算得到原文，所以，使用普通的加密算法并不能防止内部泄密这样的问题。</p>
+<p>在密码的加密处理中，更推荐使用消息摘要算法，因为消息摘要算法都是不可被逆运算的！</p>
+<p>消息摘要算法的主要特征有：</p>
+<ul>
+<li>原文相同，则摘要相同；</li>
+<li>原文不同，则摘要几乎不会相同；</li>
+<li>算法不变，摘要长度不变。</li>
+</ul>
+<p>消息摘要算法主要有MD(Message Digest)系列和SHA(Secure Hash Algorithm)系列。</p>
+<p>关于密码的破解，首先，摘要算法的“破解”指的并不是根据密文逆向运算得到原文，而是指的摘要算法的碰撞，所以，关于MD5等摘要算法的破解其实是存在的，但是，仍没有某个公式可以实现在知晓密文的情况下，直接得到可以产生该密文的原文。</p>
+<p>另外，也有许多“在线破解”站点，输入摘要数据，可能会得到原文，这些站点的做法基本上都是记录了许多原文与摘要数据的对应关系，当尝试“破解”时，本质上是根据摘要查询原文的做法，所以，并不能保证一定得到原文。</p>
+<p>正因为有被穷举破解的可能，所以，为了提高密码的安全性，使之不容易被破解或被推导出原文，常用的做法：</p>
+<ol>
+<li>增加原密码的强度（长度、组成字符）；</li>
+<li>多重加密；</li>
+<li>加盐；</li>
+<li>将以上做法综合应用。</li>
+</ol>
+<h3 id="【附】-RESTful"><a href="#【附】-RESTful" class="headerlink" title="【附】 RESTful"></a>【附】 RESTful</h3><p>使用RESTful风格的URL应该是：</p>
+<pre><code>/api/v1/resources/id/command
+</code></pre><p>其中，<code>/api/v1</code>并不是必须的，只是用于标记该URL是服务器端提供的接口，且是第1版。</p>
+<p><code>resources</code>表示要访问的资源，也可以理解为要访问的数据，每个软件系统中都应该有各种各样的数据，例如用户、订单、积分等等，则此处应该是<code>users</code>、<code>orders</code>、<code>score</code>等等。</p>
+<p><code>id</code>并不是必须的，如果没有id，通常表示访问该类型的所有数据，例如<code>/api/v1/users</code>默认表示访问所有用户的信息，如果添加了<code>id</code>，则表示访问指定<code>id</code>的那个用户的信息。</p>
+<p><code>commond</code>表示需要执行的任务，例如<code>delete</code>可以表示删除数据等。</p>
+<p>整个URL中应该使用小写字母、数字、下划线来设计每个部分，并不推荐使用大写字母。</p>
+<p>使用RESTful风格推荐用于设计api，而不是在浏览器的地址栏中输入的网址。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2019/01/29/project01/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">懒人的我</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/blog/archives/">
+              
+                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/blog/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/blog/tags/index.html">
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#【续】-3-用户-注册-业务层"><span class="nav-number">1.</span> <span class="nav-text">【续】 3. 用户-注册-业务层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-用户-注册-控制器层"><span class="nav-number">2.</span> <span class="nav-text">4. 用户-注册-控制器层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-用户-注册-界面"><span class="nav-number">3.</span> <span class="nav-text">5. 用户-注册-界面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-用户-登录-持久层"><span class="nav-number">4.</span> <span class="nav-text">6. 用户-登录-持久层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-用户-登录-业务层"><span class="nav-number">5.</span> <span class="nav-text">7. 用户-登录-业务层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-用户-登录-控制器层"><span class="nav-number">6.</span> <span class="nav-text">8. 用户-登录-控制器层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#作业"><span class="nav-number">7.</span> <span class="nav-text">作业</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#【附】-密码加密"><span class="nav-number">8.</span> <span class="nav-text">【附】 密码加密</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#【附】-RESTful"><span class="nav-number">9.</span> <span class="nav-text">【附】 RESTful</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">懒人的我</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">67.5k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/blog/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/blog/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
