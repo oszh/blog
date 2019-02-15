@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/blog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/blog/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/blog/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="22. 收货地址-增加-持久层关于收货地址数据，涉及的操作及开发顺序：  增加新的收货地址； 显示收货地址列表； 将指定的收货地址设置为默认收货地址； 删除指定的收货地址数据； 修改指定的收货地址数据。  关于持久层，应该先检查有没有对应的数据库/表，及对应的实体类。 CREATE TABLE t_address (     aid INT AUTO_INCREMENT COMMENT &amp;apos">
+<meta property="og:type" content="article">
+<meta property="og:title" content="project07 读取省市区的数据">
+<meta property="og:url" content="https://oszh.github.io/2019/02/14/project07/index.html">
+<meta property="og:site_name" content="oszh">
+<meta property="og:description" content="22. 收货地址-增加-持久层关于收货地址数据，涉及的操作及开发顺序：  增加新的收货地址； 显示收货地址列表； 将指定的收货地址设置为默认收货地址； 删除指定的收货地址数据； 修改指定的收货地址数据。  关于持久层，应该先检查有没有对应的数据库/表，及对应的实体类。 CREATE TABLE t_address (     aid INT AUTO_INCREMENT COMMENT &amp;apos">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-02-15T11:56:44.818Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="project07 读取省市区的数据">
+<meta name="twitter:description" content="22. 收货地址-增加-持久层关于收货地址数据，涉及的操作及开发顺序：  增加新的收货地址； 显示收货地址列表； 将指定的收货地址设置为默认收货地址； 删除指定的收货地址数据； 修改指定的收货地址数据。  关于持久层，应该先检查有没有对应的数据库/表，及对应的实体类。 CREATE TABLE t_address (     aid INT AUTO_INCREMENT COMMENT &amp;apos">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/blog/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://oszh.github.io/2019/02/14/project07/">
+
+
+
+
+
+  <title>project07 读取省市区的数据 | oszh</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/blog/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">oszh</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/blog/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/blog/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/blog/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/blog/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://oszh.github.io/blog/2019/02/14/project07/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="懒人的我">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="oszh">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">project07 读取省市区的数据</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-14T00:00:00+08:00">
+                2019-02-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.5k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  10
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="22-收货地址-增加-持久层"><a href="#22-收货地址-增加-持久层" class="headerlink" title="22. 收货地址-增加-持久层"></a>22. 收货地址-增加-持久层</h3><p>关于收货地址数据，涉及的操作及开发顺序：</p>
+<ol>
+<li>增加新的收货地址；</li>
+<li>显示收货地址列表；</li>
+<li>将指定的收货地址设置为默认收货地址；</li>
+<li>删除指定的收货地址数据；</li>
+<li>修改指定的收货地址数据。</li>
+</ol>
+<p><strong>关于持久层，应该先检查有没有对应的数据库/表，及对应的实体类。</strong></p>
+<pre><code>CREATE TABLE t_address (
+    aid INT AUTO_INCREMENT COMMENT &apos;id&apos;,
+    uid INT NOT NULL COMMENT &apos;数据所归属的用户的id&apos;,
+    receiver VARCHAR(20) COMMENT &apos;收货人&apos;,
+    province CHAR(6) COMMENT &apos;省的代号&apos;,
+    city CHAR(6) COMMENT &apos;市的代号&apos;,
+    area CHAR(6) COMMENT &apos;区的代号&apos;,
+    district VARCHAR(50) COMMENT &apos;省市区的名称&apos;,
+    zip CHAR(6) COMMENT &apos;邮政编码&apos;,
+    address VARCHAR(50) COMMENT &apos;详细地址&apos;,
+    phone VARCHAR(20) COMMENT &apos;手机&apos;,
+    tel VARCHAR(20) COMMENT &apos;固话&apos;,
+    tag VARCHAR(10) COMMENT &apos;地址类型&apos;,
+    is_default INT COMMENT &apos;是否为默认收货地址：0-否，1-是&apos;,
+    created_user VARCHAR(20) COMMENT &apos;创建者&apos;,
+    created_time DATETIME COMMENT &apos;创建时间&apos;,
+    modified_user VARCHAR(20) COMMENT &apos;修改者&apos;,
+    modified_time DATETIME COMMENT &apos;修改时间&apos;,
+    PRIMARY KEY(aid)
+) DEFAULT CHARSET=UTF8;
+</code></pre><p><strong>1. 分析当前功能所需要执行的SQL语句</strong></p>
+<pre><code>INSERT INTO t_address (
+    除了aid以外的所有字段
+) VALUES (
+    除了aid以外的所有属性
+)
+</code></pre><p>关于收货地址数据，还有“是否为默认收货地址”的字段，该字段值的逻辑规则可以是：如果当前是用户添加的第1条地址，则是默认的，否则，不是默认的。</p>
+<p>后续，为了保证该功能的判断，则在持久层还需要实现“判断当前即将插入的是否是该用户的第1条地址”，即“查询当前用户的地址的数量”：</p>
+<pre><code>SELECT COUNT(aid) FROM t_address WHERE uid=?
+</code></pre><p><strong>2. 创建接口（如果必要的话），并设计抽象方法</strong></p>
+<p>创建<code>cn.tedu.store.mapper.AddressMapper</code>接口，并添加抽象方法：</p>
+<pre><code>Integer insert(Address address);
+
+Integer getCountByUid(Integer uid);
+</code></pre><p><strong>3. 在XML中配置抽象方法的映射</strong></p>
+<p>在<code>resources</code>下复制得到<code>AddressMapper.xml</code>文件，首先确定根节点的<code>namespace</code>属性，对应以上接口，然后，再配置以上2个抽象方法对应的映射。</p>
+<pre><code>&lt;mapper namespace=&quot;cn.tedu.store.mapper.AddressMapper&quot;&gt;
+
+    &lt;!-- 插入收货地址数据 --&gt;
+    &lt;!-- Integer insert(Address address) --&gt;
+    &lt;insert id=&quot;insert&quot;&gt;
+        INSERT INTO t_address (
+            uid, receiver,
+            province, city,
+            area, district,
+            zip, address,
+            phone, tel,
+            tag, is_default,
+            created_user, created_time,
+            modified_user, modified_time
+        ) VALUES (
+            #{uid}, #{receiver},
+            #{province}, #{city},
+            #{area}, #{district},
+            #{zip}, #{address},
+            #{phone}, #{tel},
+            #{tag}, #{isDefault},
+            #{createdUser}, #{createdTime},
+            #{modifiedUser}, #{modifiedTime}
+        )
+    &lt;/insert&gt;
+
+    &lt;!-- 根据用户id查询该用户的收货地址的数量 --&gt;
+    &lt;!-- Integer getCountByUid(Integer uid) --&gt;
+    &lt;select id=&quot;getCountByUid&quot;
+        resultType=&quot;java.lang.Integer&quot;&gt;
+        SELECT 
+            COUNT(aid) 
+        FROM 
+            t_address 
+        WHERE 
+            uid=#{uid}
+    &lt;/select&gt;
+
+&lt;/mapper&gt;
+</code></pre><p>在测试下创建<code>AddressMapperTestCase</code>测试类，对以上2个方法进行单元测试：</p>
+<pre><code>@RunWith(SpringRunner.class)
+@SpringBootTest
+public class AddressMapperTestCase {
+
+    @Autowired
+    private AddressMapper mapper;
+
+    @Test
+    public void insert() {
+        Address address = new Address();
+        address.setUid(3);
+        address.setReceiver(&quot;小张同学&quot;);
+        Integer rows = mapper.insert(address);
+        System.err.println(&quot;rows=&quot; + rows);
+    }
+
+    @Test
+    public void getCountByUid() {
+        Integer uid = 3;
+        Integer count = mapper.getCountByUid(uid);
+        System.err.println(&quot;count=&quot; + count);
+    }
+
+}
+</code></pre><h3 id="23-收货地址-增加-业务层"><a href="#23-收货地址-增加-业务层" class="headerlink" title="23. 收货地址-增加-业务层"></a>23. 收货地址-增加-业务层</h3><p><strong>1. 规划异常</strong></p>
+<p>由于将执行<code>INSERT</code>操作，所以，可能抛出<code>InsertException</code>。</p>
+<p>由于没有设置其它的业务规则，所以，暂无其它异常。</p>
+<p><strong>2. 在业务层接口中声明抽象方法</strong></p>
+<p>创建<code>cn.tedu.store.service.IAddressService</code>接口，并添加抽象方法：</p>
+<pre><code>void addnew(Address address, String username) throws InsertException;
+</code></pre><ul>
+<li>通常，绝大部分的增删改操作的返回值都可以是<code>void</code>，因为用户尝试执行增删改操作时，可能希望得到的都是成功与否的答案，而业务方法失败时都会抛出异常，如果方法能够顺利执行结束，就已经是成功的，所以，并不需要通过返回值来表示成功与否。</li>
+<li>业务层接口中定义的方法的名称应该与持久层使用的名称不相同，因为最终在实现类中，需要添加与持久层同名的方法，也需要重写业务层接口中的抽象方法，在某些功能中，这些方法的参数都是相同的，如果方法名相同，就会出现冲突。</li>
+</ul>
+<p><strong>3. 实现接口中的抽象方法</strong></p>
+<p>创建<code>cn.tedu.store.service.impl.AddressServiceImpl</code>类，实现以上<code>IAddressService</code>接口，在类之前添加<code>@Service</code>注解，并声明<code>@Autowired private AddressMapper addressMapper;</code>持久层对象：</p>
+<pre><code>@Service
+public class AddressServiceImpl implements IAddressService {
+
+    @Autowired 
+    private AddressMapper addressMapper;
+
+}
+</code></pre><p>然后，将持久层中的2个抽象方法复制到实现类，使用<code>private</code>权限，其中，插入数据的方法的返回值改为<code>void</code>，实现过程中判断受影响的行数，如果不是1，则抛出<code>InsertException</code>，另外，查询方法直接调用持久层对象实现即可。</p>
+<p>接下来，实现在<code>IAddressService</code>中定义的抽象方法：</p>
+<pre><code>@Override
+public void addnew(Address address, String username) 
+        throws InsertException {
+    // TODO 确定district的值
+
+    // 获取当前用户的收货地址数量：getCountByUid(address.getUid());
+    Integer count = getCountByUid(address.getUid());
+    // 如果数量为0，则isDefault为1，否则，isDefault为0
+    address.setIsDefault(count == 0 ? 1 : 0);
+
+    // 4项日志
+    Date now = new Date();
+    address.setCreatedUser(username);
+    address.setCreatedTime(now);
+    address.setModifiedUser(username);
+    address.setModifiedTime(now);
+
+    // 执行插入数据：insert(address)
+    insert(address);
+}
+</code></pre><p>完成后，创建<code>AddressServiceTestCase</code>编写并执行单元测试：</p>
+<pre><code>@RunWith(SpringRunner.class)
+@SpringBootTest
+public class AddressServiceTestCase {
+
+    @Autowired
+    private IAddressService service;
+
+    @Test
+    public void addnew() {
+        try {
+            String username = &quot;超级管理员&quot;;
+            Address address = new Address();
+            address.setUid(3);
+            address.setReceiver(&quot;小王同学&quot;);
+            service.addnew(address, username);
+            System.err.println(&quot;OK.&quot;);
+        } catch (ServiceException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
+}
+</code></pre><h3 id="24-收货地址-增加-控制器层"><a href="#24-收货地址-增加-控制器层" class="headerlink" title="24. 收货地址-增加-控制器层"></a>24. 收货地址-增加-控制器层</h3><p><strong>1. 统一处理异常</strong></p>
+<p>此次并没有抛出新的异常，则无需处理。</p>
+<p><strong>2. 设计请求</strong></p>
+<pre><code>请求路径：/addresses/addnew
+请求类型：POST
+请求参数：Address address, HttpSession session
+响应数据：ResponseResult&lt;Void&gt;
+是否拦截：是，登录拦截，无需修改配置
+</code></pre><p><strong>3. 处理请求</strong></p>
+<p>创建<code>cn.tedu.store.controller.AddressController</code>，继承自<code>BaseController</code>，添加<code>@RestController</code>注解，添加<code>@RequestMapping(&quot;addresses&quot;)</code>注解，在类中，添加业务层对象<code>@Autowired private IAddressService addressService;</code>。</p>
+<p>然后，添加处理请求的方法：</p>
+<pre><code>@PostMapping(&quot;addnew&quot;)
+public ResponseResult&lt;Void&gt; addnew(
+    Address address, HttpSession session) {
+    // 从session中获取username
+    String username = session.getAttribute(&quot;username&quot;).toString();
+    // 从session中获取uid
+    Integer uid = getUidFromSession(session);
+    // 将uid封装到address中
+    address.setUid(uid);
+    // 直接调用业务层对象的addnew(address, username);
+    addressService.addnew(address, username);
+    // 返回
+    return new ResponseResult&lt;Void&gt;(SUCCESS);
+}
+</code></pre><p>测试时，使用<code>@GetMapping</code>或<code>@RequestMapping</code>注解，在浏览器中，先登录，然后输入<code>http://localhost:8080/addresses/addnew?receiver=Jack</code>执行单元测试。</p>
+<h3 id="25-收货地址-增加-界面"><a href="#25-收货地址-增加-界面" class="headerlink" title="25. 收货地址-增加-界面"></a>25. 收货地址-增加-界面</h3><h3 id="26-读取省市区的数据"><a href="#26-读取省市区的数据" class="headerlink" title="26. 读取省市区的数据"></a>26. 读取省市区的数据</h3><p>从FTP服务器下载数据库脚本文件，通过<code>source</code>命令导入。</p>
+<p>在本项目中，关于省市区的数据，只执行“读取”操作，可能涉及的操作有“获取省/市/区的列表”和“获取指定的省/市/区的详细信息”。</p>
+<p>所以，接下来需要完成这2个功能对应的持久层、业务层、控制器层。</p>
+<p><strong>0. 创建实体类</strong></p>
+<p>创建<code>cn.tedu.store.entity.District</code>类，实现<code>Serializable</code>接口，添加与数据表对应的属性：</p>
+<pre><code>/**
+ * 省市区数据的实体类
+ */
+public class District implements Serializable {
+
+    private static final long serialVersionUID = -2777570570541589252L;
+
+    private Integer id;
+    private String parent;
+    private String code;
+    private String name;
+
+    // SET/GET
+}
+</code></pre><p><strong>1.1. 持久层-分析SQL语句</strong></p>
+<pre><code>SELECT * FROM t_dict_district WHERE parent=?
+
+SELECT * FROM t_dict_district WHERE code=?
+</code></pre><p><strong>1.2. 持久层-接口与抽象方法</strong></p>
+<p>创建<code>cn.tedu.store.mapper.DistrictMapper</code>接口，并添加2个抽象方法：</p>
+<pre><code>List&lt;District&gt; findListByParent(String parent);
+
+District findByCode(String code);
+</code></pre><p><strong>1.3. 持久层-映射文件</strong></p>
+<p>复制并得到<code>DistrictMapper.xml</code>文件，将根节点的<code>namespace</code>对应到以上创建的接口，并添加2个<code>&lt;select&gt;</code>节点映射以上2个抽象方法：</p>
+<pre><code>&lt;mapper namespace=&quot;cn.tedu.store.mapper.DistrictMapper&quot;&gt;
+
+    &lt;!-- 根据父级代号获取所有省/某省的所有市/某市的所有区的列表 --&gt;
+    &lt;!-- List&lt;District&gt; findListByParent(String parent) --&gt;
+    &lt;select id=&quot;findListByParent&quot;
+        resultType=&quot;cn.tedu.store.entity.District&quot;&gt;
+        SELECT 
+            id, parent, code, name
+        FROM 
+            t_dict_district
+        WHERE 
+            parent=#{parent}
+    &lt;/select&gt;
+
+    &lt;!-- 根据省/市/区的代号获取详情 --&gt;
+    &lt;!-- District findByCode(String code) --&gt;
+    &lt;select id=&quot;findByCode&quot;
+        resultType=&quot;cn.tedu.store.entity.District&quot;&gt;
+        SELECT 
+            id, parent, code, name
+        FROM 
+            t_dict_district
+        WHERE 
+            code=#{code}
+    &lt;/select&gt;
+
+&lt;/mapper&gt;
+</code></pre><p>完成后，在测试中创建<code>DistrictMapperTestCase</code>测试以上2个方法是否可以正常运行：</p>
+<pre><code>@RunWith(SpringRunner.class)
+@SpringBootTest
+public class DistrictMapperTestCase {
+
+    @Autowired
+    private DistrictMapper mapper;
+
+    @Test
+    public void findListByParent() {
+        String parent = &quot;860&quot;;
+        List&lt;District&gt; data = mapper.findListByParent(parent);
+        System.err.println(&quot;BEGIN:&quot;);
+        for (District district : data) {
+            System.err.println(district);
+        }
+        System.err.println(&quot;END.&quot;);
+    }
+
+    @Test
+    public void findByCode() {
+        String code = &quot;330000&quot;;
+        District data = mapper.findByCode(code);
+        System.err.println(data);
+    }
+
+}
+</code></pre><p><strong>2.1. 业务层-分析异常</strong></p>
+<p>（无）</p>
+<p><strong>2.2. 业务层-接口与抽象方法</strong></p>
+<p>创建<code>cn.tedu.store.service.IDistrictService</code>接口，添加2个抽象方法：</p>
+<pre><code>List&lt;District&gt; getListByParent(String parent);
+
+District getByCode(String code);
+</code></pre><p><strong>2.3. 业务层-实现类与重写抽象方法</strong></p>
+<p>创建<code>cn.tedu.store.service.impl.DistrictServiceImpl</code>类，实现以上接口，添加<code>@Service</code>注解，在类中声明持久层对象<code>@Autowired private DistrictMapper districtMapper;</code>。</p>
+<p>使用2个私有方法调整持久层对象的2个方法。</p>
+<p>在重写的接口定义方法时，调用私有方法直接实现。</p>
+<p><strong>3.1. 控制器层-处理异常</strong></p>
+<p>（无）</p>
+<p><strong>3.2. 控制器层-设计处理请求</strong></p>
+<p>关于获取列表：</p>
+<pre><code>请求路径：/districts
+请求类型：GET
+请求参数：String parent
+响应数据：ResponseResult&lt;List&lt;District&gt;&gt;
+是否拦截：否，需要在配置文件中添加白名单
+</code></pre><p>关于获取指定数据：</p>
+<pre><code>请求路径：/districts/{code}
+请求类型：GET
+请求参数：String code
+响应数据：ResponseResult&lt;District&gt;
+是否拦截：否，需要在配置文件中添加白名单
+</code></pre><p><strong>3.3. 控制器层-编写代码处理请求</strong></p>
+<pre><code>@RestController
+@RequestMapping(&quot;districts&quot;)
+public class DistrictController 
+    extends BaseController {
+
+    @Autowired
+    private IDistrictService districtService;
+
+    @GetMapping(&quot;/&quot;)
+    public ResponseResult&lt;List&lt;District&gt;&gt; 
+        getListByParent(
+            @RequestParam(&quot;parent&quot;) String parent) {
+        List&lt;District&gt; data 
+            = districtService
+                .getListByParent(parent);
+        return new ResponseResult&lt;List&lt;District&gt;&gt;(
+                SUCCESS, data);
+    }
+
+    @GetMapping(&quot;{code}&quot;)
+    public ResponseResult&lt;District&gt; getByCode(
+        @PathVariable(&quot;code&quot;) String code) {
+        District data
+            = districtService.getByCode(code);
+        return new ResponseResult&lt;District&gt;(SUCCESS, data);
+    }
+
+}
+</code></pre>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2019/02/13/project06/" rel="next" title="project06 收货地址-增加">
+                <i class="fa fa-chevron-left"></i> project06 收货地址-增加
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2019/02/15/project08/" rel="prev" title="project08 收货地址-设为默认">
+                project08 收货地址-设为默认 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">懒人的我</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/blog/archives/">
+              
+                  <span class="site-state-item-count">39</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/blog/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/blog/tags/index.html">
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#22-收货地址-增加-持久层"><span class="nav-number">1.</span> <span class="nav-text">22. 收货地址-增加-持久层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#23-收货地址-增加-业务层"><span class="nav-number">2.</span> <span class="nav-text">23. 收货地址-增加-业务层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#24-收货地址-增加-控制器层"><span class="nav-number">3.</span> <span class="nav-text">24. 收货地址-增加-控制器层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#25-收货地址-增加-界面"><span class="nav-number">4.</span> <span class="nav-text">25. 收货地址-增加-界面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#26-读取省市区的数据"><span class="nav-number">5.</span> <span class="nav-text">26. 读取省市区的数据</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">懒人的我</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">78.7k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/blog/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/blog/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
