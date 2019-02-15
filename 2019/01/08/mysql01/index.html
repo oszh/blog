@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="#MySQL ###数据库简介  之前通过流操作文件的方式存储数据的弊端   执行效率低 进行增删改查操作，代码书写比较麻烦 一般只能保存文本数据####什么是DB   DB：Database 数据库，数据库指一个文件集合####什么是DBMS DBMS：Database Management System 数据库管理系统，用于管理数据库文件的软件，常见的DBMS：MySQL Oracle DB2">
+<meta name="description" content="###SQL  Structured Query Language：结构化查询语言，SQL执行在客户端(windows的命令行，linux的终端，或三方的数据库客户端软件)或者通过Java代码使用JDBC执行 如何连接MySQL数据库   windows系统在开始菜单栏中-&amp;gt;所有程序-&amp;gt;MySQL或MariaDB-&amp;gt;MySQL Client 然后输入密码 linux系统  在空白">
 <meta name="keywords" content="mysql">
 <meta property="og:type" content="article">
-<meta property="og:title" content="mysql简介">
+<meta property="og:title" content="mysql 基本操作">
 <meta property="og:url" content="https://oszh.github.io/2019/01/08/mysql01/index.html">
 <meta property="og:site_name" content="oszh">
-<meta property="og:description" content="#MySQL ###数据库简介  之前通过流操作文件的方式存储数据的弊端   执行效率低 进行增删改查操作，代码书写比较麻烦 一般只能保存文本数据####什么是DB   DB：Database 数据库，数据库指一个文件集合####什么是DBMS DBMS：Database Management System 数据库管理系统，用于管理数据库文件的软件，常见的DBMS：MySQL Oracle DB2">
+<meta property="og:description" content="###SQL  Structured Query Language：结构化查询语言，SQL执行在客户端(windows的命令行，linux的终端，或三方的数据库客户端软件)或者通过Java代码使用JDBC执行 如何连接MySQL数据库   windows系统在开始菜单栏中-&amp;gt;所有程序-&amp;gt;MySQL或MariaDB-&amp;gt;MySQL Client 然后输入密码 linux系统  在空白">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-09T09:12:08.150Z">
+<meta property="og:updated_time" content="2019-02-15T12:25:10.010Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="mysql简介">
-<meta name="twitter:description" content="#MySQL ###数据库简介  之前通过流操作文件的方式存储数据的弊端   执行效率低 进行增删改查操作，代码书写比较麻烦 一般只能保存文本数据####什么是DB   DB：Database 数据库，数据库指一个文件集合####什么是DBMS DBMS：Database Management System 数据库管理系统，用于管理数据库文件的软件，常见的DBMS：MySQL Oracle DB2">
+<meta name="twitter:title" content="mysql 基本操作">
+<meta name="twitter:description" content="###SQL  Structured Query Language：结构化查询语言，SQL执行在客户端(windows的命令行，linux的终端，或三方的数据库客户端软件)或者通过Java代码使用JDBC执行 如何连接MySQL数据库   windows系统在开始菜单栏中-&amp;gt;所有程序-&amp;gt;MySQL或MariaDB-&amp;gt;MySQL Client 然后输入密码 linux系统  在空白">
 
 
 
@@ -126,7 +126,7 @@
 
 
 
-  <title>mysql简介 | oszh</title>
+  <title>mysql 基本操作 | oszh</title>
   
 
 
@@ -280,7 +280,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">mysql简介</h1>
+          <h1 class="post-title" itemprop="name headline">mysql 基本操作</h1>
         
 
         <div class="post-meta">
@@ -346,7 +346,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2.1k
+                  1.6k
                 </span>
               
 
@@ -362,7 +362,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  9
+                  7
                 </span>
               
             </div>
@@ -383,40 +383,14 @@
       
 
       
-        <p>#MySQL</p>
-<p>###数据库简介</p>
+        <p>###SQL</p>
 <ul>
-<li>之前通过流操作文件的方式存储数据的弊端</li>
-</ul>
-<ol>
-<li>执行效率低</li>
-<li>进行增删改查操作，代码书写比较麻烦</li>
-<li>一般只能保存文本数据<br>####什么是DB</li>
-</ol>
-<ul>
-<li>DB：Database 数据库，数据库指一个文件集合<br>####什么是DBMS</li>
-<li>DBMS：Database Management System 数据库管理系统，用于管理数据库文件的软件，常见的DBMS：MySQL Oracle DB2 SQLServer SQLite<br>####数据库分类</li>
-</ul>
-<ol>
-<li>关系型数据库： 经过数学理论验证可以保存现实生活中的各种关系 ，以表为单位保存数据  </li>
-<li>非关系型数据库：用于解决某些特定场景比如：高并发访问时的数据缓存，举例：Redis 以key-value形式保存数据<br>####常见关系型数据库介绍</li>
-<li>MySQL：  市场占有率第一， Oracle公司产品，08年被Sun收购，09年Sun被Oracle收购，  开源， 由于担心MySQL闭源，MySQL创始人们离开Oracle创建了MariaDB（创始人女儿叫Maria）</li>
-<li>Oracle： 市场排名第二，Oracle公司产品，闭源产品， 拉里埃里森 32岁</li>
-<li>SQLServer： 市场排名第三，微软产品，闭源产品</li>
-<li>DB2：  IBM公司产品，闭源产品</li>
-<li>Sqlite： 轻量级数据库 安装包几十k 应用在嵌入式设备或移动设备中<br>####开源和闭源</li>
-</ol>
-<ul>
-<li>开源：开发源代码，盈利方式：靠卖服务， 技术大拿为了刷存在感对开源产品会无偿进行版本维护和升级</li>
-<li>闭源：不开放源代码，盈利方式：靠卖产品和卖服务，技术大拿会攻击闭源产品刷存在感，但是闭源公司会花钱养一帮大拿维护升级<br>###SQL</li>
 <li>Structured Query Language：结构化查询语言，SQL执行在客户端(windows的命令行，linux的终端，或三方的数据库客户端软件)或者通过Java代码使用JDBC执行</li>
 <li>如何连接MySQL数据库</li>
 </ul>
 <ol>
 <li>windows系统在开始菜单栏中-&gt;所有程序-&gt;MySQL或MariaDB-&gt;MySQL Client 然后输入密码</li>
-<li><p>linux系统  在空白区域右键 终端，然后输入<br>mysql -uroot -p回车</p>
-<p>exit;     退出<br>###SQL语句规范</p>
-</li>
+<li>linux系统  在空白区域右键 终端，然后输入<br>mysql -uroot -p回车<br>exit;     退出<br>###SQL语句规范</li>
 <li>以;结尾</li>
 <li>可以换行，关键字之间用空格分隔(可以有多个空格)</li>
 <li>关键字不区分大小写<br>###数据库相关SQL</li>
@@ -432,10 +406,7 @@
 </code></pre></li>
 <li>创建表指定引擎和字符集<br> -格式： create table 表名(字段1名 字段1类型)engine=innodb/myisam ?default charset=utf8/gbk;<br> create table t1(name varchar(10),age int)engine=myisam charset=gbk;<br> show create table t1;</li>
 <li>查看表字段<br> -格式： desc 表名;<br> desc student;</li>
-<li>删除表<br> -格式：drop table 表名;<br> drop table person;<br> show tables;//测试<br>####课堂练习：</li>
-<li>创建数据库mydb1 并使用<br> create database mydb1;<br> use mydb1;</li>
-<li>在mydb1里面创建表 t1 和 t2  表里面有两个字段分别是name和age，其中t2的引擎为myisam  t1的字符集为gbk; 通过查看详情检测是否创建成功<br> create table t1(name varchar(10),age int) charset=gbk;<br> create table t2(name varchar(10),age int) engine=myisam;</li>
-<li>删除表t1，t2<br> drop table t1;<br> drop table t2;</li>
+<li>删除表<br> -格式：drop table 表名;<br> drop table person;<br> show tables;//测试</li>
 <li>删除数据库mydb1<br> drop database mydb1;<br>####对已创建的表进行修改<br> create table t1(name varchar(10));</li>
 <li>修改表名<br> -格式： rename table 原名 to 新名;<br> rename table t1 to t2;</li>
 <li>修改表引擎和字符集<br> -格式: alter table 表名 engine=myisam/innodb charset=utf8/gbk;<br> alter table t2 engine=myisam charset=gbk;<br> show create table t2;//测试</li>
@@ -487,9 +458,9 @@ insert into hero (name) values(&apos;悟空&apos;),(&apos;八戒&apos;),(&apos;�
 <li>删除数据<br>   delete from hero where age&lt;20;<br>   delete from hero;</li>
 </ol>
 <ul>
-<li>如果不给条件则删除全表的数据     </li>
+<li>如果不给条件则删除全表的数据</li>
 </ul>
-<p>####课程回顾</p>
+<p>####回顾</p>
 <ol>
 <li>数据库相关SQL</li>
 </ol>
@@ -516,7 +487,7 @@ insert into hero (name) values(&apos;悟空&apos;),(&apos;八戒&apos;),(&apos;�
 <li>修改字段名和类型  alter table t1 change 原名 新名 新类型</li>
 <li>修改类型和位置  alter table t1 modify 字段名 新类型  first/ after xxx;</li>
 </ul>
-<ol start="4">
+<ol start="3">
 <li>数据相关SQL</li>
 </ol>
 <ul>
@@ -555,8 +526,8 @@ insert into hero (name) values(&apos;悟空&apos;),(&apos;八戒&apos;),(&apos;�
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/tarecode/2019/01/08/mysql02/" rel="next" title="mysql事物SQL分类">
-                <i class="fa fa-chevron-left"></i> mysql事物SQL分类
+              <a href="/tarecode/2019/01/08/mysql07/" rel="next" title="JDBC mysql">
+                <i class="fa fa-chevron-left"></i> JDBC mysql
               </a>
             
           </div>
@@ -565,8 +536,8 @@ insert into hero (name) values(&apos;悟空&apos;),(&apos;八戒&apos;),(&apos;�
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/tarecode/2019/01/08/mysql07/" rel="prev" title="JDBC mysql">
-                JDBC mysql <i class="fa fa-chevron-right"></i>
+              <a href="/tarecode/2019/01/08/day04/" rel="prev" title="重定向">
+                重定向 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -708,7 +679,7 @@ insert into hero (name) values(&apos;悟空&apos;),(&apos;八戒&apos;),(&apos;�
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">78.7k</span>
+    <span title="Site words total count">78k</span>
   
 </div>
 
