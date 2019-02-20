@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/tarecode/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/tarecode/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/tarecode/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/tarecode/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/tarecode/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/tarecode/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/tarecode/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="38. 主页-热销排行-业务层1. 分析异常 （无） 2. 接口与抽象方法 创建cn.tedu.store.service.IGoodsService接口，并添加抽象方法： List&amp;lt;Goods&amp;gt; getHotGoods(Integer count); 3. 实现类 创建cn.tedu.store.service.impl.GoodsServiceImpl，实现以上接口，在类之前添加@">
+<meta property="og:type" content="article">
+<meta property="og:title" content="project10 主页-热销排行，购物车-加入购物车-持久层">
+<meta property="og:url" content="https://oszh.github.io/2019/02/18/project10/index.html">
+<meta property="og:site_name" content="oszh">
+<meta property="og:description" content="38. 主页-热销排行-业务层1. 分析异常 （无） 2. 接口与抽象方法 创建cn.tedu.store.service.IGoodsService接口，并添加抽象方法： List&amp;lt;Goods&amp;gt; getHotGoods(Integer count); 3. 实现类 创建cn.tedu.store.service.impl.GoodsServiceImpl，实现以上接口，在类之前添加@">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-02-20T12:23:34.189Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="project10 主页-热销排行，购物车-加入购物车-持久层">
+<meta name="twitter:description" content="38. 主页-热销排行-业务层1. 分析异常 （无） 2. 接口与抽象方法 创建cn.tedu.store.service.IGoodsService接口，并添加抽象方法： List&amp;lt;Goods&amp;gt; getHotGoods(Integer count); 3. 实现类 创建cn.tedu.store.service.impl.GoodsServiceImpl，实现以上接口，在类之前添加@">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/tarecode/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://oszh.github.io/2019/02/18/project10/">
+
+
+
+
+
+  <title>project10 主页-热销排行，购物车-加入购物车-持久层 | oszh</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/tarecode/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">oszh</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/tarecode/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tarecode/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/tarecode/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/tarecode/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/tarecode/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://oszh.github.io/tarecode/2019/02/18/project10/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="懒人的我">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/tarecode/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="oszh">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">project10 主页-热销排行，购物车-加入购物车-持久层</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-18T00:00:00+08:00">
+                2019-02-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.9k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  9
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="38-主页-热销排行-业务层"><a href="#38-主页-热销排行-业务层" class="headerlink" title="38. 主页-热销排行-业务层"></a>38. 主页-热销排行-业务层</h3><p><strong>1. 分析异常</strong></p>
+<p>（无）</p>
+<p><strong>2. 接口与抽象方法</strong></p>
+<p>创建<code>cn.tedu.store.service.IGoodsService</code>接口，并添加抽象方法：</p>
+<pre><code>List&lt;Goods&gt; getHotGoods(Integer count);
+</code></pre><p><strong>3. 实现类</strong></p>
+<p>创建<code>cn.tedu.store.service.impl.GoodsServiceImpl</code>，实现以上接口，在类之前添加<code>@Service</code>注解，在类中，添加<code>@Autowired private GoodsMapper goodsMapper;</code>。</p>
+<p>在实现类中，先添加与持久层对应的抽象方法，然后实现接口中的方法：</p>
+<pre><code>/**
+ * 处理商品数据的业务层实现类
+ */
+@Service
+public class GoodsServiceImpl implements IGoodsService {
+
+    @Autowired
+    private GoodsMapper goodsMapper;
+
+    @Override
+    public List&lt;Goods&gt; getHotGoods(Integer count) {
+        return findHotGoods(count);
+    }
+
+    /**
+     * 获取热销商品的列表
+     * @param count 需要获取的商品的数量
+     * @return 热销商品的列表
+     */
+    private List&lt;Goods&gt; findHotGoods(Integer count) {
+        return goodsMapper.findHotGoods(count);
+    }
+
+}
+</code></pre><p>完成后，创建并完成单元测试：</p>
+<pre><code>@RunWith(SpringRunner.class)
+@SpringBootTest
+public class GoodsServiceTestCase {
+
+    @Autowired
+    private IGoodsService service;
+
+    @Test
+    public void getListByParent() {
+        Integer count = 4;
+        List&lt;Goods&gt; data = service.getHotGoods(count);
+        System.err.println(&quot;BEGIN:&quot;);
+        for (Goods goods : data) {
+            System.err.println(goods);
+        }
+        System.err.println(&quot;END.&quot;);
+    }
+
+}
+</code></pre><h3 id="39-主页-热销排行-控制器层"><a href="#39-主页-热销排行-控制器层" class="headerlink" title="39. 主页-热销排行-控制器层"></a>39. 主页-热销排行-控制器层</h3><p><strong>1. 处理异常</strong></p>
+<p>（无）</p>
+<p><strong>2. 设计请求</strong></p>
+<pre><code>请求路径：/goods/hot
+请求参数：无
+请求类型：GET
+响应数据：ResponseResult&lt;List&lt;Goods&gt;&gt;
+是否拦截：否，需要在白名单中添加路径
+</code></pre><p><strong>3. 处理请求</strong></p>
+<p>创建<code>cn.tedu.store.controller.GoodsController</code>，继承自<code>BaseController</code>，在类之前添加<code>@RestController</code>和<code>@RequestMapping(&quot;goods&quot;)</code>注解，在类中添加业务层对象<code>@Autowired private IGoodsServicde goodsService</code>。</p>
+<p>添加处理请求的方法：</p>
+<pre><code>@RestController
+@RequestMapping(&quot;goods&quot;)
+public class GoodsController extends BaseController {
+
+    @Autowired
+    private IGoodsService goodsService;
+
+    @GetMapping(&quot;hot&quot;)
+    private ResponseResult&lt;List&lt;Goods&gt;&gt; getHotGoods() {
+        Integer count = 4;
+        List&lt;Goods&gt; data
+            = goodsService.getHotGoods(count);
+        return new ResponseResult&lt;List&lt;Goods&gt;&gt;(SUCCESS, data);
+    }
+
+}
+</code></pre><p>完成后，打开浏览器，无需事先登录，直接通过<code>http://localhost:8080/goods/hot</code>进行测试。</p>
+<h3 id="40-商品-详情-持久层"><a href="#40-商品-详情-持久层" class="headerlink" title="40. 商品-详情-持久层"></a>40. 商品-详情-持久层</h3><p><strong>1. 设计SQL</strong></p>
+<pre><code>SELECT 
+    id,
+    item_type AS itemType,
+    title,
+    sell_point AS sellPoint,
+    price,
+    num,
+    image,
+    status
+FROM 
+    t_goods 
+WHERE 
+    id=?
+</code></pre><p><strong>2. 接口与抽象方法</strong></p>
+<pre><code>Goods findById(Long id);
+</code></pre><p><strong>3. 配置映射</strong></p>
+<p>映射：</p>
+<pre><code>&lt;!-- 根据商品id查询商品详情 --&gt;
+&lt;!-- Goods findById(Long id) --&gt;
+&lt;select id=&quot;findById&quot;
+    resultType=&quot;cn.tedu.store.entity.Goods&quot;&gt;
+    SELECT 
+        id, title,
+        item_type AS itemType,
+        sell_point AS sellPoint,
+        price, num,
+        image, status
+    FROM 
+        t_goods 
+    WHERE 
+        id=#{id}
+&lt;/select&gt;
+</code></pre><p>单元测试：</p>
+<pre><code>@Test
+public void findById() {
+    Long id = 10000017L;
+    Goods data = mapper.findById(id);
+    System.err.println(data);
+}
+</code></pre><h3 id="41-商品-详情-业务层"><a href="#41-商品-详情-业务层" class="headerlink" title="41. 商品-详情-业务层"></a>41. 商品-详情-业务层</h3><p><strong>抽象方法</strong></p>
+<pre><code>Goods getById(Long id);
+</code></pre><p><strong>实现</strong></p>
+<pre><code>@Override
+public Goods getById(Long id) {
+    return findById(id);
+}
+
+/**
+ * 根据商品id查询商品详情
+ * @param id 商品id
+ * @return 匹配的商品详情，如果没有匹配的数据，则返回null
+ */
+private Goods findById(Long id) {
+    return goodsMapper.findById(id);
+}
+</code></pre><p>单元测试：</p>
+<pre><code>@Test
+public void getById() {
+    Long id = 10000017L;
+    Goods data = service.getById(id);
+    System.err.println(data);
+}
+</code></pre><h3 id="42-商品-详情-控制器层"><a href="#42-商品-详情-控制器层" class="headerlink" title="42. 商品-详情-控制器层"></a>42. 商品-详情-控制器层</h3><p><strong>1. 处理异常</strong></p>
+<p>（无）</p>
+<p><strong>2. 设计请求</strong></p>
+<pre><code>请求路径：/goods/{id}/details
+请求参数：Long id
+请求类型：GET
+响应数据：ResponseResult&lt;Goods&gt;
+是否拦截：否，白名单中已经配置
+</code></pre><p><strong>3. 处理请求</strong></p>
+<pre><code>@GetMapping(&quot;{id}/details&quot;)
+public ResponseResult&lt;Goods&gt; getById(
+    @PathVariable(&quot;id&quot;) Long id) {
+    Goods data = goodsService.getById(id);
+    return new ResponseResult&lt;Goods&gt;(SUCCESS, data);
+}
+</code></pre><p>完成后，打开浏览器，无需登录，通过<code>http://localhost:8080/goods/10000017/details</code>进行测试。</p>
+<h3 id="43-购物车-加入购物车-持久层"><a href="#43-购物车-加入购物车-持久层" class="headerlink" title="43. 购物车-加入购物车-持久层"></a>43. 购物车-加入购物车-持久层</h3><p><strong>创建数据表</strong></p>
+<pre><code>CREATE TABLE t_cart(
+    cid INT AUTO_INCREMENT,
+    uid INT NOT NULL COMMENT &apos;用户id&apos;,
+    gid BIGINT NOT NULL COMMENT &apos;商品id&apos;,
+    num INT NOT NULL COMMENT &apos;商品数量&apos;,
+    created_user VARCHAR(20) COMMENT &apos;创建者&apos;,
+    created_time DATETIME COMMENT &apos;创建时间&apos;,
+    modified_user VARCHAR(20) COMMENT &apos;修改者&apos;,
+    modified_time DATETIME COMMENT &apos;修改时间&apos;,
+    PRIMARY KEY (cid)
+) DEFAULT CHARSET=UTF8;
+</code></pre><p><strong>实体类</strong></p>
+<p>创建<code>cn.tedu.store.entity.Cart</code>继承自<code>BaseEntity</code>：</p>
+<pre><code>public class Cart extends BaseEntity {
+
+    private static final long serialVersionUID = -8514927731659247219L;
+
+    private Integer cid;
+    private Integer uid;
+    private Long gid;
+    private Integer num;
+
+    public Integer getCid() {
+        return cid;
+    }
+
+    public void setCid(Integer cid) {
+        this.cid = cid;
+    }
+
+    public Integer getUid() {
+        return uid;
+    }
+
+    public void setUid(Integer uid) {
+        this.uid = uid;
+    }
+
+    public Long getGid() {
+        return gid;
+    }
+
+    public void setGid(Long gid) {
+        this.gid = gid;
+    }
+
+    public Integer getNum() {
+        return num;
+    }
+
+    public void setNum(Integer num) {
+        this.num = num;
+    }
+
+    @Override
+    public String toString() {
+        return &quot;Cart [cid=&quot; + cid + &quot;, uid=&quot; + uid + &quot;, gid=&quot; + gid + &quot;, num=&quot; + num + &quot;]&quot;;
+    }
+
+}
+</code></pre><p><strong>1. SQL语句</strong></p>
+<p>如果某用户是第1次添加某商品到购物车：</p>
+<pre><code>INSERT INTO t_cart (xxx...) VALUES (xxx...)
+</code></pre><p>如果某用户添加到购物车中的商品是该用户在购物车中已经存在商品：</p>
+<pre><code>UPDATE t_cart SET num=? WHERE cid=?
+</code></pre><p>保证以上判断的应该是：</p>
+<pre><code>SELECT cid, num FROM t_cart WHERE uid=? AND gid=?
+</code></pre><p><strong>2. 接口与抽象方法</strong></p>
+<p>创建<code>cn.tedu.store.mapper.CartMapper</code>，添加抽象方法：</p>
+<pre><code>Integer insert(Cart cart);
+
+Integer updateNum(Integer cid, Integer num, String modifiedUser, Date modifiedTime);
+
+Cart findByUidAndGid(Integer uid, Long gid);
+</code></pre><p><strong>3. 配置映射</strong></p>
+<pre><code>&lt;mapper namespace=&quot;cn.tedu.store.mapper.CartMapper&quot;&gt;
+
+    &lt;!-- 新增购物车数据 --&gt;
+    &lt;!-- Integer insert(Cart cart) --&gt;
+    &lt;insert id=&quot;insert&quot;&gt;
+        INSERT INTO t_cart (
+            uid, gid, num,
+            created_user, created_time,
+            modified_user, modified_time
+        ) VALUES (
+            #{uid}, #{gid}, #{num},
+            #{createdUser}, #{createdTime},
+            #{modifiedUser}, #{modifiedTime}
+        )
+    &lt;/insert&gt;
+
+    &lt;!-- 修改购物车中的商品的数量 --&gt;
+    &lt;!-- Integer updateNum(
+        @Param(&quot;cid&quot;) Integer cid, 
+        @Param(&quot;num&quot;) Integer num, 
+        @Param(&quot;modifiedUser&quot;) String modifiedUser, 
+        @Param(&quot;modifiedTime&quot;) Date modifiedTime) --&gt;
+    &lt;update id=&quot;updateNum&quot;&gt;
+        UPDATE 
+            t_cart 
+        SET 
+            num=#{num},
+            modified_user=#{modifiedUser},
+            modified_time=#{modifiedTime}
+        WHERE 
+            cid=#{cid}
+    &lt;/update&gt;
+
+    &lt;!-- 根据用户id和商品id查询购物车数据 --&gt;
+    &lt;!-- Cart findByUidAndGid(
+        @Param(&quot;uid&quot;) Integer uid, 
+        @Param(&quot;gid&quot;) Long gid) --&gt;
+    &lt;select id=&quot;findByUidAndGid&quot;
+        resultType=&quot;cn.tedu.store.entity.Cart&quot;&gt;
+        SELECT 
+            cid, num 
+        FROM 
+            t_cart 
+        WHERE 
+            uid=#{uid} AND gid=#{gid}
+    &lt;/select&gt;
+
+&lt;/mapper&gt;
+</code></pre><p>单元测试：</p>
+<pre><code>@RunWith(SpringRunner.class)
+@SpringBootTest
+public class CartMapperTestCase {
+
+    @Autowired
+    private CartMapper mapper;
+
+    @Test
+    public void insert() {
+        Cart cart = new Cart();
+        cart.setUid(6);
+        cart.setGid(10000017L);
+        cart.setNum(2);
+        Integer rows = mapper.insert(cart);
+        System.err.println(&quot;rows=&quot; + rows);
+    }
+
+    @Test
+    public void updateNum() {
+        Integer cid = 1;
+        Integer num = 5;
+        String modifiedUser = &quot;Admin&quot;;
+        Date modifiedTime = new Date();
+        Integer rows = mapper.updateNum(cid, num, modifiedUser, modifiedTime);
+        System.err.println(&quot;rows=&quot; + rows);
+    }
+
+    @Test
+    public void findByUidAndGid() {
+        Integer uid = 6;        
+        Long gid = 10000017L;
+        Cart data = mapper.findByUidAndGid(uid, gid);
+        System.err.println(data);
+    }
+
+}
+</code></pre><h3 id="44-购物车-加入购物车-业务层"><a href="#44-购物车-加入购物车-业务层" class="headerlink" title="44. 购物车-加入购物车-业务层"></a>44. 购物车-加入购物车-业务层</h3><p><strong>1. 规划异常</strong></p>
+<p>本次操作可能涉及<code>INSERT</code>、<code>UPDATE</code>，则可能抛出<code>InsertException</code>、<code>UpdateException</code>。</p>
+<p>而执行查询方法时，无论是否查询到数据，都是正确的，所以不涉及异常。</p>
+<p><strong>2. 接口与抽象方法</strong></p>
+<p>创建<code>cn.tedu.store.service.ICartService</code>接口，并添加抽象方法：</p>
+<pre><code>void addToCart(Cart cart, String username) throws InsertException, UpdateException;
+</code></pre><p><strong>3. 实现</strong></p>
+<p>创建<code>cn.tedu.store.service.impl.CartServiceImpl</code>类，实现<code>ICartService</code>接口，在类之前添加<code>@Service</code>注解，在类中添加持久层对象<code>@Autowired private CartMapper cartMapper;</code>。</p>
+<p>添加持久层中的3个方法，在业务层中体现为对应的3个私有方法。</p>
+<p>然后，实现接口中的抽象方法：</p>
+<pre><code>public void addToCart(Cart cart, String username) throws InsertException, UpdateException {
+    // 创建Date对象
+    // 从参数cart中获取uid和gid
+    // 执行查询：Cart findByUidAndGid(Integer uid, Long gid)
+    // 判断查询结果是否为null
+    // 是：表示该用户尚未添加该商品到购物车，则向参数对象cart中封装4个日志属性
+    // -- 执行插入数据：void insert(Cart cart)
+    // 否：表示该用户已经添加该商品到购物车，则从查询结果中取出cid
+    // -- num值为参数cart中的num加上前序查询结果中的num
+    // -- 执行修改数量：void updateNum(Integer cid, Integer num, String modifiedUser, Date modifiedTime)
+}
+</code></pre><h3 id="45-购物车-加入购物车-控制器层"><a href="#45-购物车-加入购物车-控制器层" class="headerlink" title="45. 购物车-加入购物车-控制器层"></a>45. 购物车-加入购物车-控制器层</h3><p><strong>1. 处理异常</strong></p>
+<p>（无）</p>
+<p><strong>2. 设计请求</strong></p>
+<pre><code>请求路径：/carts/add
+请求类型：POST
+请求参数：Long gid, Integer num, HttpSession session &gt; uid/username
+响应方式：ResponseResult&lt;Void&gt;
+是否拦截：是，无需修改配置
+</code></pre><p><strong>3. 处理请求</strong></p>
+<p>创建<code>cn.tedu.store.controller.CartController</code>类，继承自<code>BaseController</code>，在类之前添加<code>@RestController</code>和<code>@RequestMapping(&quot;carts&quot;)</code>注解，在类中声明业务层对象<code>@Autowired private ICartService cartService;</code>。</p>
+<p>添加处理请求的方法：</p>
+<pre><code>@RequestMapping(&quot;add&quot;)
+public ResponseResult&lt;Void&gt; addToCart(
+    @RequestParam(&quot;gid&quot;) Long gid,
+    @RequestParam(&quot;num&quot;) Integer num,
+    HttpSession session) {
+    // 从Session中获取uid, username
+    // 创建新的Cart对象
+    // 向Cart对象中封装gid, num, uid
+    // 调用业务层对象的addToCart(Cart cart, String username)方法
+    // 返回成功
+}
+</code></pre><p>完成后，先登录，然后通过<code>http://localhost:8080/carts/add?gid=10000017&amp;num=3</code>进行测试，测试完成后，方法之前的注解改为<code>@PostMapping</code>。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/tarecode/2019/02/17/project09/" rel="next" title="project09 删除收货地址">
+                <i class="fa fa-chevron-left"></i> project09 删除收货地址
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/tarecode/2019/02/19/project11/" rel="prev" title="project11 购物车-列表-持久层 ，购物车-增加商品数量-持久层，显示确认订单页-持久层">
+                project11 购物车-列表-持久层 ，购物车-增加商品数量-持久层，显示确认订单页-持久层 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">懒人的我</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/tarecode/archives/">
+              
+                  <span class="site-state-item-count">43</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/tarecode/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tarecode/tags/index.html">
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#38-主页-热销排行-业务层"><span class="nav-number">1.</span> <span class="nav-text">38. 主页-热销排行-业务层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#39-主页-热销排行-控制器层"><span class="nav-number">2.</span> <span class="nav-text">39. 主页-热销排行-控制器层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#40-商品-详情-持久层"><span class="nav-number">3.</span> <span class="nav-text">40. 商品-详情-持久层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#41-商品-详情-业务层"><span class="nav-number">4.</span> <span class="nav-text">41. 商品-详情-业务层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#42-商品-详情-控制器层"><span class="nav-number">5.</span> <span class="nav-text">42. 商品-详情-控制器层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#43-购物车-加入购物车-持久层"><span class="nav-number">6.</span> <span class="nav-text">43. 购物车-加入购物车-持久层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#44-购物车-加入购物车-业务层"><span class="nav-number">7.</span> <span class="nav-text">44. 购物车-加入购物车-业务层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#45-购物车-加入购物车-控制器层"><span class="nav-number">8.</span> <span class="nav-text">45. 购物车-加入购物车-控制器层</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">懒人的我</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">84.7k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/tarecode/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/tarecode/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/tarecode/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/tarecode/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/tarecode/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

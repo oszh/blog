@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/tarecode/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/tarecode/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/tarecode/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/tarecode/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/tarecode/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/tarecode/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/tarecode/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="title: project12  创建订单-持久层，关联查询 resultMap查询一对多date: 2019-02-20 ??. 创建订单-持久层创建数据表 订单表： CREATE TABLE t_order (     oid INT AUTO_INCREMENT COMMENT &amp;apos;订单id&amp;apos;,     uid INT NOT NULL COMMENT &amp;apos;归属">
+<meta property="og:type" content="article">
+<meta property="og:title" content="oszh">
+<meta property="og:url" content="https://oszh.github.io/2019/02/20/project12/index.html">
+<meta property="og:site_name" content="oszh">
+<meta property="og:description" content="title: project12  创建订单-持久层，关联查询 resultMap查询一对多date: 2019-02-20 ??. 创建订单-持久层创建数据表 订单表： CREATE TABLE t_order (     oid INT AUTO_INCREMENT COMMENT &amp;apos;订单id&amp;apos;,     uid INT NOT NULL COMMENT &amp;apos;归属">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-02-20T12:29:24.087Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="oszh">
+<meta name="twitter:description" content="title: project12  创建订单-持久层，关联查询 resultMap查询一对多date: 2019-02-20 ??. 创建订单-持久层创建数据表 订单表： CREATE TABLE t_order (     oid INT AUTO_INCREMENT COMMENT &amp;apos;订单id&amp;apos;,     uid INT NOT NULL COMMENT &amp;apos;归属">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/tarecode/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://oszh.github.io/2019/02/20/project12/">
+
+
+
+
+
+  <title> | oszh</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/tarecode/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">oszh</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/tarecode/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tarecode/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/tarecode/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/tarecode/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/tarecode/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://oszh.github.io/tarecode/2019/02/20/project12/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="懒人的我">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/tarecode/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="oszh">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline"></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-20T20:29:24+08:00">
+                2019-02-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.1k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  10
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<p>title: project12  创建订单-持久层，关联查询 resultMap查询一对多<br>date: 2019-02-20</p>
+<h3 id="创建订单-持久层"><a href="#创建订单-持久层" class="headerlink" title="??. 创建订单-持久层"></a>??. 创建订单-持久层</h3><p><strong>创建数据表</strong></p>
+<p>订单表：</p>
+<pre><code>CREATE TABLE t_order (
+    oid INT AUTO_INCREMENT COMMENT &apos;订单id&apos;,
+    uid INT NOT NULL COMMENT &apos;归属用户&apos;,
+    receiver VARCHAR(20) COMMENT &apos;收货人&apos;,
+    phone VARCHAR(20) COMMENT &apos;收货电话&apos;,
+    address VARCHAR(100) COMMENT &apos;收货地址&apos;,
+    total_price BIGINT COMMENT &apos;总价&apos;,
+    state INT COMMENT &apos;状态：0-未支付，1-已支付，2-取消&apos;,
+    order_time DATETIME COMMENT &apos;下单时间&apos;,
+    pay_time DATETIME COMMENT &apos;支付时间&apos;,
+    created_user VARCHAR(20) COMMENT &apos;创建者&apos;,
+    created_time DATETIME COMMENT &apos;创建时间&apos;,
+    modified_user VARCHAR(20) COMMENT &apos;修改者&apos;,
+    modified_time DATETIME COMMENT &apos;修改时间&apos;,
+    PRIMARY KEY (oid)
+) DEFAULT CHARSET UTF8;
+</code></pre><p>订单商品表：</p>
+<pre><code>CREATE TABLE t_order_item (
+    id INT AUTO_INCREMENT,
+    oid INT NOT NULL COMMENT &apos;订单id&apos;,
+    goods_id BIGINT COMMENT &apos;商品id&apos;,
+    goods_title VARCHAR(100) COMMENT &apos;商品标题&apos;,
+    goods_image VARCHAR(500) COMMENT &apos;商品图片&apos;,
+    goods_price BIGINT COMMENT &apos;商品单价&apos;,
+    goods_num INT COMMENT &apos;商品数量&apos;,
+    created_user VARCHAR(20) COMMENT &apos;创建者&apos;,
+    created_time DATETIME COMMENT &apos;创建时间&apos;,
+    modified_user VARCHAR(20) COMMENT &apos;修改者&apos;,
+    modified_time DATETIME COMMENT &apos;修改时间&apos;,
+    PRIMARY KEY (id)
+) DEFAULT CHARSET UTF8;
+</code></pre><p><strong>创建实体类</strong></p>
+<p>创建<code>cn.tedu.store.entity.Order</code>，继承自<code>BaseEntity</code>；</p>
+<p>创建<code>cn.tedu.store.entity.OrderItem</code>，继承自<code>BaseEntity</code>。</p>
+<p><strong>1. SQL</strong></p>
+<pre><code>INSERT INTO t_order (xxx) VALUES (xxx);
+
+INSERT INTO t_order_item (xxx) VALUES (xxx);
+</code></pre><p><strong>2. 接口与抽象方法</strong></p>
+<p>创建<code>cn.tedu.store.mapper.OrderMapper</code>接口，并添加抽象方法：</p>
+<pre><code>Integer insertOrder(Order order);
+
+Integer insertOrderItem(OrderItem orderItem);
+</code></pre><p><strong>3. 配置映射</strong></p>
+<p>复制并得到<code>OrderMapper.xml</code>文件，根节点的<code>namespace</code>对应以上接口，然后配置以上2个抽象方法的映射：</p>
+<pre><code>&lt;mapper namespace=&quot;cn.tedu.store.mapper.OrderMapper&quot;&gt;
+
+    &lt;!-- 插入订单数据 --&gt;
+    &lt;!-- Integer insertOrder(Order order) --&gt;
+    &lt;insert id=&quot;insertOrder&quot;&gt;
+        INSERT INTO t_order (
+            uid, receiver, 
+            phone, address, 
+            total_price, state, 
+            order_time, pay_time,
+            created_user, created_time,
+            modified_user, modified_time
+        ) VALUES (
+            #{uid}, #{receiver},
+            #{phone}, #{address},
+            #{totalPrice}, #{state},
+            #{orderTime}, #{payTime},
+            #{createdUser}, #{createdTime},
+            #{modifiedUser}, #{modifiedTime}
+        )
+    &lt;/insert&gt;
+
+    &lt;!-- 插入订单商品数据 --&gt;
+    &lt;!-- Integer insertOrderItem(OrderItem orderItem) --&gt;
+    &lt;insert id=&quot;insertOrderItem&quot;&gt;
+        INSERT INTO t_order_item (
+            oid, goods_id,
+            goods_title, goods_image,
+            goods_price, goods_num,
+            created_user, created_time,
+            modified_user, modified_time
+        ) VALUES (
+            #{oid}, #{goodsId},
+            #{goodsTitle}, #{goodsImage},
+            #{goodsPrice}, #{goodsNum},
+            #{createdUser}, #{createdTime},
+            #{modifiedUser}, #{modifiedTime}
+        )
+    &lt;/insert&gt;
+
+&lt;/mapper&gt;
+</code></pre><p>单元测试：</p>
+<pre><code>@RunWith(SpringRunner.class)
+@SpringBootTest
+public class OrderMapperTestCase {
+
+    @Autowired
+    private OrderMapper mapper;
+
+    @Test
+    public void insertOrder() {
+        Order order = new Order();
+        order.setUid(6);
+        order.setReceiver(&quot;小李同学&quot;);
+        order.setTotalPrice(998L);
+        Integer rows = mapper.insertOrder(order);
+        System.err.println(&quot;rows=&quot; + rows);
+    }
+
+    @Test
+    public void insertOrderItem() {
+        OrderItem orderItem = new OrderItem();
+        orderItem.setOid(1);
+        orderItem.setGoodsTitle(&quot;饮料&quot;);
+        orderItem.setGoodsPrice(3L);
+        orderItem.setGoodsNum(6);
+        Integer rows = mapper.insertOrderItem(orderItem);
+        System.err.println(&quot;rows=&quot; + rows);
+    }
+
+
+}
+</code></pre><h3 id="创建订单-业务层"><a href="#创建订单-业务层" class="headerlink" title="??. 创建订单-业务层"></a>??. 创建订单-业务层</h3><p><strong>1. 异常</strong></p>
+<p><code>InsertException</code>, <code>UserNotFoundException</code>, <code>AddressNotFoundException</code>, <code>CartNotFoundException</code></p>
+<p><strong>2. 接口与抽象方法</strong></p>
+<p>创建<code>cn.tedu.store.service.IOrderService</code>接口，添加抽象方法：</p>
+<pre><code>Order createOrder(Integer uid, Integer aid, Integer[] cids, String username);
+</code></pre><p><strong>3. 实现</strong></p>
+<p>首先，在<code>IAddressService</code>中添加<code>Address getByAid(Integer aid)</code>方法，通过<code>AddressMapper</code>中的<code>findByAid(Integer aid)</code>来实现。</p>
+<p>创建<code>cn.tedu.store.service.impl.OrderServiceImpl</code>类，实现以上接口，添加<code>@Service</code>注解，并添加持久层对象<code>@Autowired private OrderMapper orderMapper;</code>，添加收货地址的业务层对象<code>@Autowired private IAddressService addressService;</code>，添加购物车数据的业务层对象<code>@Autowired private ICartService cartService;</code></p>
+<p>通过私有方法实现持久层的功能。</p>
+<p>重写抽象方法：</p>
+<pre><code>public Order createOrder(Integer uid, Integer aid, Integer[] cids, String username) {
+    // 根据cids查询对应的购物车数据：List&lt;CartVO&gt; getListByCids(Integer[] cids)
+    // 遍历并计算总价：total_price
+
+    // 创建当前时间对象
+    // 创建订单Order对象
+    // 向Order对象封装uid
+    // 根据aid查询地址数据：addressService.getByAid(aid)
+    // 判断查询结果，如果为null，抛出异常
+    // 向Order对象封装receiver,phone,address
+    // 向Order对象封装state值为0
+    // 向Order对象封装orderTime为now
+    // 向Order对象封装total_price
+    // 向Order对象封装4项日志
+    // 执行插入订单数据：insertOrder(order);
+
+    // 遍历查询结果
+    // -- 创建OrderItem对象
+    // -- 向OrderItem对象中封装商品相关的5个数据
+    // -- 向OrderItem对象中封装oid：order.getOid()
+    // -- 执行插入订单商品数据：insertOrderItem(orderItem);
+}
+</code></pre><h3 id="创建订单-控制器层"><a href="#创建订单-控制器层" class="headerlink" title="??. 创建订单-控制器层"></a>??. 创建订单-控制器层</h3><pre><code>@PostMapping(&quot;create&quot;)
+public ResponseResult&lt;Order&gt; create(
+    Integer aid, Integer[] cids,
+    HttpSession session) {
+    // 从Session中获取用户数据
+    Integer uid = getUidFromSession(session);
+    String username = session.getAttribute(&quot;username&quot;).toString();
+    // 执行
+    Order order
+        = orderService.createOrder(
+            uid, aid, cids, username);
+    // 返回
+    return new ResponseResult&lt;Order&gt;(
+            SUCCESS, order);
+}
+</code></pre><p>在使用<code>@RequestMapping</code>注解的情况下，通过<code>http://localhost:8080/orders/create?aid=11&amp;cids=3&amp;cids=5</code>进行单元测试。</p>
+<h3 id="查询指定的订单数据"><a href="#查询指定的订单数据" class="headerlink" title="查询指定的订单数据"></a>查询指定的订单数据</h3><p><strong>1. SQL</strong></p>
+<pre><code>SELECT
+    t_order.oid,
+    uid,
+    receiver, phone, address,
+    total_price,
+    state,
+    order_time,
+    pay_time,
+    goods_id,
+    goods_title,
+    goods_image,
+    goods_price,
+    goods_num
+FROM t_order
+LEFT JOIN t_order_item
+ON t_order.oid=t_order_item.oid
+WHERE t_order.oid=8
+</code></pre><p><strong>2. 抽象方法</strong></p>
+<p>创建VO类<code>cn.tedu.store.vo.OrderVO</code>：</p>
+<pre><code>public class OrderVO implements Serializable {
+
+    private static final long serialVersionUID = -7502488199732110916L;
+
+    private Integer oid;
+    private Integer uid;
+    private String receiver;
+    private String phone;
+    private String address;
+    private Long totalPrice;
+    private Integer state;
+    private Date orderTime;
+    private Date payTime;
+    private List&lt;OrderItem&gt; orderItems;
+
+    // SET/GET
+
+}
+</code></pre><p>在接口中添加抽象方法：</p>
+<pre><code>OrderVO findByOid(Integer oid);
+</code></pre><p><strong>3. 配置映射</strong></p>
+<pre><code>&lt;!-- 根据订单id查询订单详情 --&gt;
+&lt;!-- OrderVO findByOid(Integer oid) --&gt;
+&lt;select id=&quot;findByOid&quot;
+    resultMap=&quot;OrderVOMap&quot;&gt;
+    SELECT
+        t_order.oid,
+        uid,
+        receiver, phone, address,
+        total_price,
+        state,
+        order_time,
+        pay_time,
+        goods_id,
+        goods_title,
+        goods_image,
+        goods_price,
+        goods_num
+    FROM 
+        t_order
+    LEFT JOIN 
+        t_order_item
+    ON 
+        t_order.oid=t_order_item.oid
+    WHERE 
+        t_order.oid=#{oid}
+&lt;/select&gt;
+
+&lt;resultMap id=&quot;OrderVOMap&quot; 
+    type=&quot;cn.tedu.store.vo.OrderVO&quot;&gt;
+    &lt;id column=&quot;oid&quot; property=&quot;oid&quot;/&gt;
+    &lt;result column=&quot;uid&quot; property=&quot;uid&quot;/&gt;
+    &lt;result column=&quot;receiver&quot; property=&quot;receiver&quot;/&gt;
+    &lt;result column=&quot;phone&quot; property=&quot;phone&quot;/&gt;
+    &lt;result column=&quot;address&quot; property=&quot;address&quot;/&gt;
+    &lt;result column=&quot;total_price&quot; property=&quot;totalPrice&quot;/&gt;
+    &lt;result column=&quot;state&quot; property=&quot;state&quot;/&gt;
+    &lt;result column=&quot;order_time&quot; property=&quot;orderTime&quot;/&gt;
+    &lt;result column=&quot;pay_time&quot; property=&quot;payTime&quot;/&gt;
+    &lt;collection property=&quot;orderItems&quot;
+        ofType=&quot;cn.tedu.store.entity.OrderItem&quot;&gt;
+        &lt;result column=&quot;goods_id&quot; property=&quot;goodsId&quot;/&gt;
+        &lt;result column=&quot;goods_title&quot; property=&quot;goodsTitle&quot;/&gt;
+        &lt;result column=&quot;goods_image&quot; property=&quot;goodsImage&quot;/&gt;
+        &lt;result column=&quot;goods_price&quot; property=&quot;goodsPrice&quot;/&gt;
+        &lt;result column=&quot;goods_num&quot; property=&quot;goodsNum&quot;/&gt;
+    &lt;/collection&gt;
+&lt;/resultMap&gt;
+</code></pre><p>单元测试：</p>
+<pre><code>@Test
+public void findByOid() {
+    Integer oid = 8;
+    OrderVO data = mapper.findByOid(oid);
+    System.err.println(data);
+}
+</code></pre><p>当找到数据时，输出结果如下：</p>
+<pre><code>OrderVO [
+    oid=8, 
+    uid=6, 
+    receiver=小李, 
+    phone=13800138777, 
+    address=江西省新余市市辖区, 
+    totalPrice=93940, 
+    state=0, 
+    orderTime=Wed Feb 20 15:58:36 CST 2019, 
+    payTime=null, 
+
+    orderItems=[
+        OrderItem [id=null, oid=null, goodsId=100000424, goodsTitle=联想ThinkPad New S1（01CD） i5 6代 蓝色, goodsImage=/images/portal/21ThinkPad_New_S1/, goodsPrice=4399, goodsNum=6], 
+        OrderItem [id=null, oid=null, goodsId=10000022, goodsTitle=联想（Lenovo）IdeaPad310经典版黑色, goodsImage=/images/portal/13LenovoIdeaPad310_black/, goodsPrice=5119, goodsNum=6], 
+        OrderItem [id=null, oid=null, goodsId=10000017, goodsTitle=戴尔(DELL)XPS13-9360-R1609 13.3高配版银色, goodsImage=/images/portal/12DELLXPS13-silvery/, goodsPrice=4604, goodsNum=8]
+    ]
+]
+</code></pre><h3 id="Spring-AOP"><a href="#Spring-AOP" class="headerlink" title="Spring AOP"></a>Spring AOP</h3><p>面向切面的编程主要应用于：在某种执行流程中产生切面，当程序的执行流程执行到切面时，就会执行切面中指定的代码。开发者可以自由的指定切面的切入点、切面的应用范围、切面中需要执行的任务。切面应用到某种执行流程中时，并不需要修改原流程中涉及的任何代码。</p>
+<p>面向切面的编程并不是Spring所独有的，只是Spring提供了一种更加快捷的创建、管理切面的做法。</p>
+<p>使用时添加新的依赖：</p>
+<pre><code>&lt;dependency&gt;
+    &lt;groupId&gt;aspectj&lt;/groupId&gt;
+    &lt;artifactId&gt;aspectj-tools&lt;/artifactId&gt;
+    &lt;version&gt;1.0.6&lt;/version&gt;
+&lt;/dependency&gt;
+
+&lt;dependency&gt;
+    &lt;groupId&gt;org.aspectj&lt;/groupId&gt;
+    &lt;artifactId&gt;aspectjweaver&lt;/artifactId&gt;
+    &lt;version&gt;1.9.2&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre><p>然后，创建切面类并编写切面中的方法：</p>
+<pre><code>@Aspect
+@Component
+public class ServiceRuntimeAspect {
+
+    @Around(&quot;execution(* cn.tedu.store.service.impl.*.*(..))&quot;)
+    public Object a(ProceedingJoinPoint pjp) throws Throwable {
+        // 记录开始时间
+        long start = System.currentTimeMillis();
+
+        // 执行切面应用到的方法
+        Object result = pjp.proceed();
+
+        // 记录结束时间并统计耗时
+        long end = System.currentTimeMillis();
+        System.err.println(&quot;耗时：&quot; + (end - start) + &quot;ms&quot;);
+
+        // 返回
+        return result;
+    }
+
+}
+</code></pre><p>切面类应该添加<code>@Aspect</code>注解表示这是一个切面类，添加<code>@Component</code>注解，使得它被Spring管理。</p>
+<p>如果切面是在某方法之前和之后都需要执行的，则使用<code>@Around</code>注解，如果只在某方法之前执行，则使用<code>@Before</code>，如果只在某方法之后执行，则使用<code>@After</code>，一般，推荐使用<code>@Around</code>。</p>
+<p>在注解中的<code>&quot;execution(* cn.tedu.store.service.impl.*.*(..))&quot;</code>表达式表示该切面应用到<code>cn.tedu.store.service.impl</code>包中的所有类（第1个星号）的所有方法（第2个星号），且方法的参数是任意的（后续的括号和2个小数点）。</p>
+<p>切面方法应该添加<code>ProceedingJoinPoint pjp</code>参数，用于执行切面所应用到的方法，当需要执行所应用到的方法时，调用该参数对象的<code>proceed()</code>方法即可，需要注意的是：必须获取此次调用的返回值，并作为当前切面方法的返回值，否则，切面应用到的方法将不会返回值。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/tarecode/2019/02/19/project11/" rel="next" title="project11 购物车-列表-持久层 ，购物车-增加商品数量-持久层，显示确认订单页-持久层">
+                <i class="fa fa-chevron-left"></i> project11 购物车-列表-持久层 ，购物车-增加商品数量-持久层，显示确认订单页-持久层
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">懒人的我</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/tarecode/archives/">
+              
+                  <span class="site-state-item-count">43</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/tarecode/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tarecode/tags/index.html">
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建订单-持久层"><span class="nav-number">1.</span> <span class="nav-text">??. 创建订单-持久层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建订单-业务层"><span class="nav-number">2.</span> <span class="nav-text">??. 创建订单-业务层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建订单-控制器层"><span class="nav-number">3.</span> <span class="nav-text">??. 创建订单-控制器层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查询指定的订单数据"><span class="nav-number">4.</span> <span class="nav-text">查询指定的订单数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Spring-AOP"><span class="nav-number">5.</span> <span class="nav-text">Spring AOP</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">懒人的我</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">84.7k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/tarecode/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/tarecode/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/tarecode/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/tarecode/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/tarecode/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

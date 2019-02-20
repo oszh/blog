@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/tarecode/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/tarecode/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/tarecode/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/tarecode/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/tarecode/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/tarecode/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/tarecode/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="33. 收货地址-设为默认-控制器层1. 处理异常 本功能抛出了2种新的异常，则需要在BaseController中进行处理。 2. 设计请求 请求路径：/addresses/{aid}/set_default 请求参数：Integer aid, HttpSession session 请求类型：GET / POST 响应数据：ResponseResult&amp;lt;Void&amp;gt; 是否拦截：是，无">
+<meta property="og:type" content="article">
+<meta property="og:title" content="project09 删除收货地址">
+<meta property="og:url" content="https://oszh.github.io/2019/02/17/project09/index.html">
+<meta property="og:site_name" content="oszh">
+<meta property="og:description" content="33. 收货地址-设为默认-控制器层1. 处理异常 本功能抛出了2种新的异常，则需要在BaseController中进行处理。 2. 设计请求 请求路径：/addresses/{aid}/set_default 请求参数：Integer aid, HttpSession session 请求类型：GET / POST 响应数据：ResponseResult&amp;lt;Void&amp;gt; 是否拦截：是，无">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-02-20T12:20:54.575Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="project09 删除收货地址">
+<meta name="twitter:description" content="33. 收货地址-设为默认-控制器层1. 处理异常 本功能抛出了2种新的异常，则需要在BaseController中进行处理。 2. 设计请求 请求路径：/addresses/{aid}/set_default 请求参数：Integer aid, HttpSession session 请求类型：GET / POST 响应数据：ResponseResult&amp;lt;Void&amp;gt; 是否拦截：是，无">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/tarecode/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://oszh.github.io/2019/02/17/project09/">
+
+
+
+
+
+  <title>project09 删除收货地址 | oszh</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/tarecode/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">oszh</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/tarecode/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tarecode/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/tarecode/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/tarecode/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/tarecode/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://oszh.github.io/tarecode/2019/02/17/project09/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="懒人的我">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/tarecode/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="oszh">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">project09 删除收货地址</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-17T00:00:00+08:00">
+                2019-02-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.3k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  5
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="33-收货地址-设为默认-控制器层"><a href="#33-收货地址-设为默认-控制器层" class="headerlink" title="33. 收货地址-设为默认-控制器层"></a>33. 收货地址-设为默认-控制器层</h3><p><strong>1. 处理异常</strong></p>
+<p>本功能抛出了2种新的异常，则需要在<code>BaseController</code>中进行处理。</p>
+<p><strong>2. 设计请求</strong></p>
+<pre><code>请求路径：/addresses/{aid}/set_default
+请求参数：Integer aid, HttpSession session
+请求类型：GET / POST
+响应数据：ResponseResult&lt;Void&gt;
+是否拦截：是，无需修改配置
+</code></pre><p><strong>3. 处理请求</strong></p>
+<p>处理请求的方法：</p>
+<pre><code>@GetMapping(&quot;{aid}/set_default&quot;)
+public ResponseResult&lt;Void&gt; setDefault(
+    @PathVariable(&quot;aid&quot;) Integer aid,
+    HttpSession session) {
+    // 从session中获取uid
+    Integer uid = getUidFromSession(session);
+    // 从session中获取用户名
+    String username = session.getAttribute(&quot;username&quot;).toString();
+    // 执行
+    addressService.setDefault(uid, aid, username);
+    // 返回
+    return new ResponseResult&lt;Void&gt;(SUCCESS);
+}
+</code></pre><p>打开浏览器，先登录，然后通过例如<code>http://localhost:8080/addresses/8/set_default</code>进行测试。</p>
+<p>测试完成后，应该将注解替换为<code>@PostMapping</code>。</p>
+<h3 id="34-收货地址-删除-持久层"><a href="#34-收货地址-删除-持久层" class="headerlink" title="34. 收货地址-删除-持久层"></a>34. 收货地址-删除-持久层</h3><p><strong>1. 设计SQL语句</strong></p>
+<p>删除收货地址的SQL语句应该是：</p>
+<pre><code>【新增】 DELETE FROM t_address WHERE aid=?
+</code></pre><p>为了确保正确的删除，还应该先查询数据是否存在，及数据归属是否正确（只能删自己的数据），此部分的功能已经完成。</p>
+<p>还需要考虑特殊情况，例如“当删除的是默认的收货地址时”，还需要“将最后一次修改的收货地址设置为默认”，则对应的SQL语句应该是：</p>
+<pre><code>【调整】 SELECT uid, is_default FROM t_address WHERE aid=?
+
+【不变】 UPDATE t_address SET is_default=1 WHERE aid=?
+
+【新增】 SELECT aid FROM t_address WHERE uid=? ORDER BY modified_time DESC, aid DESC LIMIT 0,1
+</code></pre><p>后续，可能还需要考虑的问题有“如果删除的收货地址是当前用户的最后一条收货地址”，则不需要考虑以上问题，需要执行的SQL语句应该是：</p>
+<pre><code>【不变】 SELECT COUNT(aid) FROM t_address WHERE uid=?
+</code></pre><p><strong>2. 接口与抽象方法</strong></p>
+<p>应该在持久层接口中添加抽象方法：</p>
+<pre><code>Integer deleteByAid(Integer aid);
+
+Address findLastModifiedByUid(Integer uid);
+</code></pre><p><strong>3. 配置映射</strong></p>
+<p>映射的配置：</p>
+<pre><code>&lt;!-- 根据收货地址数据的id删除数据 --&gt;
+&lt;!-- Integer deleteByAid(Integer aid) --&gt;
+&lt;delete id=&quot;deleteByAid&quot;&gt;
+    DELETE FROM t_address WHERE aid=#{aid}
+&lt;/delete&gt;
+
+&lt;!-- 查询指定用户的最后修改的收货地址数据 --&gt;
+&lt;!-- Address findLastModifiedByUid(Integer uid) --&gt;
+&lt;select id=&quot;findLastModifiedByUid&quot;
+    resultType=&quot;cn.tedu.store.entity.Address&quot;&gt;
+    SELECT 
+        aid 
+    FROM 
+        t_address 
+    WHERE 
+        uid=#{uid} 
+    ORDER BY 
+        modified_time DESC, aid DESC
+    LIMIT 
+        0,1
+&lt;/select&gt;
+</code></pre><p>然后，编写并执行单元测试：</p>
+<pre><code>@Test
+public void deleteByAid() {
+    Integer aid = 8;
+    Integer rows 
+        = mapper.deleteByAid(aid);
+    System.err.println(&quot;rows=&quot; + rows);
+}
+
+@Test
+public void findLastModifiedByUid() {
+    Integer uid = 6;
+    Address address = mapper.findLastModifiedByUid(uid);
+    System.err.println(address);
+}
+</code></pre><h3 id="35-收货地址-删除-业务层"><a href="#35-收货地址-删除-业务层" class="headerlink" title="35. 收货地址-删除-业务层"></a>35. 收货地址-删除-业务层</h3><p><strong>1. 分析异常</strong></p>
+<p>由于是执行<code>DELETE</code>操作，则可能抛出<code>DeleteException</code>，则需要创建这个异常类，继承自<code>ServiceException</code>。</p>
+<p>另外，还涉及相关的数据检查，则可能抛出<code>AddressNotFoundException</code>、<code>AccessDeniedException</code>，这2个异常已经存在，无需再次创建。</p>
+<p><strong>2. 接口与抽象方法</strong></p>
+<pre><code>void deleteByAid(Integer uid, Integer aid, String username)
+    throws DeleteException, AddressNotFoundException, AccessDeniedException;
+</code></pre><p><strong>3. 实现</strong></p>
+<pre><code>@Transactional
+public void deleteByAid(Integer uid, Integer aid)
+    throws DeleteException, AddressNotFoundException, AccessDeniedException {
+    // 根据aid查询即将删除的数据
+    // 判断查询结果是否为null
+    // 是：抛出异常：AddressNotFoundException
+
+    // 判断查询结果的uid是否与参数uid不相同
+    // 是：抛出异常：AccessDeniedException
+
+    // 执行删除
+
+    // 判断刚刚删除的数据（最开始找出来的数据）的isDefault是否为1
+    // -- 查询当前用户还有多少条收货地址
+    // -- 判断数量是否 &gt; 0
+    // -- 是：找出最后一条收货地址的aid
+    // -- -- 把找出来的数据设置为默认
+}
+</code></pre><h3 id="36-收货地址-删除-控制器层"><a href="#36-收货地址-删除-控制器层" class="headerlink" title="36. 收货地址-删除-控制器层"></a>36. 收货地址-删除-控制器层</h3><p>与“设置默认”的处理基本一致，仅需修改URL、处理请求的方法名、调用业务对象的方法名即可：</p>
+<pre><code>@PostMapping(&quot;{aid}/delete&quot;)
+public ResponseResult&lt;Void&gt; deleteByAid(
+        @PathVariable(&quot;aid&quot;) Integer aid,
+        HttpSession session) {
+    // 从session中获取uid
+    Integer uid = getUidFromSession(session);
+    // 从session中获取用户名
+    String username = session
+            .getAttribute(&quot;username&quot;).toString();
+    // 执行
+    addressService.deleteByAid(uid, aid, username);
+    // 返回
+    return new ResponseResult&lt;Void&gt;(SUCCESS);
+}
+</code></pre><h3 id="37-主页-热销排行-持久层"><a href="#37-主页-热销排行-持久层" class="headerlink" title="37. 主页-热销排行-持久层"></a>37. 主页-热销排行-持久层</h3><p><strong>0. 实体类</strong></p>
+<p>创建<code>cn.tedu.store.entity.Goods</code>，继承自<code>BaseEntity</code>。</p>
+<p><strong>1. SQL</strong></p>
+<pre><code>SELECT 
+    id, title, price, image
+FROM 
+    t_goods 
+WHERE 
+    status=1
+ORDER BY 
+    priority DESC
+LIMIT    
+    0, ?
+</code></pre><p><strong>2. 接口与抽象方法</strong></p>
+<p>创建<code>cn.tedu.store.mapper.GoodsMapper</code>，并添加抽象方法：</p>
+<pre><code>List&lt;Goods&gt; findHotGoods(Integer count);
+</code></pre><p><strong>3. 配置映射</strong></p>
+<p>复制得到<code>GoodsMapper.xml</code>文件，修改根节点的<code>namespace</code>对应以上接口，然后配置SQL语句。</p>
+<h3 id="【附】-使用事务"><a href="#【附】-使用事务" class="headerlink" title="【附】 使用事务"></a>【附】 使用事务</h3><p>在数据库领域中，“事务”是用于保障数据安全的，它可以使得多条SQL语句全部执行成功或失败！</p>
+<p>仅当某项操作涉及2条或更多增、删、改时需要使用事务（例如2次Update，或1次Update和1次Delete等）！</p>
+<p>在使用SSM框架时，当需要通过事务保障数据安全时，在业务方法之前添加<code>@Transactional</code>注解即可（使用之前需要保证当前项目中使用了spring-jdbc依赖）。该注解也可以添加在业务类之前，但是通常并不推荐这样使用。</p>
+<p>Spring-JDBC在处理事务时，大致是：</p>
+<pre><code>try {
+    开启事务：begin
+    执行多条SQL
+    提交事务：commit
+} catch (RuntimeException) {
+    回滚事务：rollback
+}
+</code></pre><p>所以，这就要求<strong>项目中所有的增、删、改操作都必须判断操作是否成功，且失败时必须抛出RuntimeException或其子孙类异常</strong>。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/tarecode/2019/02/15/project08/" rel="next" title="project08 收货地址-显示列表-持久层 , 收货地址-设为默认-持久层">
+                <i class="fa fa-chevron-left"></i> project08 收货地址-显示列表-持久层 , 收货地址-设为默认-持久层
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/tarecode/2019/02/18/project10/" rel="prev" title="project10 主页-热销排行，购物车-加入购物车-持久层">
+                project10 主页-热销排行，购物车-加入购物车-持久层 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">懒人的我</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/tarecode/archives/">
+              
+                  <span class="site-state-item-count">43</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/tarecode/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tarecode/tags/index.html">
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#33-收货地址-设为默认-控制器层"><span class="nav-number">1.</span> <span class="nav-text">33. 收货地址-设为默认-控制器层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#34-收货地址-删除-持久层"><span class="nav-number">2.</span> <span class="nav-text">34. 收货地址-删除-持久层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#35-收货地址-删除-业务层"><span class="nav-number">3.</span> <span class="nav-text">35. 收货地址-删除-业务层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#36-收货地址-删除-控制器层"><span class="nav-number">4.</span> <span class="nav-text">36. 收货地址-删除-控制器层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#37-主页-热销排行-持久层"><span class="nav-number">5.</span> <span class="nav-text">37. 主页-热销排行-持久层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#【附】-使用事务"><span class="nav-number">6.</span> <span class="nav-text">【附】 使用事务</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">懒人的我</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">84.7k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/tarecode/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/tarecode/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/tarecode/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/tarecode/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/tarecode/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/tarecode/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
